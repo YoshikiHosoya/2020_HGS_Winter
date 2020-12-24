@@ -24,7 +24,7 @@ D3DXVECTOR3 *CBomb::m_pPlayerPos = nullptr;
 //------------------------------------------------------------------------------
 //マクロ
 //------------------------------------------------------------------------------
-#define PLAYER_SYZE			(D3DXVECTOR3(80.0f, 80.0f, 0.0f))
+#define BOMB_SYZE			(D3DXVECTOR3(80.0f, 80.0f, 0.0f))
 #define EXPLOSION_LENGTH	(200.0f)
 
 //------------------------------------------------------------------------------
@@ -33,6 +33,8 @@ D3DXVECTOR3 *CBomb::m_pPlayerPos = nullptr;
 CBomb::CBomb()
 {
 	m_bMove = false;
+
+	m_fRotation = CHossoLibrary::Random(0.05f);
 }
 
 //------------------------------------------------------------------------------
@@ -50,7 +52,7 @@ HRESULT CBomb::Init()
 	CCharacter_2D::Init();
 
 	//メモリ確保
-	std::unique_ptr<CScene2D> pScene2D = CScene2D::Create_SelfManagement(GetPos(), PLAYER_SYZE);
+	std::unique_ptr<CScene2D> pScene2D = CScene2D::Create_SelfManagement(GetPos(), BOMB_SYZE);
 
 	//テクスチャ設定
 	pScene2D->BindTexture(CTexture::GetTexture(CTexture::TEX_ITEM_BOMB));
@@ -70,6 +72,9 @@ HRESULT CBomb::Init()
 //------------------------------------------------------------------------------
 void CBomb::Update()
 {
+	//回転量
+	GetRot().z += m_fRotation;
+
 	//更新
 	CCharacter_2D::Update();
 }

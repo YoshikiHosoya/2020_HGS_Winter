@@ -53,6 +53,7 @@ public:
 	CPlayer *GetPlayer(); 												//プレイヤーのポインタ取得
 	static int GetScore() { return m_nScore; };							//スコア取得
 	static void SetScore(int nScore) { m_nScore = nScore; };
+	int &GetCntState() { return m_nCntState; };						//ステートカウント
 protected:
 	void SetPlayerPtr(std::shared_ptr<CPlayer> pPlayer) { m_pPlayer = pPlayer; };
 private:

@@ -26,7 +26,7 @@ class CBg : public CScene
 public:
 	enum class BG_FIGURE
 	{
-		BG_NONE = -1, 
+		BG_NONE = -1,
 		BG_Circle,			// ‚Ü‚é
 		BG_Triangle,		// ŽOŠp
 		BG_Square,			// ŽlŠp

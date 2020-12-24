@@ -45,6 +45,7 @@ protected:
 private:
 	bool m_bMove;
 	static D3DXVECTOR3 *m_pPlayerPos;			//プレイヤーの座標
+	float m_fRotation;							//回転量
 
 };
 #endif

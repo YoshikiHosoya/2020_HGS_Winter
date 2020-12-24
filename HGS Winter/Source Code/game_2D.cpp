@@ -27,8 +27,8 @@
 //------------------------------------------------------------------------------
 //静的メンバ変数の初期化
 //------------------------------------------------------------------------------
-int CGame_2D::m_nCntTime = 0;		// カウントタイム
-int CGame_2D::m_nScore = 0;			// スコア
+int CGame_2D::m_nCntTime = 0;
+int CGame_2D::m_nScore = 0;
 
 //------------------------------------------------------------------------------
 //マクロ
@@ -48,11 +48,16 @@ int CGame_2D::m_nScore = 0;			// スコア
 #define TIME_DIGITS					(3)													// タイムの桁数
 #define MAGNIFICATION_DIGITS		(2)													// 倍率の桁数
 
+#define PERPLE_APPEAR_FRAME			(3600)
+#define RED_APPEAR_FRAME			(7200)
+
+
 //------------------------------------------------------------------------------
 //コンストラクタ
 //------------------------------------------------------------------------------
 CGame_2D::CGame_2D()
 {
+	m_nScore = 0;
 	m_nSpeed = 15;
 	m_nScoreMag = 1;
 	m_direction = DIRECTION::UP;
@@ -62,7 +67,6 @@ CGame_2D::CGame_2D()
 	m_bBendingFlag = false;
 	m_nTime = 0;
 	m_nCntTime = 0;
-	m_nScore = 0;
 	m_nBendingCountDown = COUNTDOWN;
 	m_apScene2D.clear();						// ゲームUI
 	m_pScoreNumber		= nullptr;				// スコア
@@ -100,11 +104,11 @@ HRESULT CGame_2D::Init(HWND hWnd)
 
 	// ゲームUIの生成
 	GameUICreate();
-	
+
 	// スコアの生成
 	m_pScoreNumber = CMultiNumber::Create(D3DXVECTOR3((SCREEN_WIDTH * 0.2f), 80.0f, 0.0f),
 		SCORE_SIZE,
-		0,
+		/*CGame::GetScore()*/ 0,
 		SCORE_DIGITS,
 		CScene::OBJTYPE_UI);
 
@@ -118,7 +122,7 @@ HRESULT CGame_2D::Init(HWND hWnd)
 	// 倍率の生成
 	m_pMagnification = CMultiNumber::Create(D3DXVECTOR3((SCREEN_WIDTH * 0.63f), 55.0f, 0.0f),
 		SCORE_SIZE,
-		0,
+		/*CGame::GetScore()*/ 0,
 		MAGNIFICATION_DIGITS,
 		CScene::OBJTYPE_UI);
 
@@ -141,17 +145,34 @@ HRESULT CGame_2D::Init(HWND hWnd)
 //------------------------------------------------------------------------------
 void CGame_2D::Update()
 {
-	// 敵の出現
-	EnemySpawn();
+	switch (GetGamestate())
+	{
 
-	// カウントアップタイマー
-	AddTimer();
+	case CGame::STATE_NORMAL:
+		// 敵の出現
+		EnemySpawn();
 
-	// スコアの値の設定 ( 仮 )
-	m_pScoreNumber->SetMultiNumber(m_nScore);
+		// カウントアップタイマー
+		AddTimer();
 
-	// ハイスコアの更新
-	HighScoreUpdate();
+		// ハイスコアの更新
+		HighScoreUpdate();
+		break;
+
+	case CGame::STATE_GAMEOVER:
+		if (m_nCnt < -0)
+		{
+			CManager::GetRenderer()->GetFade()->SetModeFade(CManager::MODE_RESULT);
+		}
+		break;
+
+
+
+	default:
+		break;
+	}
+
+
 }
 //------------------------------------------------------------------------------
 //描画処理
@@ -209,20 +230,47 @@ void CGame_2D::CreateEnemyGroup(D3DXVECTOR3 posOrigin)
 
 	CHossoLibrary::RangeLimit_Equal_Int(nLocalValue, 3, 10);
 
-	CEnemy_2D::Create(posOrigin + D3DXVECTOR3(CHossoLibrary::Random(70.0f), CHossoLibrary::Random(70.0f), 0.0f), CEnemy_2D::RED);
-
-
 	for (int nCnt = 0; nCnt < nLocalValue ; nCnt++)
 	{
 		//CEnemy_2D::Create(posOrigin + D3DXVECTOR3(CHossoLibrary::Random(70.0f), CHossoLibrary::Random(70.0f), 0.0f), CEnemy_2D::PURPLE);
 
-		//CEnemy_2D::Create(posOrigin + D3DXVECTOR3(CHossoLibrary::Random(70.0f), CHossoLibrary::Random(70.0f), 0.0f), CEnemy_2D::BLUE);
+		CEnemy_2D::Create(posOrigin + D3DXVECTOR3(CHossoLibrary::Random(70.0f), CHossoLibrary::Random(70.0f), 0.0f), CEnemy_2D::BLUE);
 
 		if (nLocalValue > 2000)
 		{
 			CEnemy_2D::Create(posOrigin + D3DXVECTOR3(CHossoLibrary::Random(70.0f), CHossoLibrary::Random(70.0f), 0.0f), CEnemy_2D::PURPLE);
 		}
+
+		if (nLocalValue > 5000)
+		{
+			CEnemy_2D::Create(CHossoLibrary::RandomVector3(200.0f), CEnemy_2D::RED);
+		}
 	}
+}
+
+//------------------------------------------------------------------------------
+//スコア倍率加算
+//------------------------------------------------------------------------------
+void CGame_2D::AddScoreMag()
+{
+	//倍率加算
+	m_nScoreMag++;
+
+	//テクスチャ更新
+	m_pMagnification->SetMultiNumber(m_nScoreMag);
+
+}
+
+//------------------------------------------------------------------------------
+//スコア加算
+//------------------------------------------------------------------------------
+void CGame_2D::AddScore(int nValue)
+{
+	//倍率計算
+	m_nScore += nValue * m_nScoreMag;
+
+	//テクスチャ更新
+	m_pScoreNumber->SetMultiNumber(m_nScore);
 }
 
 //------------------------------------------------------------------------------
@@ -390,6 +438,8 @@ void CGame_2D::SetGamestate(STATE gamestate)
 		if (gamestate == CGame::STATE_GAMEOVER)
 		{
 			m_nCnt = 60;
+
+
 		}
 	}
 }

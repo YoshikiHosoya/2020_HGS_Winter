@@ -36,6 +36,8 @@ D3DXVECTOR3 *CScoreUpItem::m_pPlayerPos = nullptr;
 CScoreUpItem::CScoreUpItem()
 {
 	m_bMove = false;
+	m_fRotation = CHossoLibrary::Random(0.05f);
+
 }
 
 //------------------------------------------------------------------------------
@@ -73,6 +75,8 @@ HRESULT CScoreUpItem::Init()
 //------------------------------------------------------------------------------
 void CScoreUpItem::Update()
 {
+	GetRot().z += m_fRotation;
+
 	//çXêV
 	CCharacter_2D::Update();
 }

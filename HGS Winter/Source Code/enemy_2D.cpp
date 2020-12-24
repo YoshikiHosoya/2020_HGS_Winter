@@ -9,8 +9,10 @@
 //インクルード
 //------------------------------------------------------------------------------
 #include "enemy_2D.h"
+#include "game_2D.h"
 #include "manager.h"
 #include "renderer.h"
+#include "player_2D.h"
 #include "sound.h"
 #include "particle.h"
 #include "score_up_item.h"
@@ -28,6 +30,7 @@ int CEnemy_2D::m_nNumEnemy = 0;
 #define MOVESPEED_PURPLE	(1.6f)
 #define MOVESPEED_RED		(2.5f)
 #define RED_TURN_TIME		(40)
+#define ADD_SCORE			(10)
 
 //------------------------------------------------------------------------------
 //コンストラクタ
@@ -136,7 +139,7 @@ void CEnemy_2D::Collision()
 
 	if (fLocalDistance < 50.0f)
 	{
-
+		CManager::GetGame()->SetGamestate(CGame::STATE_GAMEOVER);
 	}
 
 }
@@ -156,8 +159,17 @@ void CEnemy_2D::DeathAction()
 	//ゲーム終了
 	CParticle::CreateFromText(GetPos(), ZeroVector3, CParticleParam::EFFECT_DEFAULT);
 
-	//ミトコンドリア生成
-	CScoreUpItem::Create(GetPos() + CHossoLibrary::RandomVector3(20.0f));
+	//キャストして取得
+	CGame_2D *pGame = (CGame_2D*)(CManager::GetGame());
+
+	//スコア加算
+	pGame->AddScore(ADD_SCORE);
+
+	if (rand() % 3 == 0)
+	{
+		//ミトコンドリア生成
+		CScoreUpItem::Create(GetPos() + CHossoLibrary::RandomVector3(20.0f));
+	}
 }
 //------------------------------------------------------------------------------
 //ステート変更処理

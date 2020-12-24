@@ -28,6 +28,8 @@ public:
 	virtual void Update() = 0;											//更新
 	virtual void Draw() = 0;											//描画
 	virtual D3DXVECTOR3 GetPlayerPos() = 0;								//プレイヤー座標取得 Characterクラスが情報を持っているので派生先がGetPosを宣言する
+	bool ApplyDamage(int nDamage) {};									//ダメージ処理
+
 protected:
 
 private:

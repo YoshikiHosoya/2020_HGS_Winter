@@ -47,10 +47,11 @@ public:
 	static int GetScore() { return m_nScore; }					// スコアの取得
 	DIRECTION GetDirection() { return m_direction; };
 	void GameEnd();
-	void SetGamestate(CGame::STATE state);
+	void SetGamestate(CGame::STATE state) override;
 	void EnemySpawn();													//敵出現
 	void CreateEnemyGroup(D3DXVECTOR3 posOrigin);						//敵の集団生成
-	void AddScoreMag() { m_nScoreMag++; };								//スコア倍率
+	void AddScoreMag();								//スコア倍率
+	void AddScore(int nValue);							//スコア加算
 
 protected:
 private:
@@ -79,7 +80,7 @@ private:
 	std::shared_ptr<CMultiNumber>				m_pMagnification;				// 倍率
 	std::shared_ptr<CMultiNumber>				m_pHighScoreNumber;				// ハイスコア
 
-	std::vector<std::shared_ptr<CScene2D>>		m_apScene2D;					// ゲームUI 
+	std::vector<std::shared_ptr<CScene2D>>		m_apScene2D;					// ゲームUI
 	int m_nScoreMag;
 };
 
