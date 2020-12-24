@@ -23,6 +23,19 @@ class CMultiNumber;
 class CResult : public CBaseMode
 {
 public:
+
+	// リザルトUIの種類
+	enum class RANKING_UI
+	{
+		NONE = -1,
+		RESULT_SCORE,				// 名前ロゴ
+		RANKING_SCORE,				// プレイヤースコア
+		LIVED_TIME,					// 生存時間
+		KILL,						// キル
+		ANY_BUTTON,					// エニーボタン
+		RANKING_MAX,
+	};
+
 	CResult();
 	~CResult();
 
@@ -36,6 +49,8 @@ public:
 
 private:
 	int m_nCntResult;	//カウンタ
+	//std::vector<std::shared_ptr<CScene2D>>		m_apScene2D;						// ランキングUI 
+
 };
 
 #endif
