@@ -175,7 +175,7 @@ void CResult::ResultScoreCreate()
 	// スコアの生成
 	m_pResultScore = CMultiNumber::Create(D3DXVECTOR3((SCREEN_WIDTH * 0.25f), 220.0f, 0.0f),
 		SCORE_SIZE,
-		/*CGame::GetScore()*/ 1234567,
+		CGame_2D::GetScore(),
 		RESULT_SCORE_DIGITS,
 		CScene::OBJTYPE_UI);
 }
@@ -201,7 +201,7 @@ void CResult::NumKillCreate()
 	// スコアの生成
 	m_pNumKill = CMultiNumber::Create(D3DXVECTOR3((SCREEN_WIDTH * 0.5f), 470.0f, 0.0f),
 		SCORE_SIZE,
-		/*CGame::GetScore()*/ 123,
+		/*CGame_2D::GetScore()*/ 0,
 		NUM_KILL_DIGITS,
 		CScene::OBJTYPE_UI);
 }

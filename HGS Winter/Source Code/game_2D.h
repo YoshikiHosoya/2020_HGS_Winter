@@ -43,7 +43,8 @@ public:
 	void ShowDebugInfo();									//デバッグ情報表記
 
 	int GetSpeed() { return m_nSpeed; };
-	static int GetTime() { return m_nCntTime; };					// 生存時間の取得
+	static int GetTime() { return m_nCntTime; };				// 生存時間の取得
+	static int GetScore() { return m_nScore; }					// スコアの取得
 	DIRECTION GetDirection() { return m_direction; };
 	void GameEnd();
 	void SetGamestate(CGame::STATE state);
@@ -68,6 +69,7 @@ private:
 	bool m_bBendingFlag;								//曲がりのフラグ
 	int m_nBendingTime;									//曲がってる時間
 	int m_nTime;										//タイム
+	static int m_nScore;								// スコア
 	static int m_nCntTime;								// カウントタイム
 	int m_nBendingCountDown;							//曲がるときのカウントダウン
 

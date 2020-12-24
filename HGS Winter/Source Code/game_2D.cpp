@@ -27,7 +27,8 @@
 //------------------------------------------------------------------------------
 //静的メンバ変数の初期化
 //------------------------------------------------------------------------------
-int CGame_2D::m_nCntTime = 0;
+int CGame_2D::m_nCntTime = 0;		// カウントタイム
+int CGame_2D::m_nScore = 0;			// スコア
 
 //------------------------------------------------------------------------------
 //マクロ
@@ -60,6 +61,7 @@ CGame_2D::CGame_2D()
 	m_bBendingFlag = false;
 	m_nTime = 0;
 	m_nCntTime = 0;
+	m_nScore = 0;
 	m_nBendingCountDown = COUNTDOWN;
 	m_apScene2D.clear();						// ゲームUI
 	m_pScoreNumber		= nullptr;				// スコア
@@ -101,7 +103,7 @@ HRESULT CGame_2D::Init(HWND hWnd)
 	// スコアの生成
 	m_pScoreNumber = CMultiNumber::Create(D3DXVECTOR3((SCREEN_WIDTH * 0.2f), 80.0f, 0.0f),
 		SCORE_SIZE,
-		/*CGame::GetScore()*/ 1234567,
+		0,
 		SCORE_DIGITS,
 		CScene::OBJTYPE_UI);
 
@@ -115,7 +117,7 @@ HRESULT CGame_2D::Init(HWND hWnd)
 	// 倍率の生成
 	m_pMagnification = CMultiNumber::Create(D3DXVECTOR3((SCREEN_WIDTH * 0.63f), 55.0f, 0.0f),
 		SCORE_SIZE,
-		/*CGame::GetScore()*/ 0,
+		0,
 		MAGNIFICATION_DIGITS,
 		CScene::OBJTYPE_UI);
 
@@ -143,6 +145,9 @@ void CGame_2D::Update()
 
 	// カウントアップタイマー
 	AddTimer();
+
+	// スコアの値の設定 ( 仮 )
+	m_pScoreNumber->SetMultiNumber(m_nScore);
 
 	// ハイスコアの更新
 	HighScoreUpdate();
