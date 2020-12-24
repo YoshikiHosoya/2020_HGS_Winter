@@ -162,9 +162,6 @@
     <ClCompile Include="Source Code\game_2D.cpp">
       <Filter>Mode</Filter>
     </ClCompile>
-    <ClCompile Include="Source Code\game_3D.cpp">
-      <Filter>Mode</Filter>
-    </ClCompile>
     <ClCompile Include="Source Code\ranking.cpp">
       <Filter>Mode</Filter>
     </ClCompile>
@@ -315,9 +312,6 @@
       <Filter>Character</Filter>
     </ClInclude>
     <ClInclude Include="Source Code\game_2D.h">
-      <Filter>Mode</Filter>
-    </ClInclude>
-    <ClInclude Include="Source Code\game_3D.h">
       <Filter>Mode</Filter>
     </ClInclude>
     <ClInclude Include="Source Code\ranking.h">

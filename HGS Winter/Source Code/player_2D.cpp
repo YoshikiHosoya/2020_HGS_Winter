@@ -78,8 +78,6 @@ void CPlayer_2D::Update()
 
 	//更新
 	CCharacter_2D::Update();
-
-
 }
 //------------------------------------------------------------------------------
 //描画処理
@@ -107,55 +105,13 @@ void CPlayer_2D::MoveInput()
 
 	if (joypadX != 0 || joypadY != 0)
 	{
-		GetMove().x += joypadX * CCharacter::GetDefaultParam(GetParam())->GetMoveSpeed() / 32768.0f;
-		GetMove().y -= joypadY * CCharacter::GetDefaultParam(GetParam())->GetMoveSpeed() / 32768.0f;
+		GetMove().x += joypadX * 3.0f / 32768.0f;
+		GetMove().y -= joypadY * 3.0f / 32768.0f;
 	}
 
-	CGame_2D *pGame2D = (CGame_2D*)CManager::GetGame();
-
-	if (pGame2D->GetGamestate() != CGame::STATE::STATE_NORMAL)
-	{
-		return;
-	}
-
-	//上に進行してるとき
-	if (pGame2D->GetDirection() == DIRECTION::UP)
-	{
-		GetScene2D()->SetRot(ZeroVector3);
-
-
-		CParticle::CreateFromText(GetPos() + D3DXVECTOR3(15.0f, 20.0f, 0.0f), ZeroVector3, CParticleParam::EFFECT_PLAYERENGINE);
-		CParticle::CreateFromText(GetPos() + D3DXVECTOR3(-15.0f, 20.0f, 0.0f), ZeroVector3, CParticleParam::EFFECT_PLAYERENGINE);
-
-
-		//[D]キーを押した時
-		if (CHossoLibrary::CheckMove(CHossoLibrary::RIGHT))
-		{
-			pGame2D->PlayerBending(DIRECTION::RIGHT);
-			m_bMove = true;
-		}
-		//[A]キーを押した時
-		if (CHossoLibrary::CheckMove(CHossoLibrary::LEFT))
-		{
-			pGame2D->PlayerBending(DIRECTION::LEFT);
-			m_bMove = true;
-
-		}
-	}
-
-	else if (pGame2D->GetDirection() == DIRECTION::LEFT)
-	{
-		GetScene2D()->SetRot(D3DXVECTOR3(0.0f, 0.0f, -1.57f));
-	}
-
-	else if (pGame2D->GetDirection() == DIRECTION::RIGHT)
-	{
-		GetScene2D()->SetRot(D3DXVECTOR3(0.0f, 0.0f, 1.57f));
-	}
 	std::vector<std::shared_ptr<CScene>> pWayList;
 
 	CScene::GetSceneList(OBJTYPE::OBJTYPE_WAY, pWayList);
-
 }
 
 //------------------------------------------------------------------------------

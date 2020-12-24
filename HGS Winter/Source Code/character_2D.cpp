@@ -125,29 +125,12 @@ void CCharacter_2D::ShowCharacterInfo()
 //------------------------------------------------------------------------------
 void CCharacter_2D::Move()
 {
-	if(GetGravity())
-	{
-		//d—Í‰ÁZ
-		GetMove().y += GRAVITY;
-	}
-
 	//ˆÚ“®—Ê‰ÁZ
 	GetPos() += GetMove();
 
-	//‹ó’†
-	if (GetJump())
-	{
-		//Šµ«
-		GetMove().x += (0 - GetMove().x) * AIR_INERTIA;
-		GetMove().y += (0 - GetMove().y) * AIR_INERTIA;
-	}
-	//‚»‚êˆÈŠO
-	else
-	{
-		//Šµ«
-		GetMove().x += (0 - GetMove().x) * INERTIA;
-		GetMove().y += (0 - GetMove().y) * INERTIA;
-	}
+	//Šµ«
+	GetMove().x += (0 - GetMove().x) * INERTIA;
+	GetMove().y += (0 - GetMove().y) * INERTIA;
 }
 //------------------------------------------------------------------------------
 //‰ñ“]ˆ—

@@ -34,8 +34,6 @@ public:
 
 	int GetSpeed() { return m_nSpeed; };
 	DIRECTION GetDirection() { return m_direction; };
-	void Bending();
-	void PlayerBending(DIRECTION Direction);
 	void GameEnd();
 	void AddTimer(int nAddTime);
 	void SetGamestate(CGame::STATE state);
@@ -59,12 +57,8 @@ private:
 	std::shared_ptr<CMultiNumber> m_pScoreNumber;
 	std::shared_ptr<CMultiNumber> m_pTimeNumber;
 	std::shared_ptr<CScene2D> m_pScore;
-	std::shared_ptr<CScene2D> m_pNextBending;
 
 	std::shared_ptr<CScene2D> m_pReadyGo;
-
-
-	std::vector<std::shared_ptr<CWay>> m_pWayList;
 
 
 };

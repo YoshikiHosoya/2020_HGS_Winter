@@ -23,7 +23,6 @@
 #include "scene.h"
 #include "TestMode.h"
 #include "game_2D.h"
-#include "game_3D.h"
 #include "tutorial.h"
 #include "ranking.h"
 #include "Debug\Debug_EffectViewer.h"
@@ -216,6 +215,8 @@ void CManager::Draw()
 //------------------------------------------------------------------------------
 void CManager::SetMode(MODE nextmode)
 {
+	MODE modeOld = m_mode;
+
 	//カウント
 	m_nNumChangeMode++;
 	std::cout << "SetMode - " << m_nNumChangeMode << NEWLINE;;
@@ -284,6 +285,7 @@ void CManager::SetMode(MODE nextmode)
 	default:
 		//エラー
 		MessageBox(m_hWnd, "遷移失敗", "Manager", MB_OK | MB_ICONHAND);
+		SetMode(modeOld);
 		break;
 	}
 

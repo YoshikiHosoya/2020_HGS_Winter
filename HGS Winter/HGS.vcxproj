@@ -163,7 +163,6 @@
     <ClCompile Include="Source Code\fade.cpp" />
     <ClCompile Include="Source Code\game.cpp" />
     <ClCompile Include="Source Code\game_2D.cpp" />
-    <ClCompile Include="Source Code\game_3D.cpp" />
     <ClCompile Include="Source Code\hossolibrary.cpp" />
     <ClCompile Include="Source Code\ImGui\imgui.cpp" />
     <ClCompile Include="Source Code\ImGui\imgui_draw.cpp" />
@@ -212,7 +211,6 @@
     <ClInclude Include="Source Code\game.h" />
     <ClInclude Include="Source Code\GameObject.h" />
     <ClInclude Include="Source Code\game_2D.h" />
-    <ClInclude Include="Source Code\game_3D.h" />
     <ClInclude Include="Source Code\hossolibrary.h" />
     <ClInclude Include="Source Code\ImGui\imconfig.h" />
     <ClInclude Include="Source Code\ImGui\imgui.h" />

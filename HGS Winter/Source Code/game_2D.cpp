@@ -44,7 +44,6 @@ CGame_2D::CGame_2D()
 	SetScore(0);
 	m_bBendingFlag = false;
 	m_nTime = DEFAULT_TIME;
-	m_pWayList = {};
 	m_nBendingCountDown = COUNTDOWN;
 }
 //------------------------------------------------------------------------------
@@ -78,15 +77,6 @@ HRESULT CGame_2D::Init(HWND hWnd)
 	m_pScoreNumber = CMultiNumber::Create(D3DXVECTOR3(1100.0f, 100.0f, 0.0f), D3DXVECTOR3(50.0f, 75.0f, 0.0f),0,7, CScene::OBJTYPE_UI);
 
 	m_pTimeNumber = CMultiNumber::Create(D3DXVECTOR3(SCREEN_WIDTH * 0.5f, 50.0f, 0.0f), D3DXVECTOR3(50.0f, 75.0f, 0.0f), m_nTime, 2, CScene::OBJTYPE_UI);
-
-	m_pNextBending = CScene2D::Create_Shared(D3DXVECTOR3(SCREEN_WIDTH * 0.5f, 300.0f, 0.0f), D3DXVECTOR3(150.0f, 150.0f, 0.0f), CScene::OBJTYPE_UI);
-	m_pNextBending->SetDisp(false);
-
-	m_pReadyGo = CScene2D::Create_Shared(SCREEN_CENTER_POS, D3DXVECTOR3(500.0f, 200.0f, 0.0f), CScene::OBJTYPE_UI);
-	m_pReadyGo->BindTexture(CTexture::GetTexture(CTexture::TEX_UI_GAME_LADY));
-
-	//最初のカーブ
-	Bending();
 
 	//ゲームステート初期化
 	SetGamestate(CGame::STATE_READY);
@@ -141,17 +131,6 @@ void CGame_2D::ShowDebugInfo()
 }
 
 //------------------------------------------------------------------------------
-//プレイヤーの曲がる処理
-//------------------------------------------------------------------------------
-void CGame_2D::PlayerBending(DIRECTION Direction)
-{
-	m_direction = Direction;
-	m_nBendingTime = BENDING_TIME;;
-
-	Bending();
-}
-
-//------------------------------------------------------------------------------
 //ゲーム終了
 //------------------------------------------------------------------------------
 void CGame_2D::GameEnd()
@@ -168,37 +147,6 @@ void CGame_2D::AddTimer(int nAddTime)
 {
 	m_nTime += nAddTime;
 	m_pTimeNumber->SetMultiNumber(m_nTime);
-
-}
-
-//------------------------------------------------------------------------------
-//曲がる処理
-//------------------------------------------------------------------------------
-void CGame_2D::Bending()
-{
-	m_NextBendingDirection = (DIRECTION)(rand() % 2);
-	m_fNextBendingPoint = (float)(m_nScoreDistance + (m_nSpeed * 60) + rand() % (m_nSpeed * 90));
-	//m_fNextBendingPoint = m_nScoreDistance + (m_nSpeed * 60);
-	//m_fNextBendingPoint = m_nScoreDistance + 2500.0f;
-	m_pNextBendingWayPos = nullptr;
-	m_nBendingCountDown = COUNTDOWN;
-	m_pNextBending->SetDisp(false);
-
-
-	if (m_NextBendingDirection == DIRECTION::LEFT)
-	{
-		m_pNextBending->BindTexture(CTexture::GetTexture(CTexture::TEX_ARROW_LEFT));
-	}
-	if (m_NextBendingDirection == DIRECTION::RIGHT)
-	{
-		m_pNextBending->BindTexture(CTexture::GetTexture(CTexture::TEX_ARROW_RIGHT));
-	}
-
-	m_nSpeed += 3;
-
-
-
-	m_bBendingFlag = true;
 
 }
 
