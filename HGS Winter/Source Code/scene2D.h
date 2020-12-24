@@ -23,7 +23,6 @@ public:
 	virtual ~CScene2D();
 
 	virtual HRESULT Init();					//初期化
-	virtual void Uninit();					//終了
 	virtual void Update();					//更新
 	virtual void Draw();					//描画
 	virtual void ShowDebugInfo();			//デバッグ情報表記

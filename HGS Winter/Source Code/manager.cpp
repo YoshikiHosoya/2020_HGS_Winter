@@ -120,10 +120,12 @@ void CManager::Uninit()
 	//ベースの素材破棄
 	CBaseMode::BaseUnload();
 
+	//リリース
+	CScene::ReleaseAll();
+
 	//メモリ開放
 	if (m_pRenderer)
 	{	//レンダラー
-		m_pRenderer->Uninit();
 		m_pRenderer.reset();
 	}
 
@@ -147,7 +149,6 @@ void CManager::Uninit()
 	if (m_pBaseMode)
 	{
 		//モード
-		m_pBaseMode->Uninit();
 		m_pBaseMode.reset();
 
 	}
@@ -227,9 +228,6 @@ void CManager::SetMode(MODE nextmode)
 	//nullcheck
 	if (m_pBaseMode)
 	{
-		//終了処理
-		m_pBaseMode->Uninit();
-
 		//メモリ開放
 		m_pBaseMode.reset();
 		std::cout << "delete BaseMode" << NEWLINE;;
