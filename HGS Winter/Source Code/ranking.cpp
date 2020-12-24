@@ -55,8 +55,10 @@ CRanking::CRanking()
 //------------------------------------------------------------------------------
 CRanking::~CRanking()
 {
+	m_nRankingScore.clear();
 	m_apScene2D.clear();
 	m_apRankScore.clear();
+	m_nCntResult = 0;
 }
 
 //------------------------------------------------------------------------------
