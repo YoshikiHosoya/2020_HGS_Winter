@@ -15,56 +15,35 @@ std::vector<LPDIRECT3DTEXTURE9> CTexture::m_apTextureList = {};
 //テクスチャ名の設定
 FILENAME_LIST CTexture::m_aTexFileName =
 {
-	{ "data/TEXTURE/TexNone.png" },							//白紙
-	{ "data/TEXTURE/Effect/particle.jpg" },					//パーティクル用の丸いの
-	{ "data/TEXTURE/Character/Player000.png" },				//プレイヤー
-	{ "data/TEXTURE/Character/Enemy000.png" },				//エネミー
+	{ "data/TEXTURE/TexNone.png" },									//白紙
+	{ "data/TEXTURE/Effect/particle.jpg" },							//パーティクル用の丸いの
+	{ "data/TEXTURE/Character/Player/Player000.png" },				//プレイヤー
+	{ "data/TEXTURE/Character/Enemy/Blue.png" },					//エネミー 青
+	{ "data/TEXTURE/Character/Enemy/red.png" },						//エネミー 赤
+	{ "data/TEXTURE/Character/Enemy/purple.png" },					//エネミー 紫
 
-	{ "data/TEXTURE/Way/UP.png" },					//道
-	{ "data/TEXTURE/Way/Right01.png" },				//道
-	{ "data/TEXTURE/Way/Right02.png" },				//道
-	{ "data/TEXTURE/Way/Left01.png" },				//道
-	{ "data/TEXTURE/Way/Left02.png" },				//道
+	{ "data/TEXTURE/UI/BG/GridLine.png" },							//グリッド線
 
-	{ "data/TEXTURE/Way/Right_arrow.png" },				//道
-	{ "data/TEXTURE/Way/Left_arrow.png" },				//道
+	{ "data/TEXTURE/UI/Title/Title.png" },							//タイトルロゴ
 
+	{ "data/TEXTURE/UI/Ranking/RankingLogo.png" },					//ランキングロゴ
+	{ "data/TEXTURE/UI/Ranking/Total.png" },						//ランキングスコア
+	{ "data/TEXTURE/UI/Ranking/rank_1.png" },						//1位
+	{ "data/TEXTURE/UI/Ranking/rank_2.png" },						//2位
+	{ "data/TEXTURE/UI/Ranking/rank_3.png" },						//3位
+	{ "data/TEXTURE/UI/Ranking/rank_4.png" },						//4位
+	{ "data/TEXTURE/UI/Ranking/rank_5.png" },						//5位
+	{ "data/TEXTURE/UI/Ranking/gototitle.png" },					//タイトルへ
 
-	{ "data/TEXTURE/UI/BG/GridLine.png" },						//グリッド線
-	{ "data/TEXTURE/UI/BG/circle.png" },						//まる
-	{ "data/TEXTURE/UI/BG/triangle.png" },						//三角
-	{ "data/TEXTURE/UI/BG/square.png" },						//四角
-	{ "data/TEXTURE/UI/BG/star.png" },							//星
-	{ "data/TEXTURE/UI/BG/cross.png" },							//ばつ
-
-	{ "data/TEXTURE/UI/GAME/Ready.png" },						//Lady
-	{ "data/TEXTURE/UI/GAME/Go.png" },							//Go
-	{ "data/TEXTURE/UI/GAME/Good.png" },						//Good
-	{ "data/TEXTURE/UI/GAME/Great.png" },						//Great
-	{ "data/TEXTURE/UI/GAME/Perfect.png" },						//Perfect
-	{ "data/TEXTURE/UI/GAME/Speedup.png" },						//Speedup
-	{ "data/TEXTURE/UI/GAME/+2.png" },							//+2
-
-	{ "data/TEXTURE/UI/Title/Title.png" },						//タイトルロゴ
-
-	{ "data/TEXTURE/UI/Ranking/RankingLogo.png" },				//ランキングロゴ
-	{ "data/TEXTURE/UI/Ranking/Total.png" },					//ランキングスコア
-	{ "data/TEXTURE/UI/Ranking/rank_1.png" },					//1位
-	{ "data/TEXTURE/UI/Ranking/rank_2.png" },					//2位
-	{ "data/TEXTURE/UI/Ranking/rank_3.png" },					//3位
-	{ "data/TEXTURE/UI/Ranking/rank_4.png" },					//4位
-	{ "data/TEXTURE/UI/Ranking/rank_5.png" },					//5位
-	{ "data/TEXTURE/UI/Ranking/gototitle.png" },				//タイトルへ
-
-	{ "data/TEXTURE/UI/Enter.png" },							//Enter
+	{ "data/TEXTURE/UI/Enter.png" },								//Enter
 };
 
 //テクスチャ名の設定
 FILENAME_LIST CTexture::m_aSeparateTexFileNameList =
 {
-	{ "data/TEXTURE/TexNone.png"},								//白紙
-	{ "data/TEXTURE/Effect/Explosion00.png" },					//爆発
-	{ "data/TEXTURE/UI/Num.png" },								//ナンバー
+	{ "data/TEXTURE/TexNone.png"},									//白紙
+	{ "data/TEXTURE/Effect/Explosion00.png" },						//爆発
+	{ "data/TEXTURE/UI/Num.png" },									//ナンバー
 };
 
 

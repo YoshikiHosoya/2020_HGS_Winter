@@ -106,54 +106,54 @@ std::unique_ptr<CBg> CBg::Create(int DropNum)
 //------------------------------------------------------------------------------
 void CBg::RandomFigure()
 {
-	int nCntTime = 0;
-	nCntTime = rand() % 100 + 1;
+	//int nCntTime = 0;
+	//nCntTime = rand() % 100 + 1;
 
-	// ランダムでサイズを決める
-	m_FigureSizeType	= (BG_FIGURE_SIZE)(rand() % (int)BG_FIGURE_SIZE::FIGURE_SIZE_MAX);
-	m_FigureType		= (BG_FIGURE)(rand() % (int)BG_FIGURE::BG_MAX);
+	//// ランダムでサイズを決める
+	//m_FigureSizeType	= (BG_FIGURE_SIZE)(rand() % (int)BG_FIGURE_SIZE::FIGURE_SIZE_MAX);
+	//m_FigureType		= (BG_FIGURE)(rand() % (int)BG_FIGURE::BG_MAX);
 
-	switch (m_FigureSizeType)
-	{
-	case CBg::BG_FIGURE_SIZE::SMALL:
-		m_FigureSize = FIGURE_SIZE_SMALL;
-		break;
+	//switch (m_FigureSizeType)
+	//{
+	//case CBg::BG_FIGURE_SIZE::SMALL:
+	//	m_FigureSize = FIGURE_SIZE_SMALL;
+	//	break;
 
-	case CBg::BG_FIGURE_SIZE::MEDIUM:
-		m_FigureSize = FIGURE_SIZE_MEDIUM;
-		break;
+	//case CBg::BG_FIGURE_SIZE::MEDIUM:
+	//	m_FigureSize = FIGURE_SIZE_MEDIUM;
+	//	break;
 
-	case CBg::BG_FIGURE_SIZE::BIG:
-		m_FigureSize = FIGURE_SIZE_BIG;
-		break;
-	}
+	//case CBg::BG_FIGURE_SIZE::BIG:
+	//	m_FigureSize = FIGURE_SIZE_BIG;
+	//	break;
+	//}
 
-	// 図形の生成
-	if (nCntTime > m_DropRangeNum)
-	{
-		m_apScene2D.emplace_back(CScene2D::Create_Shared(D3DXVECTOR3((float)(rand() % 1280), -100.0f, 0.0f), m_FigureSize, CScene::OBJTYPE_BACK));
-		m_apScene2D[m_apScene2D.size() - 1]->SetColor(D3DXCOLOR(1.0f, 1.0f, 1.0f, 0.5f));
-		switch (m_FigureType)
-		{
-		case CBg::BG_FIGURE::BG_Circle:
-			m_apScene2D[m_apScene2D.size() - 1]->BindTexture(CTexture::GetTexture(CTexture::TEX_UI_BG_CIRCLE));
-			break;
+	//// 図形の生成
+	//if (nCntTime > m_DropRangeNum)
+	//{
+	//	m_apScene2D.emplace_back(CScene2D::Create_Shared(D3DXVECTOR3((float)(rand() % 1280), -100.0f, 0.0f), m_FigureSize, CScene::OBJTYPE_BACK));
+	//	m_apScene2D[m_apScene2D.size() - 1]->SetColor(D3DXCOLOR(1.0f, 1.0f, 1.0f, 0.5f));
+	//	switch (m_FigureType)
+	//	{
+	//	case CBg::BG_FIGURE::BG_Circle:
+	//		m_apScene2D[m_apScene2D.size() - 1]->BindTexture(CTexture::GetTexture(CTexture::TEX_UI_BG_CIRCLE));
+	//		break;
 
-		case CBg::BG_FIGURE::BG_Triangle:
-			m_apScene2D[m_apScene2D.size() - 1]->BindTexture(CTexture::GetTexture(CTexture::TEX_UI_BG_TRIANGLE));
-			break;
+	//	case CBg::BG_FIGURE::BG_Triangle:
+	//		m_apScene2D[m_apScene2D.size() - 1]->BindTexture(CTexture::GetTexture(CTexture::TEX_UI_BG_TRIANGLE));
+	//		break;
 
-		case CBg::BG_FIGURE::BG_Square:
-			m_apScene2D[m_apScene2D.size() - 1]->BindTexture(CTexture::GetTexture(CTexture::TEX_UI_BG_SQUARE));
-			break;
+	//	case CBg::BG_FIGURE::BG_Square:
+	//		m_apScene2D[m_apScene2D.size() - 1]->BindTexture(CTexture::GetTexture(CTexture::TEX_UI_BG_SQUARE));
+	//		break;
 
-		case CBg::BG_FIGURE::BG_Star:
-			m_apScene2D[m_apScene2D.size() - 1]->BindTexture(CTexture::GetTexture(CTexture::TEX_UI_BG_STAR));
-			break;
+	//	case CBg::BG_FIGURE::BG_Star:
+	//		m_apScene2D[m_apScene2D.size() - 1]->BindTexture(CTexture::GetTexture(CTexture::TEX_UI_BG_STAR));
+	//		break;
 
-		case CBg::BG_FIGURE::BG_Cross:
-			m_apScene2D[m_apScene2D.size() - 1]->BindTexture(CTexture::GetTexture(CTexture::TEX_UI_BG_CROSS));
-			break;
-		}
-	}
+	//	case CBg::BG_FIGURE::BG_Cross:
+	//		m_apScene2D[m_apScene2D.size() - 1]->BindTexture(CTexture::GetTexture(CTexture::TEX_UI_BG_CROSS));
+	//		break;
+	//	}
+	//}
 }

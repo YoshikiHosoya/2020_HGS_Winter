@@ -30,35 +30,13 @@ public:
 		TEX_EFFECT_PARTICLE,					//パーティクル
 
 		//キャラクター
-		TEX_PLAYER,						//プレイヤー
-		TEX_ENEMY,							//敵
+		TEX_PLAYER,								//プレイヤー
+		TEX_ENEMY_BLUE,							//敵
+		TEX_ENEMY_RED,							//敵
+		TEX_ENEMY_PURPLE,						//敵
 
-		TEX_WAY_UP,							//道上
-		TEX_WAY_RIGHT01,					//道右
-		TEX_WAY_RIGHT02,					//道右
-		TEX_WAY_LEFT01,						//道左
-		TEX_WAY_LEFT02,						//道左
-
-		TEX_ARROW_RIGHT,					//右方向
-		TEX_ARROW_LEFT,						//左方向
-
-		// --- UI ---
-		// BG
-		TEX_UI_BG_GRIDLINE,						// グリッド線
-		TEX_UI_BG_CIRCLE,						// まる
-		TEX_UI_BG_TRIANGLE,						// 三角
-		TEX_UI_BG_SQUARE,						// 四角
-		TEX_UI_BG_STAR,							// 星
-		TEX_UI_BG_CROSS,						// ばつ
-
-		// ゲーム
-		TEX_UI_GAME_LADY,						// Lady
-		TEX_UI_GAME_GO,							// Go
-		TEX_UI_GAME_GOOD,						// Good
-		TEX_UI_GAME_GREAT,						// Great
-		TEX_UI_GAME_PERFECT,					// Perfect
-		TEX_UI_GAME_SPPED_UP,					// SpeeUp
-		TEX_UI_GAME_ADDTIME_2,					// +2
+		//BG
+		TEX_UI_BG_GRIDLINE,
 
 		//タイトル
 		TEX_UI_TITLE_NAME,						// タイトルロゴ
