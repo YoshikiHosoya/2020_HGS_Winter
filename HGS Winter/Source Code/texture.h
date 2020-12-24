@@ -39,7 +39,7 @@ public:
 		TEX_ITEM_MITOKONDORIA,					//ミトコンドリア
 
 		//BG
-		TEX_UI_BG_GRIDLINE,
+		TEX_UI_BG_GRIDLINE,						// グリッド線
 
 		//タイトル
 		TEX_UI_TITLE_NAME,						// タイトルロゴ
@@ -55,6 +55,17 @@ public:
 		TEX_UI_RANKING_GO_TITLE,				// タイトルへ
 
 		TEX_UI_ENTER,							// Enter
+		TEX_UI_NUM,								// ナンバー
+		TEX_UI_SCORE,							// スコア
+		TEX_UI_TIME,							// タイム
+
+		// ゲームUI
+		TEX_UI_GAME_CROSS,						// バツ ( かける )
+		TEX_UI_GAME_HIGHSCORE,					// ハイスコア
+
+		// リザルトUI
+		TEX_UI_RESULT_KILL,						// キル
+
 
 		TEX_MAX									//MAX
 	};

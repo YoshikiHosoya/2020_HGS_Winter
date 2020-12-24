@@ -40,6 +40,14 @@ FILENAME_LIST CTexture::m_aTexFileName =
 	{ "data/TEXTURE/UI/Ranking/gototitle.png" },					//タイトルへ
 
 	{ "data/TEXTURE/UI/Enter.png" },								//Enter
+	{ "data/TEXTURE/UI/Num.png" },									//ナンバー
+	{ "data/TEXTURE/UI/score.png" },								//スコア
+	{ "data/TEXTURE/UI/time.png" },									//タイム
+
+	{ "data/TEXTURE/UI/Game/cross.png" },							//バツ ( かける )
+	{ "data/TEXTURE/UI/Game/highscore.png" },						//ハイスコア
+
+	{ "data/TEXTURE/UI/Result/Kill.png" },							//キル
 };
 
 //テクスチャ名の設定
