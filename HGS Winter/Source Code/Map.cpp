@@ -11,9 +11,6 @@
 #include "Map.h"
 #include "renderer.h"
 #include "manager.h"
-#include "meshfield.h"
-#include "meshsphere.h"
-#include "model_object.h"
 #include "sound.h"
 //------------------------------------------------------------------------------
 //マクロ
@@ -67,7 +64,7 @@ D3DXVECTOR3 CMap::GetFieldSize()
 void CMap::CreateField(D3DXVECTOR3 size, INTEGER2 BlockNum)
 {
 	//フィールド
-	CMeshField::Create(ZeroVector3, size, BlockNum);
+	//CMeshField::Create(ZeroVector3, size, BlockNum);
 
 }
 //------------------------------------------------------------------------------
@@ -75,16 +72,16 @@ void CMap::CreateField(D3DXVECTOR3 size, INTEGER2 BlockNum)
 //------------------------------------------------------------------------------
 void CMap::CreateWall(INTEGER2 BlockNum)
 {
-	//前後の壁
-	for (int nCntV = 0; nCntV < BlockNum.x; nCntV++)
-	{
-		CModel_Object::Create(D3DXVECTOR3(BlockNum.x * WALL_SIZE * 0.5f - nCntV * WALL_SIZE - (WALL_SIZE * 0.5f), 0.0f, WALL_SIZE * BlockNum.y * 0.5f), ZeroVector3);									//前
-		CModel_Object::Create(D3DXVECTOR3(BlockNum.x * WALL_SIZE * 0.5f - nCntV * WALL_SIZE - (WALL_SIZE * 0.5f), 0.0f, -WALL_SIZE * BlockNum.y * 0.5f), ZeroVector3);									//後
-	}
-	//左右の壁
-	for (int nCntH = 0; nCntH < BlockNum.x; nCntH++)
-	{
-		CModel_Object::Create(D3DXVECTOR3(-WALL_SIZE * BlockNum.x * 0.5f, 0.0f, BlockNum.y * WALL_SIZE * 0.5f - nCntH * WALL_SIZE - (WALL_SIZE * 0.5f)), D3DXVECTOR3(0.0f, D3DX_PI * 0.5f, 0.0f));		//左
-		CModel_Object::Create(D3DXVECTOR3(WALL_SIZE * BlockNum.x * 0.5f, 0.0f, BlockNum.y * WALL_SIZE * 0.5f - nCntH * WALL_SIZE - (WALL_SIZE * 0.5f)), D3DXVECTOR3(0.0f, D3DX_PI * 0.5f, 0.0f));		//右
-	}
+	////前後の壁
+	//for (int nCntV = 0; nCntV < BlockNum.x; nCntV++)
+	//{
+	//	CModel_Object::Create(D3DXVECTOR3(BlockNum.x * WALL_SIZE * 0.5f - nCntV * WALL_SIZE - (WALL_SIZE * 0.5f), 0.0f, WALL_SIZE * BlockNum.y * 0.5f), ZeroVector3);									//前
+	//	CModel_Object::Create(D3DXVECTOR3(BlockNum.x * WALL_SIZE * 0.5f - nCntV * WALL_SIZE - (WALL_SIZE * 0.5f), 0.0f, -WALL_SIZE * BlockNum.y * 0.5f), ZeroVector3);									//後
+	//}
+	////左右の壁
+	//for (int nCntH = 0; nCntH < BlockNum.x; nCntH++)
+	//{
+	//	CModel_Object::Create(D3DXVECTOR3(-WALL_SIZE * BlockNum.x * 0.5f, 0.0f, BlockNum.y * WALL_SIZE * 0.5f - nCntH * WALL_SIZE - (WALL_SIZE * 0.5f)), D3DXVECTOR3(0.0f, D3DX_PI * 0.5f, 0.0f));		//左
+	//	CModel_Object::Create(D3DXVECTOR3(WALL_SIZE * BlockNum.x * 0.5f, 0.0f, BlockNum.y * WALL_SIZE * 0.5f - nCntH * WALL_SIZE - (WALL_SIZE * 0.5f)), D3DXVECTOR3(0.0f, D3DX_PI * 0.5f, 0.0f));		//右
+	//}
 }

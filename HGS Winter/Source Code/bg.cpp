@@ -74,66 +74,66 @@ void CBg::Uninit()
 void CBg::Update()
 {
 
-	if (CManager::GetMode() == CManager::MODE_2DGAME)
-	{
-		if (CManager::GetGame()->GetGamestate() != CGame::STATE::STATE_NORMAL)
-		{
-			return;
-		}
-	}
+	//if (CManager::GetMode() == CManager::MODE_2DGAME)
+	//{
+	//	if (CManager::GetGame()->GetGamestate() != CGame::STATE::STATE_NORMAL)
+	//	{
+	//		return;
+	//	}
+	//}
 
-	D3DXVECTOR3 move = ZeroVector3;
-	// カウントアップ
-	m_nCntScroll++;
+	//D3DXVECTOR3 move = ZeroVector3;
+	//// カウントアップ
+	//m_nCntScroll++;
 
-	// 図形のランダム生成
-	RandomFigure();
+	//// 図形のランダム生成
+	//RandomFigure();
 
-	for (int nCnt = 0; nCnt < (int)m_apScene2D.size(); nCnt++)
-	{
-		if (m_apScene2D[nCnt])
-		{
-			if (CManager::GetMode() == CManager::MODE_2DGAME)
-			{
-				CGame_2D *pGame2D = (CGame_2D*)CManager::GetGame();
-				move.y = (float)pGame2D->GetSpeed();
+	//for (int nCnt = 0; nCnt < (int)m_apScene2D.size(); nCnt++)
+	//{
+	//	if (m_apScene2D[nCnt])
+	//	{
+	//		if (CManager::GetMode() == CManager::MODE_2DGAME)
+	//		{
+	//			CGame_2D *pGame2D = (CGame_2D*)CManager::GetGame();
+	//			move.y = (float)pGame2D->GetSpeed();
 
-				m_apScene2D[nCnt]->GetPos().y += move.y * ((float)m_apScene2D[nCnt]->GetSize().y / 50);
-			}
-			else
-			{
-				m_FigureMove.y = (float)m_apScene2D[nCnt]->GetSize().y / 20;
+	//			m_apScene2D[nCnt]->GetPos().y += move.y * ((float)m_apScene2D[nCnt]->GetSize().y / 50);
+	//		}
+	//		else
+	//		{
+	//			m_FigureMove.y = (float)m_apScene2D[nCnt]->GetSize().y / 20;
 
-				m_apScene2D[nCnt]->GetPos().y += m_FigureMove.y;
-			}
+	//			m_apScene2D[nCnt]->GetPos().y += m_FigureMove.y;
+	//		}
 
-			if ((int)m_apScene2D[nCnt]->GetSize().y == 20)
-			{
-				m_apScene2D[nCnt]->GetRot().z += 0.05f;
-			}
-			else if ((int)m_apScene2D[nCnt]->GetSize().y == 50)
-			{
-				m_apScene2D[nCnt]->GetRot().z += 0.03f;
-			}
-			else if ((int)m_apScene2D[nCnt]->GetSize().y == 100)
-			{
-				m_apScene2D[nCnt]->GetRot().z += 0.015f;
-			}
+	//		if ((int)m_apScene2D[nCnt]->GetSize().y == 20)
+	//		{
+	//			m_apScene2D[nCnt]->GetRot().z += 0.05f;
+	//		}
+	//		else if ((int)m_apScene2D[nCnt]->GetSize().y == 50)
+	//		{
+	//			m_apScene2D[nCnt]->GetRot().z += 0.03f;
+	//		}
+	//		else if ((int)m_apScene2D[nCnt]->GetSize().y == 100)
+	//		{
+	//			m_apScene2D[nCnt]->GetRot().z += 0.015f;
+	//		}
 
-			// 範囲外
-			if (m_apScene2D[nCnt]->GetPos().y >= 2000.0f)
-			{
-				m_apScene2D[nCnt]->Release();
-				m_apScene2D[nCnt] = nullptr;
-				m_apScene2D.erase(m_apScene2D.begin() + nCnt);
-			}
-		}
-	}
-	//m_nCntScroll
-	if (m_pGridLine)
-	{
-		m_pGridLine->SetAnimation(D3DXVECTOR2(1.0f, 1.0f - ((float)m_nCntScroll / 50)), D3DXVECTOR2(1.0f, 1.0f));
-	}
+	//		// 範囲外
+	//		if (m_apScene2D[nCnt]->GetPos().y >= 2000.0f)
+	//		{
+	//			m_apScene2D[nCnt]->Release();
+	//			m_apScene2D[nCnt] = nullptr;
+	//			m_apScene2D.erase(m_apScene2D.begin() + nCnt);
+	//		}
+	//	}
+	//}
+	////m_nCntScroll
+	//if (m_pGridLine)
+	//{
+	//	m_pGridLine->SetAnimation(D3DXVECTOR2(1.0f, 1.0f - ((float)m_nCntScroll / 50)), D3DXVECTOR2(1.0f, 1.0f));
+	//}
 }
 
 //------------------------------------------------------------------------------

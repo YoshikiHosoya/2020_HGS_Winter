@@ -169,8 +169,6 @@ public:
 	static float Vec2Cross(D3DXVECTOR2 const &rVecA, D3DXVECTOR2 const &rVecB);									//2D 外積計算
 	static void CalcMatrix(D3DXMATRIX *pMtx,D3DXVECTOR3 const &rPos, D3DXVECTOR3 const &rRot);					//ワールドマトリックス計算
 	static void CalcShadowMatrix(D3DXMATRIX &rShadowMtx, D3DXVECTOR3 const &rPos, D3DXVECTOR3 const &rNor);		//シャドーマトリックスの計算
-	static void SetModelVertex(MODEL_VTX &pModelVtx, CModelInfo &pModelInfo);									//モデルの最大頂点と最少頂点を設定
-	static void SetModelVertexRotation(D3DXMATRIX & pMtx, MODEL_VTX & pModelVtx, CModelInfo & pModelInfo);		//モデルの最大頂点と最少頂点を設定　回転した分を補正
 	static void SetBillboard(D3DXMATRIX *pMtx);																	//ビルボード設定
 	static void SetBillboard_XZ_Only(D3DXMATRIX *pMtx);															//ビルボード設定　XとZのみ
 

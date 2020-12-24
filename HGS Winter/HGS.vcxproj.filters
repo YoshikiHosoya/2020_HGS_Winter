@@ -13,9 +13,6 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="Model">
-      <UniqueIdentifier>{cb7ef032-2e2e-4fea-80aa-2c76b3f21148}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Mode">
       <UniqueIdentifier>{975a09ff-46fd-4774-b7c8-c7b264c598ba}</UniqueIdentifier>
     </Filter>
@@ -24,9 +21,6 @@
     </Filter>
     <Filter Include="Imgui">
       <UniqueIdentifier>{37429a27-1909-43a1-8a3f-2718d7d10ef3}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Mesh">
-      <UniqueIdentifier>{d97b8b58-b6af-4afd-80d0-e41c34b76607}</UniqueIdentifier>
     </Filter>
     <Filter Include="Effect">
       <UniqueIdentifier>{52237fd5-d6c7-49aa-8b64-64bf7855d974}</UniqueIdentifier>
@@ -42,9 +36,6 @@
     </Filter>
     <Filter Include="Debug">
       <UniqueIdentifier>{a299ed23-8309-4e1f-824d-594ad8048391}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Way">
-      <UniqueIdentifier>{b0c5c8f9-9714-424a-a2ba-b6ce3b168405}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -93,18 +84,6 @@
     <ClCompile Include="Source Code\ImGui\imgui_widgets.cpp">
       <Filter>Imgui</Filter>
     </ClCompile>
-    <ClCompile Include="Source Code\modelparts.cpp">
-      <Filter>Model</Filter>
-    </ClCompile>
-    <ClCompile Include="Source Code\modelcharacter.cpp">
-      <Filter>Model</Filter>
-    </ClCompile>
-    <ClCompile Include="Source Code\model_object.cpp">
-      <Filter>Model</Filter>
-    </ClCompile>
-    <ClCompile Include="Source Code\motion.cpp">
-      <Filter>Model</Filter>
-    </ClCompile>
     <ClCompile Include="Source Code\title.cpp">
       <Filter>Mode</Filter>
     </ClCompile>
@@ -117,29 +96,11 @@
     <ClCompile Include="Source Code\game.cpp">
       <Filter>Mode</Filter>
     </ClCompile>
-    <ClCompile Include="Source Code\sceneX.cpp">
-      <Filter>Scene</Filter>
-    </ClCompile>
-    <ClCompile Include="Source Code\scene3D.cpp">
-      <Filter>Scene</Filter>
-    </ClCompile>
     <ClCompile Include="Source Code\scene2D.cpp">
       <Filter>Scene</Filter>
     </ClCompile>
     <ClCompile Include="Source Code\scene.cpp">
       <Filter>Scene</Filter>
-    </ClCompile>
-    <ClCompile Include="Source Code\meshsphere.cpp">
-      <Filter>Mesh</Filter>
-    </ClCompile>
-    <ClCompile Include="Source Code\meshfield.cpp">
-      <Filter>Mesh</Filter>
-    </ClCompile>
-    <ClCompile Include="Source Code\meshcylinder.cpp">
-      <Filter>Mesh</Filter>
-    </ClCompile>
-    <ClCompile Include="Source Code\mesh.cpp">
-      <Filter>Mesh</Filter>
     </ClCompile>
     <ClCompile Include="Source Code\multinumber.cpp">
       <Filter>UI</Filter>
@@ -171,14 +132,8 @@
     <ClCompile Include="Source Code\texture.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="Source Code\meshcircle.cpp">
-      <Filter>Mesh</Filter>
-    </ClCompile>
     <ClCompile Include="Source Code\Map.cpp">
       <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="Source Code\modelinfo.cpp">
-      <Filter>Model</Filter>
     </ClCompile>
     <ClCompile Include="Source Code\TestMode.cpp">
       <Filter>Mode</Filter>
@@ -194,12 +149,6 @@
     </ClCompile>
     <ClCompile Include="Source Code\TexAnimationBase.cpp">
       <Filter>Effect</Filter>
-    </ClCompile>
-    <ClCompile Include="Source Code\character_3D.cpp">
-      <Filter>Character</Filter>
-    </ClCompile>
-    <ClCompile Include="Source Code\player_3D.cpp">
-      <Filter>Character</Filter>
     </ClCompile>
     <ClCompile Include="Source Code\player.cpp">
       <Filter>Character</Filter>
@@ -221,9 +170,6 @@
     </ClCompile>
     <ClCompile Include="Source Code\tutorial.cpp">
       <Filter>Mode</Filter>
-    </ClCompile>
-    <ClCompile Include="Source Code\Way.cpp">
-      <Filter>Way</Filter>
     </ClCompile>
     <ClCompile Include="Source Code\Debug\Debug_EffectViewer.cpp">
       <Filter>Debug</Filter>
@@ -287,18 +233,6 @@
     <ClInclude Include="Source Code\ImGui\imstb_truetype.h">
       <Filter>Imgui</Filter>
     </ClInclude>
-    <ClInclude Include="Source Code\model_object.h">
-      <Filter>Model</Filter>
-    </ClInclude>
-    <ClInclude Include="Source Code\modelcharacter.h">
-      <Filter>Model</Filter>
-    </ClInclude>
-    <ClInclude Include="Source Code\modelparts.h">
-      <Filter>Model</Filter>
-    </ClInclude>
-    <ClInclude Include="Source Code\motion.h">
-      <Filter>Model</Filter>
-    </ClInclude>
     <ClInclude Include="Source Code\title.h">
       <Filter>Mode</Filter>
     </ClInclude>
@@ -311,29 +245,11 @@
     <ClInclude Include="Source Code\basemode.h">
       <Filter>Mode</Filter>
     </ClInclude>
-    <ClInclude Include="Source Code\sceneX.h">
-      <Filter>Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="Source Code\scene3D.h">
-      <Filter>Scene</Filter>
-    </ClInclude>
     <ClInclude Include="Source Code\scene2D.h">
       <Filter>Scene</Filter>
     </ClInclude>
     <ClInclude Include="Source Code\scene.h">
       <Filter>Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="Source Code\mesh.h">
-      <Filter>Mesh</Filter>
-    </ClInclude>
-    <ClInclude Include="Source Code\meshfield.h">
-      <Filter>Mesh</Filter>
-    </ClInclude>
-    <ClInclude Include="Source Code\meshsphere.h">
-      <Filter>Mesh</Filter>
-    </ClInclude>
-    <ClInclude Include="Source Code\meshcylinder.h">
-      <Filter>Mesh</Filter>
     </ClInclude>
     <ClInclude Include="Source Code\multinumber.h">
       <Filter>UI</Filter>
@@ -362,17 +278,11 @@
     <ClInclude Include="Source Code\Debug\debugproc.h">
       <Filter>Debug</Filter>
     </ClInclude>
-    <ClInclude Include="Source Code\meshcircle.h">
-      <Filter>Mesh</Filter>
-    </ClInclude>
     <ClInclude Include="Source Code\texture.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="Source Code\Map.h">
       <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Source Code\modelinfo.h">
-      <Filter>Model</Filter>
     </ClInclude>
     <ClInclude Include="Source Code\Resource\resource.h">
       <Filter>リソース ファイル</Filter>
@@ -395,12 +305,6 @@
     <ClInclude Include="Source Code\GameObject.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Source Code\character_3D.h">
-      <Filter>Character</Filter>
-    </ClInclude>
-    <ClInclude Include="Source Code\player_3D.h">
-      <Filter>Character</Filter>
-    </ClInclude>
     <ClInclude Include="Source Code\player.h">
       <Filter>Character</Filter>
     </ClInclude>
@@ -421,9 +325,6 @@
     </ClInclude>
     <ClInclude Include="Source Code\tutorial.h">
       <Filter>Mode</Filter>
-    </ClInclude>
-    <ClInclude Include="Source Code\Way.h">
-      <Filter>Way</Filter>
     </ClInclude>
     <ClInclude Include="Source Code\Debug\Debug_EffectViewer.h">
       <Filter>Debug</Filter>

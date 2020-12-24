@@ -5,7 +5,6 @@
 //
 //-----------------------------------------------------------------------------
 #include "basemode.h"
-#include "modelcharacter.h"
 #include "character.h"
 #include "particle.h"
 #include "manager.h"
@@ -13,7 +12,6 @@
 #include "fade.h"
 #include "keyboard.h"
 #include "sound.h"
-#include "modelinfo.h"
 //-----------------------------------------------------------------------------
 //デバッグコマンド
 //-----------------------------------------------------------------------------
@@ -127,21 +125,6 @@ void CBaseMode::BaseLoad(HWND hWnd)
 {
 	//テクスチャロード
 	CTexture::TexLoad(hWnd);
-	CModelInfo::ModelLoad(hWnd);
-
-	//モデル読み込み
-	if (FAILED(CModelCharacter::Load()))
-	{
-		//失敗
-		MessageBox(hWnd, "モデル情報読み込み失敗", "CModelCharacter", MB_OK | MB_ICONHAND);
-	}
-
-	//モーション読み込み
-	if (FAILED(CMotion::Load()))
-	{
-		//失敗
-		MessageBox(hWnd, "モーション読み込み失敗", "CMotion", MB_OK | MB_ICONHAND);
-	}
 
 	//キャラクターの初期パラメータ読み込み
 	if (FAILED(CCharacter::LoadDefaultParam()))
@@ -171,10 +154,6 @@ void CBaseMode::BaseUnload()
 {
 	//テクスチャ破棄
 	CTexture::TexUnload();
-
-	//モデルに関するもの
-	CModelCharacter::UnLoad();
-	CMotion::UnLoad();
 
 	//パーティクルの頂点情報開放
 	CParticle::ReleaseVertex();

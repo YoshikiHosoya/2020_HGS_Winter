@@ -11,7 +11,6 @@
 #include "player_2D.h"
 #include "game_2D.h"
 #include "manager.h"
-#include "Way.h"
 #include "renderer.h"
 #include "sound.h"
 #include "particle.h"
@@ -100,17 +99,17 @@ void CPlayer_2D::MoveInput()
 	//ゲームパッドの情報取得
 	CPad_XInput *pGamePad = CManager::GetXInput();
 
-	////変数宣言
-	//float joypadX, joypadY;
+	//変数宣言
+	float joypadX, joypadY;
 
-	////ジョイパッドの移動処理
-	//pGamePad->GetStickLeft(&joypadX, &joypadY);
+	//ジョイパッドの移動処理
+	pGamePad->GetStickLeft(&joypadX, &joypadY);
 
-	//if (joypadX != 0 || joypadY != 0)
-	//{
-	//	GetMove().x += joypadX * CCharacter::GetDefaultParam(GetParam())->GetMoveSpeed() / 32768.0f;
-	//	GetMove().y -= joypadY * CCharacter::GetDefaultParam(GetParam())->GetMoveSpeed() / 32768.0f;
-	//}
+	if (joypadX != 0 || joypadY != 0)
+	{
+		GetMove().x += joypadX * CCharacter::GetDefaultParam(GetParam())->GetMoveSpeed() / 32768.0f;
+		GetMove().y -= joypadY * CCharacter::GetDefaultParam(GetParam())->GetMoveSpeed() / 32768.0f;
+	}
 
 	CGame_2D *pGame2D = (CGame_2D*)CManager::GetGame();
 
@@ -157,55 +156,6 @@ void CPlayer_2D::MoveInput()
 
 	CScene::GetSceneList(OBJTYPE::OBJTYPE_WAY, pWayList);
 
-
-	//サイズ分
-	for (size_t nCnt = 0; nCnt < pWayList.size(); nCnt++)
-	{
-		if (!pWayList[nCnt])
-		{
-			continue;
-		}
-
-		CWay *pWay = (CWay*)pWayList[nCnt].get();
-
-		if (pWay)
-		{
-			//Ｗａｙポリゴンの上かどうか
-			if (pWay->Collision(GetPos()))
-			{
-				CDebugProc::Print(CDebugProc::PLACE_LEFT, "WayPos.y >> %.2f\n", pWay->GetPos().y);
-
-				//衝突してるか
-				if (pWay->CollisionPlayerHit(GetPos()))
-				{
-					//エフェクト発生
-					CParticle::CreateFromText(GetPos(), ZeroVector3, CParticleParam::EFFECT_PLAYERDEATH01);
-					CParticle::CreateFromText(GetPos(), ZeroVector3, CParticleParam::EFFECT_PLAYERDEATH02);
-
-					GetScene2D()->SetDisp(false);
-					CManager::GetGame()->SetGamestate(CGame::STATE_GAMEOVER);
-
-					//音再生
-					CManager::GetSound()->Play(CSound::LABEL_SE_TIMEUP);
-
-
-					break;
-				}
-				else
-				{
-					//プレイヤーが動いたフレーム
-					if (m_bMove)
-					{
-						//時間加算するかどうかの判定
-						if (pWay->CollisionPlayerAddTimer(GetPos()))
-						{
-							break;
-						}
-					}
-				}
-			}
-		}
-	}
 }
 
 //------------------------------------------------------------------------------

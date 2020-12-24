@@ -15,7 +15,6 @@
 #include "fade.h"
 #include "keyboard.h"
 #include "camera.h"
-#include "Way.h"
 #include "ParticleManager.h"
 #include "multinumber.h"
 #include "bg.h"
@@ -72,11 +71,6 @@ HRESULT CGame_2D::Init(HWND hWnd)
 	// 背景の生成
 	CBg::Create(65);
 
-	for (int nCnt = 0; nCnt < 8; nCnt++)
-	{
-		m_pWayList.emplace_back(CWay::Create(D3DXVECTOR3(SCREEN_WIDTH * 0.5f, -nCnt * 400.0f + DEFAULT_CREATE_POS, 0.0f), CWay::UP));
-	}
-
 	m_pScore = CScene2D::Create_Shared(D3DXVECTOR3(950.0f, 100.0f, 0.0f), D3DXVECTOR3(250.0f, 100.0f, 0.0f), CScene::OBJTYPE_UI);
 	m_pScore->BindTexture(CTexture::GetTexture(CTexture::TEX_UI_RANKING_SCORE));
 
@@ -118,159 +112,7 @@ void CGame_2D::Uninit()
 //------------------------------------------------------------------------------
 void CGame_2D::Update()
 {
-	if (GetGamestate() == CGame::STATE_READY)
-	{
-		m_nCnt++;
 
-		if (m_nCnt >= 180)
-		{
-			//テクスチャ差し替え
-			m_pReadyGo->BindTexture(CTexture::GetTexture(CTexture::TEX_UI_GAME_GO));
-
-			//ゲームステート通常
-			SetGamestate(CGame::STATE_NORMAL);
-
-			CParticle::CreateFromText(SCREEN_CENTER_POS + CHossoLibrary::RandomVector3(500.0f), ZeroVector3, CParticleParam::EFFECT_CROSS, TAG::NONE, 0, CHossoLibrary::RandomColor());
-			CParticle::CreateFromText(SCREEN_CENTER_POS + CHossoLibrary::RandomVector3(500.0f), ZeroVector3, CParticleParam::EFFECT_CIRCLE, TAG::NONE, 0, CHossoLibrary::RandomColor());
-			CParticle::CreateFromText(SCREEN_CENTER_POS + CHossoLibrary::RandomVector3(500.0f), ZeroVector3, CParticleParam::EFFECT_STAR, TAG::NONE, 0, CHossoLibrary::RandomColor());
-			CParticle::CreateFromText(SCREEN_CENTER_POS + CHossoLibrary::RandomVector3(500.0f), ZeroVector3, CParticleParam::EFFECT_SQUARE, TAG::NONE, 0, CHossoLibrary::RandomColor());
-			CParticle::CreateFromText(SCREEN_CENTER_POS + CHossoLibrary::RandomVector3(500.0f), ZeroVector3, CParticleParam::EFFECT_TRIANGLE, TAG::NONE, 0, CHossoLibrary::RandomColor());
-			CParticle::CreateFromText(SCREEN_CENTER_POS + CHossoLibrary::RandomVector3(500.0f), ZeroVector3, CParticleParam::EFFECT_CROSS, TAG::NONE, 0, CHossoLibrary::RandomColor());
-			CParticle::CreateFromText(SCREEN_CENTER_POS + CHossoLibrary::RandomVector3(500.0f), ZeroVector3, CParticleParam::EFFECT_CIRCLE, TAG::NONE, 0, CHossoLibrary::RandomColor());
-			CParticle::CreateFromText(SCREEN_CENTER_POS + CHossoLibrary::RandomVector3(500.0f), ZeroVector3, CParticleParam::EFFECT_STAR, TAG::NONE, 0, CHossoLibrary::RandomColor());
-			CParticle::CreateFromText(SCREEN_CENTER_POS + CHossoLibrary::RandomVector3(500.0f), ZeroVector3, CParticleParam::EFFECT_SQUARE, TAG::NONE, 0, CHossoLibrary::RandomColor());
-			CParticle::CreateFromText(SCREEN_CENTER_POS + CHossoLibrary::RandomVector3(500.0f), ZeroVector3, CParticleParam::EFFECT_TRIANGLE, TAG::NONE, 0, CHossoLibrary::RandomColor());
-			CParticle::CreateFromText(SCREEN_CENTER_POS + CHossoLibrary::RandomVector3(500.0f), ZeroVector3, CParticleParam::EFFECT_CROSS, TAG::NONE, 0, CHossoLibrary::RandomColor());
-			CParticle::CreateFromText(SCREEN_CENTER_POS + CHossoLibrary::RandomVector3(500.0f), ZeroVector3, CParticleParam::EFFECT_CIRCLE, TAG::NONE, 0, CHossoLibrary::RandomColor());
-			CParticle::CreateFromText(SCREEN_CENTER_POS + CHossoLibrary::RandomVector3(500.0f), ZeroVector3, CParticleParam::EFFECT_STAR, TAG::NONE, 0, CHossoLibrary::RandomColor());
-			CParticle::CreateFromText(SCREEN_CENTER_POS + CHossoLibrary::RandomVector3(500.0f), ZeroVector3, CParticleParam::EFFECT_SQUARE, TAG::NONE, 0, CHossoLibrary::RandomColor());
-			CParticle::CreateFromText(SCREEN_CENTER_POS + CHossoLibrary::RandomVector3(500.0f), ZeroVector3, CParticleParam::EFFECT_TRIANGLE, TAG::NONE, 0, CHossoLibrary::RandomColor());
-
-
-		}
-	}
-
-	else if (GetGamestate() == CGame::STATE_NORMAL)
-	{
-		if (m_pReadyGo)
-		{
-			m_pReadyGo->SetColor(m_pReadyGo->GetColor() -= D3DXCOLOR(0.0f, 0.0f, 0.0f, 0.02f));
-			if (m_pReadyGo->GetColor().a <= 0)
-			{
-				m_pReadyGo->Release();
-				m_pReadyGo.reset();
-			}
-		}
-
-		m_nCnt++;
-
-		if (m_nCnt % 60 == 0)
-		{
-			AddTimer(-1);
-
-			if (m_nTime <= 0)
-			{
-				SetGamestate(CGame::STATE_GAMEOVER);
-				//音再生
-				CManager::GetSound()->Play(CSound::LABEL_SE_TIMEUP);
-			}
-		}
-
-		m_nScoreDistance += m_nSpeed;
-		m_pScoreNumber->SetMultiNumber(m_nScoreDistance);
-
-		m_nBendingTime--;
-
-		if (m_nBendingTime < 0)
-		{
-			m_direction = DIRECTION::UP;
-		}
-
-		//次の曲がり角までの差分
-		float fNextBendingDistance = m_fNextBendingPoint - m_nScoreDistance;
-		CDebugProc::Print(CDebugProc::PLACE_LEFT, "fNextBendingDistance >> %.2f\n", fNextBendingDistance + DEFAULT_CREATE_POS);
-
-		float fPlayerToBendingWayDistance = 99999999.9f;
-
-		if (m_pNextBendingWayPos)
-		{
-			fPlayerToBendingWayDistance = m_pNextBendingWayPos->y - GetPlayer()->GetPlayerPos().y;
-
-			CDebugProc::Print(CDebugProc::PLACE_LEFT, "m_pNextBendingWayPos >>>> %.2f\n", m_pNextBendingWayPos->y);
-
-			CDebugProc::Print(CDebugProc::PLACE_LEFT, "fPlayerToBendingWayDistance >>>>>> %.2f\n", fPlayerToBendingWayDistance);
-
-			if (fabsf(fPlayerToBendingWayDistance) + 150 < 400 * m_nBendingCountDown)
-			{
-				m_pNextBending->SetDisp(true);
-				m_nBendingCountDown--;
-
-				printf("CountDown %d\n", m_nBendingCountDown);
-				printf("fNextBendingDistance %.2f\n", fNextBendingDistance + DEFAULT_CREATE_POS + 170);
-
-				CParticle::CreateFromText(m_pNextBending->GetPos(), ZeroVector3, CParticleParam::EFFECT_COUNTDOWN);
-
-				//音再生
-				CManager::GetSound()->Play(CSound::LABEL_SE_COUNTDOWN);
-			}
-		}
-
-		if (m_pWayList[m_pWayList.size() - 1]->GetPos().y >= -600.0f)
-		{
-			if (fNextBendingDistance <= DEFAULT_CREATE_POS && m_bBendingFlag)
-			{
-				switch (m_NextBendingDirection)
-				{
-				case DIRECTION::LEFT:
-					m_pWayList.emplace_back(CWay::Create(m_pWayList[m_pWayList.size() - 1]->GetPos() + D3DXVECTOR3(0.0f, -WAY_SIZE, 0.0f), CWay::LEFT_01));
-					m_pWayList.emplace_back(CWay::Create(m_pWayList[m_pWayList.size() - 1]->GetPos() + D3DXVECTOR3(-WAY_SIZE, 0.0f, 0.0f), CWay::LEFT_02));
-					m_pNextBendingWayPos = m_pWayList[m_pWayList.size() - 1]->GetPosPtr();
-
-					m_bBendingFlag = false;
-					break;
-
-				case DIRECTION::RIGHT:
-					m_pWayList.emplace_back(CWay::Create(m_pWayList[m_pWayList.size() - 1]->GetPos() + D3DXVECTOR3(0.0f, -WAY_SIZE, 0.0f), CWay::RIGHT_01));
-					m_pWayList.emplace_back(CWay::Create(m_pWayList[m_pWayList.size() - 1]->GetPos() + D3DXVECTOR3(WAY_SIZE, 0.0f, 0.0f), CWay::RIGHT_02));
-					m_pNextBendingWayPos = m_pWayList[m_pWayList.size() - 1]->GetPosPtr();
-
-					m_bBendingFlag = false;
-					break;
-
-				default:
-					break;
-				}
-
-			}
-			else
-			{
-				m_pWayList.emplace_back(CWay::Create(m_pWayList[m_pWayList.size() - 1]->GetPos() + D3DXVECTOR3(0.0f, -WAY_SIZE, 0.0f), CWay::UP));
-			}
-		}
-
-		for (size_t nCnt = 0; nCnt < m_pWayList.size(); nCnt++)
-		{
-			if (m_pWayList[nCnt]->GetPos().y >= 1200.0f)
-			{
-				m_pWayList[nCnt]->Release();
-				m_pWayList.erase(m_pWayList.begin() + nCnt);
-			}
-		}
-
-	}
-	else if (GetGamestate() == CGame::STATE_GAMEOVER)
-	{
-		//カウントダウン
-		m_nCnt--;
-
-		//カウント0
-		if (m_nCnt <= 0)
-		{
-			//ゲーム終了
-			GameEnd();
-		}
-
-	}
 
 }
 //------------------------------------------------------------------------------

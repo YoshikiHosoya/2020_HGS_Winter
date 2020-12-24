@@ -17,9 +17,7 @@
 #include "sound.h"
 #include "scene.h"
 #include "scene2D.h"
-#include "scene3D.h"
 #include "particle.h"
-#include "modelinfo.h"
 #include "Pad_XInput.h"
 //------------------------------------------------------------------------------
 //マクロ
@@ -451,7 +449,6 @@ void CHossoLibrary::ShowDebugInfo()
 		{
 			ImGui::Text("NumAll (%d)", CScene::GetNumAll());
 			ImGui::Text("NumScene2D (%d)", CScene2D::GetNumScene2D());
-			ImGui::Text("NumScene3D (%d)", CScene3D::GetNumScene3D());
 			ImGui::Text("ParticleAll (%d)", COneParticle::GetNumAll());
 			ImGui::TreePop();
 		}
@@ -583,131 +580,6 @@ void CHossoLibrary::CalcRotation_XYZ(D3DXVECTOR3 & rot)
 	CHossoLibrary::CalcRotation(rot.y);
 	CHossoLibrary::CalcRotation(rot.z);
 
-}
-//------------------------------------------------------------------------------
-//モデルの最大頂点と最少頂点を求める
-//------------------------------------------------------------------------------
-void CHossoLibrary::SetModelVertex(MODEL_VTX & pModelVtx, CModelInfo & pModelInfo)
-{
-	int		nNumVertices;
-	DWORD	sizeFVF;
-	BYTE	*pVertexBuffer;
-
-	pModelVtx.VtxMax = ZeroVector3;
-	pModelVtx.VtxMin = ZeroVector3;
-
-	//頂点数取得
-	nNumVertices = pModelInfo.GetMesh()->GetNumVertices();
-
-	//頂点フォーマットのサイズを取得
-	sizeFVF = D3DXGetFVFVertexSize(pModelInfo.GetMesh()->GetFVF());
-
-	// 頂点バッファのロック
-	pModelInfo.GetMesh()->LockVertexBuffer(D3DLOCK_READONLY, (void**)&pVertexBuffer);
-
-	//頂点の数だけ繰り返す
-	for (int nCntVtx = 0; nCntVtx < nNumVertices; nCntVtx++)
-	{
-		//頂点情報を取得
-		D3DXVECTOR3 vtx = *(D3DXVECTOR3*)pVertexBuffer;
-
-		//最大の頂点座標と最少の頂点座標を比較して出す
-		if (pModelVtx.VtxMin.x > vtx.x)
-		{
-			pModelVtx.VtxMin.x = vtx.x;
-		}
-		if (pModelVtx.VtxMax.x < vtx.x)
-		{
-			pModelVtx.VtxMax.x = vtx.x;
-		}
-		if (pModelVtx.VtxMin.z > vtx.z)
-		{
-			pModelVtx.VtxMin.z = vtx.z;
-		}
-		if (pModelVtx.VtxMax.z < vtx.z)
-		{
-			pModelVtx.VtxMax.z = vtx.z;
-		}
-		if (pModelVtx.VtxMin.y > vtx.y)
-		{
-			pModelVtx.VtxMin.y = vtx.y;
-		}
-		if (pModelVtx.VtxMax.y < vtx.y)
-		{
-			pModelVtx.VtxMax.y = vtx.y;
-		}
-		//バッファ分進める
-		pVertexBuffer += sizeFVF;
-	}
-	//アンロック
-	pModelInfo.GetMesh()->UnlockVertexBuffer();
-
-}
-
-
-//------------------------------------------------------------------------------
-//モデルの最大頂点と最少頂点を求める　回転した分の調整
-//------------------------------------------------------------------------------
-void CHossoLibrary::SetModelVertexRotation(D3DXMATRIX & pMtx, MODEL_VTX & pModelVtx, CModelInfo & pModelInfo)
-{
-	int		nNumVertices;
-	DWORD	sizeFVF;
-	BYTE	*pVertexBuffer;
-
-	pModelVtx.VtxMax = ZeroVector3;
-	pModelVtx.VtxMin = ZeroVector3;
-
-	//デバイス取得
-	LPDIRECT3DDEVICE9 pDevice = CManager::GetRenderer()->GetDevice();
-
-	//頂点数取得
-	nNumVertices = pModelInfo.GetMesh()->GetNumVertices();
-
-	//頂点フォーマットのサイズを取得
-	sizeFVF = D3DXGetFVFVertexSize(pModelInfo.GetMesh()->GetFVF());
-
-	// 頂点バッファのロック
-	pModelInfo.GetMesh()->LockVertexBuffer(D3DLOCK_READONLY, (void**)&pVertexBuffer);
-
-	//頂点の数だけ繰り返す
-	for (int nCntVtx = 0; nCntVtx < nNumVertices; nCntVtx++)
-	{
-		//頂点情報を取得
-		D3DXVECTOR3 vtx = *(D3DXVECTOR3*)pVertexBuffer;
-
-		//ワールドマトリックスを掛け合わせる
-		D3DXVec3TransformCoord(&vtx, &vtx, &pMtx);
-
-		//最大の頂点座標と最少の頂点座標を比較して出す
-		if (pModelVtx.VtxMin.x > vtx.x)
-		{
-			pModelVtx.VtxMin.x = vtx.x;
-		}
-		if (pModelVtx.VtxMax.x < vtx.x)
-		{
-			pModelVtx.VtxMax.x = vtx.x;
-		}
-		if (pModelVtx.VtxMin.z > vtx.z)
-		{
-			pModelVtx.VtxMin.z = vtx.z;
-		}
-		if (pModelVtx.VtxMax.z < vtx.z)
-		{
-			pModelVtx.VtxMax.z = vtx.z;
-		}
-		if (pModelVtx.VtxMin.y > vtx.y)
-		{
-			pModelVtx.VtxMin.y = vtx.y;
-		}
-		if (pModelVtx.VtxMax.y < vtx.y)
-		{
-			pModelVtx.VtxMax.y = vtx.y;
-		}
-		//バッファ分進める
-		pVertexBuffer += sizeFVF;
-	}
-	//アンロック
-	pModelInfo.GetMesh()->UnlockVertexBuffer();
 }
 
 //------------------------------------------------------------------------------

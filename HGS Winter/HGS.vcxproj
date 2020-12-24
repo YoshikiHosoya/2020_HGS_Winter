@@ -157,7 +157,6 @@
     <ClCompile Include="Source Code\camera.cpp" />
     <ClCompile Include="Source Code\character.cpp" />
     <ClCompile Include="Source Code\character_2D.cpp" />
-    <ClCompile Include="Source Code\character_3D.cpp" />
     <ClCompile Include="Source Code\collision.cpp" />
     <ClCompile Include="Source Code\Debug\debugproc.cpp" />
     <ClCompile Include="Source Code\Debug\Debug_EffectViewer.cpp" />
@@ -178,16 +177,6 @@
     <ClCompile Include="Source Code\manager.cpp" />
     <ClCompile Include="Source Code\Map.cpp" />
     <ClCompile Include="Source Code\menu.cpp" />
-    <ClCompile Include="Source Code\mesh.cpp" />
-    <ClCompile Include="Source Code\meshcircle.cpp" />
-    <ClCompile Include="Source Code\meshcylinder.cpp" />
-    <ClCompile Include="Source Code\meshfield.cpp" />
-    <ClCompile Include="Source Code\meshsphere.cpp" />
-    <ClCompile Include="Source Code\modelcharacter.cpp" />
-    <ClCompile Include="Source Code\modelinfo.cpp" />
-    <ClCompile Include="Source Code\modelparts.cpp" />
-    <ClCompile Include="Source Code\model_object.cpp" />
-    <ClCompile Include="Source Code\motion.cpp" />
     <ClCompile Include="Source Code\mouse.cpp" />
     <ClCompile Include="Source Code\multinumber.cpp" />
     <ClCompile Include="Source Code\number.cpp" />
@@ -197,22 +186,18 @@
     <ClCompile Include="Source Code\ParticleParamater.cpp" />
     <ClCompile Include="Source Code\player.cpp" />
     <ClCompile Include="Source Code\player_2D.cpp" />
-    <ClCompile Include="Source Code\player_3D.cpp" />
     <ClCompile Include="Source Code\ranking.cpp" />
     <ClCompile Include="Source Code\renderer.cpp" />
     <ClCompile Include="Source Code\result.cpp" />
     <ClCompile Include="Source Code\scene.cpp" />
     <ClCompile Include="Source Code\scene2D.cpp" />
-    <ClCompile Include="Source Code\scene3D.cpp" />
     <ClCompile Include="Source Code\SceneBase.cpp" />
-    <ClCompile Include="Source Code\sceneX.cpp" />
     <ClCompile Include="Source Code\sound.cpp" />
     <ClCompile Include="Source Code\TestMode.cpp" />
     <ClCompile Include="Source Code\TexAnimationBase.cpp" />
     <ClCompile Include="Source Code\texture.cpp" />
     <ClCompile Include="Source Code\title.cpp" />
     <ClCompile Include="Source Code\tutorial.cpp" />
-    <ClCompile Include="Source Code\Way.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source Code\basemode.h" />
@@ -220,7 +205,6 @@
     <ClInclude Include="Source Code\camera.h" />
     <ClInclude Include="Source Code\character.h" />
     <ClInclude Include="Source Code\character_2D.h" />
-    <ClInclude Include="Source Code\character_3D.h" />
     <ClInclude Include="Source Code\collision.h" />
     <ClInclude Include="Source Code\Debug\debugproc.h" />
     <ClInclude Include="Source Code\Debug\Debug_EffectViewer.h" />
@@ -245,16 +229,6 @@
     <ClInclude Include="Source Code\manager.h" />
     <ClInclude Include="Source Code\Map.h" />
     <ClInclude Include="Source Code\menu.h" />
-    <ClInclude Include="Source Code\mesh.h" />
-    <ClInclude Include="Source Code\meshcircle.h" />
-    <ClInclude Include="Source Code\meshcylinder.h" />
-    <ClInclude Include="Source Code\meshfield.h" />
-    <ClInclude Include="Source Code\meshsphere.h" />
-    <ClInclude Include="Source Code\modelcharacter.h" />
-    <ClInclude Include="Source Code\modelinfo.h" />
-    <ClInclude Include="Source Code\modelparts.h" />
-    <ClInclude Include="Source Code\model_object.h" />
-    <ClInclude Include="Source Code\motion.h" />
     <ClInclude Include="Source Code\mouse.h" />
     <ClInclude Include="Source Code\multinumber.h" />
     <ClInclude Include="Source Code\number.h" />
@@ -264,23 +238,19 @@
     <ClInclude Include="Source Code\ParticleParamater.h" />
     <ClInclude Include="Source Code\player.h" />
     <ClInclude Include="Source Code\player_2D.h" />
-    <ClInclude Include="Source Code\player_3D.h" />
     <ClInclude Include="Source Code\ranking.h" />
     <ClInclude Include="Source Code\renderer.h" />
     <ClInclude Include="Source Code\Resource\resource.h" />
     <ClInclude Include="Source Code\result.h" />
     <ClInclude Include="Source Code\scene.h" />
     <ClInclude Include="Source Code\scene2D.h" />
-    <ClInclude Include="Source Code\scene3D.h" />
     <ClInclude Include="Source Code\SceneBase.h" />
-    <ClInclude Include="Source Code\sceneX.h" />
     <ClInclude Include="Source Code\sound.h" />
     <ClInclude Include="Source Code\TestMode.h" />
     <ClInclude Include="Source Code\TexAnimationBase.h" />
     <ClInclude Include="Source Code\texture.h" />
     <ClInclude Include="Source Code\title.h" />
     <ClInclude Include="Source Code\tutorial.h" />
-    <ClInclude Include="Source Code\Way.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Source Code\Resource\icon.rc" />

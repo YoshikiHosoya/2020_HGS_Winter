@@ -12,7 +12,6 @@
 #include "manager.h"
 #include "renderer.h"
 #include "sound.h"
-#include "player_3D.h"
 #include "fade.h"
 #include "sound.h"
 #include "keyboard.h"

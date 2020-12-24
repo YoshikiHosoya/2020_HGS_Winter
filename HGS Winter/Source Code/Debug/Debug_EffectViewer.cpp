@@ -16,7 +16,6 @@
 #include "../fade.h"
 #include "../particle.h"
 #include "../ParticleManager.h"
-#include "../MeshField.h"
 #include "../keyboard.h"
 //------------------------------------------------------------------------------
 //Ã“Iƒƒ“ƒo•Ï”‚Ì‰Šú‰»

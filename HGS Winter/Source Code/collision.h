@@ -18,8 +18,6 @@
 //------------------------------------------------------------------------------
 //クラス定義
 //------------------------------------------------------------------------------
-class CMesh;
-
 class CCollision
 {
 public:
@@ -37,13 +35,6 @@ public:
 	};
 	void ShowDebugInfo();																				//デバッグ情報表記
 	static std::unique_ptr<CCollision> Create(D3DXMATRIX *pMtx, COLLISION_TYPE ColisionType);			//生成処理
-	void SetCollisionInfo(float fRadius,float fLength);													//情報設定　半径と長さ
-	void SetCollisionVtx(MODEL_VTX &modelVtx);															//情報設定　頂点
-	bool CollisionCylinder(CCollision *pTargetCollision);												//シリンダーのコリジョン関数
-	bool CollisionCharacter(CCollision *pTargetCollision,D3DXVECTOR3 *pOut);							//キャラクター同士の衝突判定　シリンダーで取る
-	bool CollisionExplosion(CCollision *pTargetCollision);												//爆発用の判定
-	bool CollisionObject(CCollision *pTargetCollision, D3DXVECTOR3 &rPos,D3DXVECTOR3 &rPosOld,D3DXVECTOR3 &rMove);			//オブジェクトとの衝突判定　□と□
-	bool CollisionObjectToCamera(CCollision *pTargetCollision, D3DXVECTOR3 &rPos, D3DXVECTOR3 &rPosOld);					//オブジェクトとの衝突判定　カメラ用
 
 private:
 	D3DXMATRIX *m_pParentMtx;			//持ち主のマトリックス
@@ -52,8 +43,6 @@ private:
 	float m_fLength;					//判定の長さ
 
 #ifdef _DEBUG
-	std::shared_ptr<CMesh> m_pDebugMesh;		//メッシュのポインタ 描画用
-	void CreateMesh();							//メッシュ生成
 #endif // _DEBUG
 
 };

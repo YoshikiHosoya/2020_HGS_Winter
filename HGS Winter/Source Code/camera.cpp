@@ -9,10 +9,8 @@
 #include "renderer.h"
 #include "keyboard.h"
 #include "game.h"
-#include "player_3D.h"
 #include "mouse.h"
 #include "collision.h"
-#include "model_object.h"
 #include "Map.h"
 //-----------------------------------------------------------------------------
 // マクロ定義
@@ -74,9 +72,6 @@ void CCamera::Init(void)
 
 	//コリジョン生成
 	m_pCollision = CCollision::Create(&m_mtxWorld, CCollision::COLLISION_CAMERA);
-
-	//コリジョン情報設定
-	m_pCollision->SetCollisionInfo(10.0f, 10.0f);
 
 	//初期の距離初期化
 	m_fDefaultDistace = 0.0f;
@@ -420,17 +415,17 @@ void CCamera::RotCameraGame(void)
 	//プレイヤーの情報取得
 	CPlayer *pPlayer = CManager::GetBaseMode()->GetPlayer();
 
-	//nullcheck
-	if (pPlayer)
-	{
-		//3Dのプレイヤーにキャスト
-		CPlayer_3D *pPlayer3D = dynamic_cast<CPlayer_3D*>(pPlayer);		//注視点をプレイヤーに合わす
-		//nullcheck
-		if (pPlayer3D)
-		{
-			m_posRDest = pPlayer3D->GetPos();
-		}
-	}
+	////nullcheck
+	//if (pPlayer)
+	//{
+	//	//3Dのプレイヤーにキャスト
+	//	CPlayer_3D *pPlayer3D = dynamic_cast<CPlayer_3D*>(pPlayer);		//注視点をプレイヤーに合わす
+	//	//nullcheck
+	//	if (pPlayer3D)
+	//	{
+	//		m_posRDest = pPlayer3D->GetPos();
+	//	}
+	//}
 
 	//回転の差分
 	D3DXVECTOR3 rotDiff = m_rotDest - m_rot;

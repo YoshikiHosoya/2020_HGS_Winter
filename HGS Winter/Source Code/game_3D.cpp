@@ -13,7 +13,6 @@
 #include "renderer.h"
 #include "camera.h"
 #include "Map.h"
-#include "player_3D.h"
 #include "fade.h"
 #include "Pad_XInput.h"
 //------------------------------------------------------------------------------
@@ -52,8 +51,8 @@ HRESULT CGame_3D::Init(HWND hWnd)
 	//マップ生成
 	m_pMap = CMap::Create();
 
-	//プレイヤー生成 & ポインタ設定
-	CGame::SetPlayerPtr(CPlayer_3D::Create(ZeroVector3));
+	////プレイヤー生成 & ポインタ設定
+	//CGame::SetPlayerPtr(CPlayer_3D::Create(ZeroVector3));
 
 	//初期化
 	SetGamestate(CGame_3D::STATE_READY);

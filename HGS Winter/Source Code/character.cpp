@@ -13,12 +13,8 @@
 #include "renderer.h"
 #include "sound.h"
 #include "game.h"
-#include "modelcharacter.h"
 #include "collision.h"
-#include "motion.h"
 #include "camera.h"
-#include "meshfield.h"
-#include "model_object.h"
 #include "Map.h"
 //------------------------------------------------------------------------------
 //Ã“Iƒƒ“ƒo•Ï”‚Ì‰Šú‰»
