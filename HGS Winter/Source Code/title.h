@@ -15,6 +15,7 @@
 //------------------------------------------------------------------------------
 //マクロ
 //------------------------------------------------------------------------------
+#define MAX_ENEMY				(3)			// 出現させるてきの数
 
 //------------------------------------------------------------------------------
 //クラス定義
@@ -51,10 +52,14 @@ public:
 	CPlayer* GetPlayer() { return nullptr; };
 private:
 	void TitleUICreate();				// タイトルUIの生成
+	void EnemyCreate();					// 敵の生成
+	void EnemyUpdate();					// 敵の更新
 
 	STATE m_titlestate;					//ステート
 	int m_nCntState;					//ステートのカウント
+	D3DXVECTOR3	m_EnemyMove[MAX_ENEMY];	// 敵の移動量
 	std::vector<std::shared_ptr<CScene2D>>		m_apScene2D;						// タイトルUI
+	std::vector<std::shared_ptr<CScene2D>>		m_apEnemy;							// 敵
 
 };
 
