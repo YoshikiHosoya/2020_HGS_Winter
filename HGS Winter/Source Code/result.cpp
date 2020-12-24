@@ -16,6 +16,7 @@
 #include "sound.h"
 #include "scene2D.h"
 #include "multinumber.h"
+#include "game_2D.h"
 
 //------------------------------------------------------------------------------
 //マクロ
@@ -42,9 +43,9 @@ CResult::CResult()
 	// 初期化
 	m_nCntResult = 0;
 	m_apScene2D.clear();					// リザルトUI
-	m_pResultScore.clear();					// リザルトスコア
-	m_pSurvivedTime.clear();				// 生存時間
-	m_pNumKill.clear();						// キル数
+	m_pResultScore = nullptr;					// リザルトスコア
+	m_pSurvivedTime = nullptr;				// 生存時間
+	m_pNumKill = nullptr;						// キル数
 }
 
 //------------------------------------------------------------------------------
@@ -54,9 +55,9 @@ CResult::~CResult()
 {
 	// 初期化
 	m_apScene2D.clear();					// リザルトUI
-	m_pResultScore.clear();					// リザルトスコア
-	m_pSurvivedTime.clear();				// 生存時間
-	m_pNumKill.clear();						// キル数
+	m_pResultScore = nullptr;					// リザルトスコア
+	m_pSurvivedTime = nullptr;				// 生存時間
+	m_pNumKill = nullptr;						// キル数
 }
 
 //------------------------------------------------------------------------------
@@ -172,11 +173,11 @@ void CResult::ResultUICreate()
 void CResult::ResultScoreCreate()
 {
 	// スコアの生成
-	m_pResultScore.emplace_back((CMultiNumber::Create(D3DXVECTOR3((SCREEN_WIDTH * 0.25f), 220.0f, 0.0f),
+	m_pResultScore = CMultiNumber::Create(D3DXVECTOR3((SCREEN_WIDTH * 0.25f), 220.0f, 0.0f),
 		SCORE_SIZE,
 		/*CGame::GetScore()*/ 1234567,
 		RESULT_SCORE_DIGITS,
-		CScene::OBJTYPE_UI)));
+		CScene::OBJTYPE_UI);
 }
 
 //------------------------------------------------------------------------------
@@ -185,11 +186,11 @@ void CResult::ResultScoreCreate()
 void CResult::SurvivedTimeCreate()
 {
 	// スコアの生成
-	m_pSurvivedTime.emplace_back((CMultiNumber::Create(D3DXVECTOR3((SCREEN_WIDTH * 0.75f), 220.0f, 0.0f),
+	m_pSurvivedTime = CMultiNumber::Create(D3DXVECTOR3((SCREEN_WIDTH * 0.75f), 220.0f, 0.0f),
 		SCORE_SIZE,
-		/*CGame::GetScore()*/ 12,
+		CGame_2D::GetTime(),
 		SURVIVED_TIME_DIGITS,
-		CScene::OBJTYPE_UI)));
+		CScene::OBJTYPE_UI);
 }
 
 //------------------------------------------------------------------------------
@@ -198,9 +199,9 @@ void CResult::SurvivedTimeCreate()
 void CResult::NumKillCreate()
 {
 	// スコアの生成
-	m_pNumKill.emplace_back((CMultiNumber::Create(D3DXVECTOR3((SCREEN_WIDTH * 0.5f), 470.0f, 0.0f),
+	m_pNumKill = CMultiNumber::Create(D3DXVECTOR3((SCREEN_WIDTH * 0.5f), 470.0f, 0.0f),
 		SCORE_SIZE,
 		/*CGame::GetScore()*/ 123,
 		NUM_KILL_DIGITS,
-		CScene::OBJTYPE_UI)));
+		CScene::OBJTYPE_UI);
 }
