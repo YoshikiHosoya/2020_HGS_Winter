@@ -18,14 +18,14 @@
 //静的メンバ変数の初期化
 //------------------------------------------------------------------------------
 D3DXVECTOR3 *CEnemy_2D::m_pPlayerPos = nullptr;
-
+int CEnemy_2D::m_nNumEnemy = 0;
 //------------------------------------------------------------------------------
 //マクロ
 //------------------------------------------------------------------------------
-#define ENEMY_SYZE			(D3DXVECTOR3(80.0f, 80.0f, 0.0f))
-#define MOVESPEED_BLUE		(1.8f)
-#define MOVESPEED_PURPLE	(2.5f)
-#define MOVESPEED_RED		(3.0f)
+#define ENEMY_SYZE			(D3DXVECTOR3(60.0f, 60.0f, 0.0f))
+#define MOVESPEED_BLUE		(1.5f)
+#define MOVESPEED_PURPLE	(1.8f)
+#define MOVESPEED_RED		(2.5f)
 
 
 //------------------------------------------------------------------------------
@@ -34,6 +34,7 @@ D3DXVECTOR3 *CEnemy_2D::m_pPlayerPos = nullptr;
 CEnemy_2D::CEnemy_2D()
 {
 	m_bMove = false;
+	m_nNumEnemy++;
 }
 
 //------------------------------------------------------------------------------
@@ -41,7 +42,7 @@ CEnemy_2D::CEnemy_2D()
 //------------------------------------------------------------------------------
 CEnemy_2D::~CEnemy_2D()
 {
-
+	m_nNumEnemy--;
 }
 //------------------------------------------------------------------------------
 //初期化処理
@@ -111,13 +112,15 @@ void CEnemy_2D::ShowDebugInfo()
 //------------------------------------------------------------------------------
 void CEnemy_2D::Collision()
 {
+	CCharacter_2D::Collision();
+
 	float fLocalDistance = D3DXVec3Length(&m_DifPos);
 
-	CDebugProc::Print(CDebugProc::PLACE_LEFT, "fLocalDistance >> %.2f\n", fLocalDistance);
+	//CDebugProc::Print(CDebugProc::PLACE_LEFT, "fLocalDistance >> %.2f\n", fLocalDistance);
 
 	if (fLocalDistance < 50.0f)
 	{
-		CDebugProc::Print(CDebugProc::PLACE_LEFT, "DEATH\n");
+
 	}
 
 }
@@ -135,7 +138,7 @@ void CEnemy_2D::DamageAction()
 void CEnemy_2D::DeathAction()
 {
 	////ゲーム終了
-	//CManager::GetGame()->SetGamestate(CGame::STATE_GAMECLEAR);
+	CParticle::CreateFromText(GetPos(), ZeroVector3, CParticleParam::EFFECT_DEFAULT);
 }
 //------------------------------------------------------------------------------
 //ステート変更処理
@@ -187,7 +190,6 @@ std::shared_ptr<CEnemy_2D> CEnemy_2D::Create(D3DXVECTOR3 pos,CEnemy_2D::ENEMY_TY
 	//変数宣言
 	std::shared_ptr<CEnemy_2D> pEnemy = std::make_shared<CEnemy_2D>();
 
-
 	if (pEnemy)
 	{
 		//初期化
@@ -196,11 +198,14 @@ std::shared_ptr<CEnemy_2D> CEnemy_2D::Create(D3DXVECTOR3 pos,CEnemy_2D::ENEMY_TY
 		//座標設定
 		pEnemy->SetPos(pos);
 
+		//当たり判定処理
+		pEnemy->Collision();
+
 		//タイプ設定
 		pEnemy->SetType(type);
 
 		//オブジェクトタイプ設定
-		pEnemy->SetObjType(OBJTYPE_PLAYER);
+		pEnemy->SetObjType(CScene::OBJTYPE_ENEMY);
 
 		//リストに追加
 		pEnemy->AddSharedList(pEnemy);

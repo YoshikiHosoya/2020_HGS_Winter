@@ -21,12 +21,12 @@ SCRIPT
 		TEXTURE = 1								//テクスチャ
 		SHAPE = 0								//パーティクルの出し方
 		LIFE = 50								//ライフ
-		NUMBER = 30								//個数
+		NUMBER = 10								//個数
 		SPEED = 10.0								//速度
 		RANGE = 0.5								//範囲
 		ALPHADAMPING = 0.90						//アルファ値の減衰値
 		GRAVITYPOWER = 0.80						//重力の強さ
-		SIZE = 50.00 50.00 0.00				//サイズ
+		SIZE = 30.00 30.00 0.00				//サイズ
 		SIZEDAMPING = 0.95 0.95 0.00			//サイズ減衰量
 		COLOR = 1.0 1.0 1.0 1.0					//色
 		ROT = 0.00 0.00 0.00					//回転量

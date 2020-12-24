@@ -19,8 +19,8 @@ std::vector<std::unique_ptr<CParticleParam>> CParticleParam::m_pParticleDefaultP
 FILENAME_LIST CParticleParam::m_aFileNameList =
 {
 	{ "data/Load/EffectParam/Default.txt" },
-	{ "data/Load/EffectParam/CountDown.txt" },
-	{ "data/Load/EffectParam/CountDown.txt" },
+	{ "data/Load/EffectParam/Impact.txt" },
+	{ "data/Load/EffectParam/Impact.txt" },
 
 
 };

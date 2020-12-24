@@ -35,6 +35,8 @@ public:
 	void SetState(STATE nextstate);																	//ステート変更処理
 	void Collision() override;
 
+	void Explosion();																				//爆発
+
 	static std::shared_ptr<CBomb> Create(D3DXVECTOR3 pos);											//生成
 	static void SetPlayerPosPtr(D3DXVECTOR3 *pPos) { m_pPlayerPos = pPos; };						//プレイヤーの座標のポインタ設定
 

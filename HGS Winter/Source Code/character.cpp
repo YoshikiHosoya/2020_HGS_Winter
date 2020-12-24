@@ -19,11 +19,6 @@
 //------------------------------------------------------------------------------
 //静的メンバ変数の初期化
 //------------------------------------------------------------------------------
-std::vector<std::unique_ptr<CDefaultParam>> CCharacter::m_DefaultParam = {};
-std::vector<std::string> CCharacter::m_aParamFileName =
-{
-	{ "data/SAVEDATA/CHaracterParam/PlayerParam.txt" },
-};
 
 //------------------------------------------------------------------------------
 //マクロ
@@ -75,8 +70,20 @@ void CCharacter::ShowDebugInfo()
 //------------------------------------------------------------------------------
 //ダメージ処理
 //------------------------------------------------------------------------------
-bool CCharacter::ApplyDamage(int nDamage, int nBlueDamage)
+bool CCharacter::ApplyDamage(int nDamage)
 {
+	m_nLife -= nDamage;
+
+	if (m_nLife < 0)
+	{
+		DeathAction();
+		Release();
+
+	}
+	else
+	{
+		DamageAction();
+	}
 	return false;
 }
 
@@ -95,9 +102,6 @@ void CCharacter::SetParam(PARAM param)
 {
 	//パラメータ設定
 	m_Param = param;
-
-	//最大ＨＰ設定
-	m_nLife = m_DefaultParam[param]->GetMaxLife();
 }
 
 //------------------------------------------------------------------------------
@@ -121,130 +125,4 @@ void CCharacter::ShowCharacterInfo()
 		ImGui::TreePop();
 	}
 #endif //DEBUG
-}
-
-
-//------------------------------------------------------------------------------
-//パラメータ取得
-//------------------------------------------------------------------------------
-HRESULT CCharacter::LoadDefaultParam()
-{
-	//変数宣言
-	FILE *pFile;			//ファイルのポインタ
-	char cReadText[MAX_TEXT];
-	char cHeadText[MAX_TEXT];
-	char cDieText[MAX_TEXT];
-	int nLife = 0;
-	float fMoveSpeed = 0.0f;
-	float fJumpSpeed = 0.0f;
-	float fDashSpeed = 0.0f;
-	float fAirSpeed = 0.0f;
-	int nInvincinbleTime = 0;
-
-	for (size_t nCnt = 0; nCnt < m_aParamFileName.size(); nCnt++)
-	{
-		//ファイルを開く
-		pFile = fopen(m_aParamFileName[nCnt].data(), "r");
-
-		//ファイルがあった場合
-		if (pFile)
-		{
-
-			std::unique_ptr<CDefaultParam> pParam(new CDefaultParam);
-
-			//パラメータの配列追加
-			m_DefaultParam.emplace_back(std::move(pParam));
-
-			std::cout << "new DefaultParam - " << nCnt << NEWLINE;
-
-			//スクリプトがくるまで
-			while (strcmp(cHeadText, "SCRIPT") != 0)
-			{
-				fgets(cReadText, sizeof(cReadText), pFile);
-				sscanf(cReadText, "%s", &cHeadText);
-			}
-			//スクリプトだったら
-			if (strcmp(cHeadText, "SCRIPT") == 0)
-			{
-				//エンドスクリプトが来る前ループ
-				while (strcmp(cHeadText, "END_SCRIPT") != 0)
-				{
-					fgets(cReadText, sizeof(cReadText), pFile);
-					sscanf(cReadText, "%s", &cHeadText);
-					//改行
-					if (strcmp(cHeadText, "\n") == 0)
-					{
-					}
-					//キャラクターセットだったら
-					else if (strcmp(cHeadText, "PARAMSET") == 0)
-					{
-						//エンドキャラクターセットがくるまでループ
-						while (strcmp(cHeadText, "END_PARAMSET") != 0)
-						{
-							fgets(cReadText, sizeof(cReadText), pFile);
-							sscanf(cReadText, "%s", &cHeadText);
-							//最大HP
-							if (strcmp(cHeadText, "MAX_LIFE") == 0)
-							{
-								sscanf(cReadText, "%s %s %d", &cDieText, &cDieText, &nLife);
-								std::cout << "m_DefaultParam - " << nCnt  << " MAX_LIFE >> " << nLife << NEWLINE;
-								m_DefaultParam[nCnt]->SetMaxLife(nLife);
-							}
-							//移動速度
-							if (strcmp(cHeadText, "MOVE_SPEED") == 0)
-							{
-								sscanf(cReadText, "%s %s %f", &cDieText, &cDieText, &fMoveSpeed);
-								std::cout << "m_DefaultParam - " << nCnt << " MOVE_SPEED >> " << fMoveSpeed << NEWLINE;
-								m_DefaultParam[nCnt]->SetMoveSpeed(fMoveSpeed);
-							}
-							//ダッシュ速度
-							if (strcmp(cHeadText, "DASH_SPEED") == 0)
-							{
-								sscanf(cReadText, "%s %s %f", &cDieText, &cDieText, &fDashSpeed);
-								std::cout << "m_DefaultParam - " << nCnt << " DASH_SPEED >> " << fDashSpeed << NEWLINE;
-								m_DefaultParam[nCnt]->SetDashSpeed(fDashSpeed);
-							}
-							//ジャンプ力
-							if (strcmp(cHeadText, "JUMP_SPEED") == 0)
-							{
-								sscanf(cReadText, "%s %s %f", &cDieText, &cDieText, &fJumpSpeed);
-								std::cout << "m_DefaultParam - " << nCnt << " JUMP_SPEED >> " << fJumpSpeed << NEWLINE;
-								m_DefaultParam[nCnt]->SetJumpSpeed(fJumpSpeed);
-							}
-							//空中の移動速度
-							if (strcmp(cHeadText, "AIR_SPEED") == 0)
-							{
-								sscanf(cReadText, "%s %s %f", &cDieText, &cDieText, &fAirSpeed);
-								std::cout << "m_DefaultParam - " << nCnt << " AIR_SPEED >> " << fAirSpeed << NEWLINE;
-								m_DefaultParam[nCnt]->SetAirSpeed(fAirSpeed);
-							}
-							//無敵時間
-							if (strcmp(cHeadText, "INVINCIBLE_TIME") == 0)
-							{
-								sscanf(cReadText, "%s %s %d", &cDieText, &cDieText, &nInvincinbleTime);
-								std::cout << "m_DefaultParam - " << nCnt << " INVINCIBLE_TIME >> " << nInvincinbleTime << NEWLINE;
-								m_DefaultParam[nCnt]->SetInvincinbleTime(nInvincinbleTime);
-							}
-							//終了
-							if (strcmp(cHeadText, "END_PARAMSET") == 0)
-							{
-								std::cout << "LoadSuccess!" << "LoadDefaultParam() - " << nCnt << NEWLINE;
-								std::cout << NEWLINE;
-								break;
-							}
-						}
-					}
-				}
-			}
-			fclose(pFile);
-		}
-
-		//開けなかった時
-		else
-		{
-			std::cout << "LoadFailed!!  Can't Open File." << "LoadDefaultParam() - " << nCnt << NEWLINE;
-
-		}
-	}
-	return S_OK;
 }

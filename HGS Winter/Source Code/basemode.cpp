@@ -126,13 +126,6 @@ void CBaseMode::BaseLoad(HWND hWnd)
 	//テクスチャロード
 	CTexture::TexLoad(hWnd);
 
-	//キャラクターの初期パラメータ読み込み
-	if (FAILED(CCharacter::LoadDefaultParam()))
-	{
-		//失敗
-		MessageBox(hWnd, "パラメータ読み込み失敗", "CCharacter", MB_OK | MB_ICONHAND);
-	}
-
 	//パーティクルのテクスチャと頂点確報
 	if (FAILED(CParticle::MakeVertex()))
 	{

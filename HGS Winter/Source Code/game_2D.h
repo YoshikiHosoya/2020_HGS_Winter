@@ -36,7 +36,8 @@ public:
 	void GameEnd();
 	void AddTimer(int nAddTime);
 	void SetGamestate(CGame::STATE state);
-
+	void EnemySpawn();													//“GoŒ»
+	void CreateEnemyGroup(D3DXVECTOR3 posOrigin);						//“G‚ÌW’c¶¬
 
 protected:
 private:

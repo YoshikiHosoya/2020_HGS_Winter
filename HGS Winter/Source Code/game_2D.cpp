@@ -96,13 +96,7 @@ HRESULT CGame_2D::Init(HWND hWnd)
 //------------------------------------------------------------------------------
 void CGame_2D::Update()
 {
-	m_nCnt++;
-
-	if (m_nCnt % 60 == 0)
-	{
-		CEnemy_2D::Create(SCREEN_CENTER_POS + D3DXVECTOR3(CHossoLibrary::Random(500.0f), CHossoLibrary::Random(250.0f), 0.0f), CEnemy_2D::BLUE);
-		CBomb::Create(SCREEN_CENTER_POS + D3DXVECTOR3(CHossoLibrary::Random(500.0f), CHossoLibrary::Random(250.0f), 0.0f));
-	}
+	EnemySpawn();
 
 }
 //------------------------------------------------------------------------------
@@ -128,6 +122,39 @@ void CGame_2D::ShowDebugInfo()
 
 
 #endif //_DEBUG
+}
+
+//------------------------------------------------------------------------------
+//ìGÇÃèoåª
+//------------------------------------------------------------------------------
+void CGame_2D::EnemySpawn()
+{
+	m_nCnt++;
+
+	CDebugProc::Print(CDebugProc::PLACE_LEFT, "EnemuNum >> %d\n", CEnemy_2D::GetEnemyNum());
+
+
+	if (m_nCnt % 60 == 0)
+	{
+		CreateEnemyGroup(SCREEN_CENTER_POS + D3DXVECTOR3(CHossoLibrary::Random(500.0f), CHossoLibrary::Random(250.0f), 0.0f));
+
+		if (m_nCnt % 120 == 0)
+		{
+			CBomb::Create(SCREEN_CENTER_POS + D3DXVECTOR3(CHossoLibrary::Random(500.0f), CHossoLibrary::Random(250.0f), 0.0f));
+		}
+	}
+
+}
+
+//------------------------------------------------------------------------------
+//ìGÇÃèWícê∂ê¨
+//------------------------------------------------------------------------------
+void CGame_2D::CreateEnemyGroup(D3DXVECTOR3 posOrigin)
+{
+	for (int nCnt = 0; nCnt < 4; nCnt++)
+	{
+		CEnemy_2D::Create(posOrigin + D3DXVECTOR3(CHossoLibrary::Random(30.0f), CHossoLibrary::Random(30.0f), 0.0f), CEnemy_2D::BLUE);
+	}
 }
 
 //------------------------------------------------------------------------------

@@ -69,6 +69,7 @@ void CCharacter_2D::Update()
 	if (m_pScene2D)
 	{
 		m_pScene2D->SetPos(GetPos());
+		m_pScene2D->SetRot(GetRot());
 		//XV
 		m_pScene2D->Update();
 	}
@@ -149,5 +150,21 @@ void CCharacter_2D::Collision()
 void CCharacter_2D::State()
 {
 
+	GetCntState()--;
+
+	switch (GetState())
+	{
+	case CCharacter::STATE_APPEAR:
+
+		if (GetCntState() < 0)
+		{
+			SetState(STATE_NORMAL);
+		}
+
+		break;
+
+	default:
+		break;
+	}
 }
 

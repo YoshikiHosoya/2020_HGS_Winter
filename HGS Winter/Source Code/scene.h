@@ -27,20 +27,13 @@ public:
 	{
 		OBJTYPE_NONE = 0,					//未設定
 		OBJTYPE_BACK,						//後ろ
-		OBJTYPE_MAPOBJECT,					//マップに配置されるオブジェクト
-		OBJTYPE_MESHFIELD,
-		OBJTYPE_WAY,
 		OBJTYPE_PLAYER,						//プレイヤー
 		OBJTYPE_ENEMY,						//敵
-		OBJTYPE_BULLET,						//弾
-		OBJTYPE_ORBIT,						//軌跡
-		OBJTYPE_2DGAUGE,					//2Dゲージ
-		OBJTYPE_3DGAUGE,					//3Dゲージ
+		OBJTYPE_BOMB,						//ボム
 		OBJTYPE_EFFECT,						//エフェクト
 		OBJTYPE_UI,							//UI
 		OBJTYPE_NUMBER,						//数字
 		OBJTYPE_2DEFFECT,					//エフェクト
-		OBJTYPE_MINIMAP,					//ミニマップ
 		OBJTYPE_FRONTUI,					//バックUI
 		OBJTYPE_PAUSE,						//ポーズ
 		OBJTYPE_OPTION,						//オプション

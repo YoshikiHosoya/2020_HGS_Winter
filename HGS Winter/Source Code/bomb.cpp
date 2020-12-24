@@ -25,6 +25,7 @@ D3DXVECTOR3 *CBomb::m_pPlayerPos = nullptr;
 //マクロ
 //------------------------------------------------------------------------------
 #define PLAYER_SYZE			(D3DXVECTOR3(80.0f, 80.0f, 0.0f))
+#define EXPLOSION_LENGTH	(200.0f)
 
 //------------------------------------------------------------------------------
 //コンストラクタ
@@ -134,12 +135,48 @@ void CBomb::Collision()
 
 	if (fDistance < 50.0f)
 	{
-		CDebugProc::Print(CDebugProc::PLACE_LEFT, "BOMB!!!!\n");
-		CParticle::CreateFromText(GetPos(), ZeroVector3, CParticleParam::EFFECT_IMPACT);
-		Release();
+		Explosion();
 
 	}
+	CCharacter_2D::Collision();
 
+
+}
+
+//------------------------------------------------------------------------------
+//爆発
+//------------------------------------------------------------------------------
+void CBomb::Explosion()
+{
+
+	//爆発エフェクト
+	CParticle::CreateFromText(GetPos(), ZeroVector3, CParticleParam::EFFECT_IMPACT);
+
+	//敵のリスト取得
+	Vec<S_ptr<CScene>> pEnemyList;
+	CScene::GetSceneList(CScene::OBJTYPE_ENEMY, pEnemyList);
+
+	//距離
+	float Distance = 0.0f;
+
+	for (auto ptr : pEnemyList)
+	{
+		//キャスト
+		CEnemy_2D *pEnemy = ((CEnemy_2D*)ptr.get());
+
+		//距離計測
+		Distance = D3DXVec3Length(&(pEnemy->GetPos() - GetPos()));
+
+		//ある程度近かった時
+		if (Distance < EXPLOSION_LENGTH)
+		{
+			//ダメージ
+			pEnemy->ApplyDamage(999);
+		}
+	}
+
+	//破棄
+	Release();
 }
 
 
@@ -161,7 +198,7 @@ std::shared_ptr<CBomb> CBomb::Create(D3DXVECTOR3 pos)
 		pPlayer->SetPos(pos);
 
 		//オブジェクトタイプ設定
-		pPlayer->SetObjType(OBJTYPE_PLAYER);
+		pPlayer->SetObjType(OBJTYPE_BOMB);
 
 		//リストに追加
 		pPlayer->AddSharedList(pPlayer);

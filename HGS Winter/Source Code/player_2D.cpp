@@ -24,7 +24,8 @@
 //------------------------------------------------------------------------------
 //マクロ
 //------------------------------------------------------------------------------
-#define PLAYER_SYZE			(D3DXVECTOR3(80.0f, 80.0f, 0.0f))
+#define PLAYER_SYZE			(D3DXVECTOR3(60.0f, 60.0f, 0.0f))
+#define MOVE_SPEED	(2.0f)
 
 //------------------------------------------------------------------------------
 //コンストラクタ
@@ -105,8 +106,8 @@ void CPlayer_2D::MoveInput()
 
 	if (joypadX != 0 || joypadY != 0)
 	{
-		GetMove().x += joypadX * 3.0f / 32768.0f;
-		GetMove().y -= joypadY * 3.0f / 32768.0f;
+		GetMove().x += joypadX * MOVE_SPEED / 32768.0f;
+		GetMove().y -= joypadY * MOVE_SPEED / 32768.0f;
 	}
 }
 
@@ -132,6 +133,7 @@ void CPlayer_2D::ShowDebugInfo()
 //------------------------------------------------------------------------------
 void CPlayer_2D::Collision()
 {
+	CCharacter_2D::Collision();
 
 }
 

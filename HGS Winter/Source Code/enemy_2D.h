@@ -54,6 +54,7 @@ public:
 	void MoveAI();																					//移動処理
 
 	static void SetPlayerPosPtr(D3DXVECTOR3 *pPos) { m_pPlayerPos = pPos; };						//プレイヤーの座標のポインタ設定
+	static int GetEnemyNum() { return m_nNumEnemy; };
 protected:
 
 private:
@@ -61,6 +62,7 @@ private:
 	ENEMY_TYPE m_type;							//タイプ
 	D3DXVECTOR3 m_DifPos;						//座標の差分
 	static D3DXVECTOR3 *m_pPlayerPos;			//プレイヤーの座標
+	static int m_nNumEnemy;						//敵の総数
 
 };
 #endif
