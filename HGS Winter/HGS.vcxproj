@@ -194,6 +194,7 @@
     <ClCompile Include="Source Code\scene.cpp" />
     <ClCompile Include="Source Code\scene2D.cpp" />
     <ClCompile Include="Source Code\SceneBase.cpp" />
+    <ClCompile Include="Source Code\score_up_item.cpp" />
     <ClCompile Include="Source Code\sound.cpp" />
     <ClCompile Include="Source Code\TestMode.cpp" />
     <ClCompile Include="Source Code\TexAnimationBase.cpp" />
@@ -249,6 +250,7 @@
     <ClInclude Include="Source Code\scene.h" />
     <ClInclude Include="Source Code\scene2D.h" />
     <ClInclude Include="Source Code\SceneBase.h" />
+    <ClInclude Include="Source Code\score_up_item.h" />
     <ClInclude Include="Source Code\sound.h" />
     <ClInclude Include="Source Code\TestMode.h" />
     <ClInclude Include="Source Code\TexAnimationBase.h" />

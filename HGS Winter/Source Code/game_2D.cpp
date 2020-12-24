@@ -40,6 +40,7 @@
 CGame_2D::CGame_2D()
 {
 	m_nSpeed = 15;
+	m_nScoreMag = 1;
 	m_direction = DIRECTION::UP;
 	m_nCnt = 0;
 	m_nScoreDistance = 0;
@@ -151,9 +152,23 @@ void CGame_2D::EnemySpawn()
 //------------------------------------------------------------------------------
 void CGame_2D::CreateEnemyGroup(D3DXVECTOR3 posOrigin)
 {
-	for (int nCnt = 0; nCnt < 4; nCnt++)
+	int nLocalValue = m_nCnt / 120;
+
+	CHossoLibrary::RangeLimit_Equal_Int(nLocalValue, 3, 10);
+
+	CEnemy_2D::Create(posOrigin + D3DXVECTOR3(CHossoLibrary::Random(70.0f), CHossoLibrary::Random(70.0f), 0.0f), CEnemy_2D::RED);
+
+
+	for (int nCnt = 0; nCnt < nLocalValue ; nCnt++)
 	{
-		CEnemy_2D::Create(posOrigin + D3DXVECTOR3(CHossoLibrary::Random(30.0f), CHossoLibrary::Random(30.0f), 0.0f), CEnemy_2D::BLUE);
+		//CEnemy_2D::Create(posOrigin + D3DXVECTOR3(CHossoLibrary::Random(70.0f), CHossoLibrary::Random(70.0f), 0.0f), CEnemy_2D::PURPLE);
+
+		//CEnemy_2D::Create(posOrigin + D3DXVECTOR3(CHossoLibrary::Random(70.0f), CHossoLibrary::Random(70.0f), 0.0f), CEnemy_2D::BLUE);
+
+		if (nLocalValue > 2000)
+		{
+			CEnemy_2D::Create(posOrigin + D3DXVECTOR3(CHossoLibrary::Random(70.0f), CHossoLibrary::Random(70.0f), 0.0f), CEnemy_2D::PURPLE);
+		}
 	}
 }
 

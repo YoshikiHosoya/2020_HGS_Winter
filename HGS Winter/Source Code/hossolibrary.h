@@ -105,10 +105,12 @@ enum class TAG
 
 enum class DIRECTION
 {
+	NONE = -1,
 	LEFT,
 	RIGHT,
 	UP,
 	DOWN,
+	MAX,
 };
 
 //------------------------------------------------------------------------------

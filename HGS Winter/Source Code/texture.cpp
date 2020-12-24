@@ -22,6 +22,10 @@ FILENAME_LIST CTexture::m_aTexFileName =
 	{ "data/TEXTURE/Character/Enemy/red.png" },						//エネミー 赤
 	{ "data/TEXTURE/Character/Enemy/purple.png" },					//エネミー 紫
 
+	{ "data/TEXTURE/Item/Bomb.png" },								//ボム
+	{ "data/TEXTURE/Item/Mitokondoria.png" },						//ミトコンドリア
+
+
 	{ "data/TEXTURE/UI/BG/GridLine.png" },							//グリッド線
 
 	{ "data/TEXTURE/UI/Title/Title.png" },							//タイトルロゴ

@@ -30,6 +30,7 @@ public:
 		OBJTYPE_PLAYER,						//プレイヤー
 		OBJTYPE_ENEMY,						//敵
 		OBJTYPE_BOMB,						//ボム
+		OBJTYPE_MITCONDORIA,				//ミトコンドリア
 		OBJTYPE_EFFECT,						//エフェクト
 		OBJTYPE_UI,							//UI
 		OBJTYPE_NUMBER,						//数字

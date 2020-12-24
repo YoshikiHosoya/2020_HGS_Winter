@@ -38,6 +38,7 @@ public:
 	void SetGamestate(CGame::STATE state);
 	void EnemySpawn();													//ìGèoåª
 	void CreateEnemyGroup(D3DXVECTOR3 posOrigin);						//ìGÇÃèWícê∂ê¨
+	void AddScoreMag() { m_nScoreMag++; };								//ÉXÉRÉAî{ó¶
 
 protected:
 private:
@@ -60,6 +61,7 @@ private:
 
 	std::shared_ptr<CScene2D> m_pReadyGo;
 
+	int m_nScoreMag;
 
 };
 
