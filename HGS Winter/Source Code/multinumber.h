@@ -51,7 +51,7 @@ public:
 
 	D3DXVECTOR3 GetPos() { return m_pos; };							//座標取得
 	D3DXVECTOR3 GetSize() { return m_onesize; };					//サイズ取得
-
+	int GettMultiNumber() { return m_nValue; };						// 値の取得
 private:
 	std::vector<std::unique_ptr<CNumber>> m_pNumberList;	//ナンバーのポインタのリスト
 	D3DXVECTOR3 m_pos;										//座標

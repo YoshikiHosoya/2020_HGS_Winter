@@ -22,9 +22,12 @@
 #include "particle.h"
 #include "enemy_2D.h"
 #include "bomb.h"
+#include "scene2D.h"
+
 //------------------------------------------------------------------------------
 //静的メンバ変数の初期化
 //------------------------------------------------------------------------------
+int CGame_2D::m_nCntTime = 0;
 
 //------------------------------------------------------------------------------
 //マクロ
@@ -34,6 +37,16 @@
 #define BENDING_TIME (4)
 #define DEFAULT_TIME (20)
 #define COUNTDOWN	(3)
+
+#define SCORE_UI_SIZE				(D3DXVECTOR3(200.0f, 80.0f, 0.0f))					// スコアのUIサイズ
+#define TIME_UI_SIZE				(D3DXVECTOR3(200.0f, 80.0f, 0.0f))					// タイムのUIサイズ
+#define CROSS_UI_SIZE				(D3DXVECTOR3(80.0f, 80.0f, 0.0f))					// バツのUIサイズ
+#define HIGHSCORE_UI_SIZE			(D3DXVECTOR3(200.0f, 80.0f, 0.0f))					// ハイスコアのUIサイズ
+#define SCORE_SIZE					(D3DXVECTOR3(20.0f, 30.0f, 0.0f))					// スコアのUIサイズ
+#define SCORE_DIGITS				(7)													// スコアの桁数
+#define TIME_DIGITS					(3)													// タイムの桁数
+#define MAGNIFICATION_DIGITS		(2)													// 倍率の桁数
+
 //------------------------------------------------------------------------------
 //コンストラクタ
 //------------------------------------------------------------------------------
@@ -45,15 +58,25 @@ CGame_2D::CGame_2D()
 	m_nScoreDistance = 0;
 	SetScore(0);
 	m_bBendingFlag = false;
-	m_nTime = DEFAULT_TIME;
+	m_nTime = 0;
+	m_nCntTime = 0;
 	m_nBendingCountDown = COUNTDOWN;
+	m_apScene2D.clear();						// ゲームUI
+	m_pScoreNumber		= nullptr;				// スコア
+	m_pTimeNumber		= nullptr;				// タイム
+	m_pMagnification	= nullptr;				// 倍率
+	m_pHighScoreNumber	= nullptr;				// ハイスコア
 }
 //------------------------------------------------------------------------------
 //デストラクタ
 //------------------------------------------------------------------------------
 CGame_2D::~CGame_2D()
 {
-
+	m_apScene2D.clear();						// ゲームUI
+	m_pScoreNumber		= nullptr;				// スコア
+	m_pTimeNumber		= nullptr;				// タイム
+	m_pMagnification	= nullptr;				// 倍率
+	m_pHighScoreNumber	= nullptr;				// ハイスコア
 }
 
 //------------------------------------------------------------------------------
@@ -72,13 +95,32 @@ HRESULT CGame_2D::Init(HWND hWnd)
 	// 背景の生成
 	CBg::Create(65);
 
-	//m_pScore = CScene2D::Create_Shared(D3DXVECTOR3(950.0f, 100.0f, 0.0f), D3DXVECTOR3(250.0f, 100.0f, 0.0f), CScene::OBJTYPE_UI);
-	//m_pScore->BindTexture(CTexture::GetTexture(CTexture::TEX_UI_RANKING_SCORE));
+	// ゲームUIの生成
+	GameUICreate();
+	
+	// スコアの生成
+	m_pScoreNumber = CMultiNumber::Create(D3DXVECTOR3((SCREEN_WIDTH * 0.2f), 80.0f, 0.0f),
+		SCORE_SIZE,
+		/*CGame::GetScore()*/ 1234567,
+		SCORE_DIGITS,
+		CScene::OBJTYPE_UI);
 
+	// タイムの生成
+	m_pTimeNumber = CMultiNumber::Create(D3DXVECTOR3((SCREEN_WIDTH * 0.4f), 80.0f, 0.0f),
+		SCORE_SIZE,
+		0,
+		TIME_DIGITS,
+		CScene::OBJTYPE_UI);
 
-	//m_pScoreNumber = CMultiNumber::Create(D3DXVECTOR3(1100.0f, 100.0f, 0.0f), D3DXVECTOR3(50.0f, 75.0f, 0.0f),0,7, CScene::OBJTYPE_UI);
+	// 倍率の生成
+	m_pMagnification = CMultiNumber::Create(D3DXVECTOR3((SCREEN_WIDTH * 0.63f), 55.0f, 0.0f),
+		SCORE_SIZE,
+		/*CGame::GetScore()*/ 0,
+		MAGNIFICATION_DIGITS,
+		CScene::OBJTYPE_UI);
 
-	//m_pTimeNumber = CMultiNumber::Create(D3DXVECTOR3(SCREEN_WIDTH * 0.5f, 50.0f, 0.0f), D3DXVECTOR3(50.0f, 75.0f, 0.0f), m_nTime, 2, CScene::OBJTYPE_UI);
+	// ハイスコアの生成
+	HighScoreCreate();
 
 	//ゲームステート初期化
 	SetGamestate(CGame::STATE_READY);
@@ -96,8 +138,14 @@ HRESULT CGame_2D::Init(HWND hWnd)
 //------------------------------------------------------------------------------
 void CGame_2D::Update()
 {
+	// 敵の出現
 	EnemySpawn();
 
+	// カウントアップタイマー
+	AddTimer();
+
+	// ハイスコアの更新
+	HighScoreUpdate();
 }
 //------------------------------------------------------------------------------
 //描画処理
@@ -158,6 +206,48 @@ void CGame_2D::CreateEnemyGroup(D3DXVECTOR3 posOrigin)
 }
 
 //------------------------------------------------------------------------------
+//ゲームUIの生成
+//------------------------------------------------------------------------------
+void CGame_2D::GameUICreate()
+{
+	for (int nCnt = 0; nCnt < (int)GAME_UI::GAME_UI_MAX; nCnt++)
+	{
+		// スコア
+		if (nCnt == (int)GAME_UI::SCORE)
+		{
+			// シーン2Dの生成
+			m_apScene2D.emplace_back(CScene2D::Create_Shared(D3DXVECTOR3((SCREEN_WIDTH * 0.2f), 50.0f, 0.0f), SCORE_UI_SIZE, CScene::OBJTYPE_UI));
+			// テクスチャの割り当て
+			m_apScene2D[nCnt]->BindTexture(CTexture::GetTexture(CTexture::TEX_UI_RANKING_NAME));
+		}
+		// タイム
+		else if (nCnt == (int)GAME_UI::TIME)
+		{
+			// シーン2Dの生成
+			m_apScene2D.emplace_back(CScene2D::Create_Shared(D3DXVECTOR3((SCREEN_WIDTH * 0.4f), 50.0f, 0.0f), TIME_UI_SIZE, CScene::OBJTYPE_UI));
+			// テクスチャの割り当て
+			m_apScene2D[nCnt]->BindTexture(CTexture::GetTexture(CTexture::TEX_UI_RANKING_NAME));
+		}
+		// バツ ( かける )
+		else if (nCnt == (int)GAME_UI::CROSS)
+		{
+			// シーン2Dの生成
+			m_apScene2D.emplace_back(CScene2D::Create_Shared(D3DXVECTOR3((SCREEN_WIDTH * 0.6f), 60.0f, 0.0f), CROSS_UI_SIZE, CScene::OBJTYPE_UI));
+			// テクスチャの割り当て
+			m_apScene2D[nCnt]->BindTexture(CTexture::GetTexture(CTexture::TEX_UI_RANKING_NAME));
+		}
+		// ハイスコア
+		else if (nCnt == (int)GAME_UI::HIGHSCORE)
+		{
+			// シーン2Dの生成
+			m_apScene2D.emplace_back(CScene2D::Create_Shared(D3DXVECTOR3((SCREEN_WIDTH * 0.8f), 50.0f, 0.0f), HIGHSCORE_UI_SIZE, CScene::OBJTYPE_UI));
+			// テクスチャの割り当て
+			m_apScene2D[nCnt]->BindTexture(CTexture::GetTexture(CTexture::TEX_UI_RANKING_NAME));
+		}
+	}
+}
+
+//------------------------------------------------------------------------------
 //ゲーム終了
 //------------------------------------------------------------------------------
 void CGame_2D::GameEnd()
@@ -170,11 +260,101 @@ void CGame_2D::GameEnd()
 //------------------------------------------------------------------------------
 //タイマー
 //------------------------------------------------------------------------------
-void CGame_2D::AddTimer(int nAddTime)
+void CGame_2D::AddTimer()
 {
-	m_nTime += nAddTime;
-	m_pTimeNumber->SetMultiNumber(m_nTime);
+	m_nTime ++;
 
+	if (m_nTime >= 60)
+	{
+		m_nTime = 0;
+		m_nCntTime++;
+	}
+	m_pTimeNumber->SetMultiNumber(m_nCntTime);
+}
+
+//------------------------------------------------------------------------------
+// ハイスコアの生成
+//------------------------------------------------------------------------------
+void CGame_2D::HighScoreCreate()
+{
+	// ファイルポイント
+	FILE *pFile;
+
+	char cReadText[128];			// 文字として読み取る
+	char cHeadText[128];			// 比較用
+	char cDie[128];					// 不要な文字
+
+	static int nHighScore = 0;
+
+	// ファイルを開く
+	pFile = fopen("data/Ranking/RankingData.txt", "r");
+
+	// 開いているとき
+	if (pFile != NULL)
+	{
+		// SCRIPTが来るまでループ
+		while (strcmp(cHeadText, "SCRIPT") != 0)
+		{
+			fgets(cReadText, sizeof(cReadText), pFile); // 一文読み込み
+			sscanf(cReadText, "%s", &cHeadText);		// 比較用テキストに文字を代入
+		}
+
+		// SCRIPTが来たら
+		if (strcmp(cHeadText, "SCRIPT") == 0)
+		{
+			// END_SCRIPTが来るまでループ
+			while (strcmp(cHeadText, "END_SCRIPT") != 0)
+			{
+				fgets(cReadText, sizeof(cReadText), pFile); // 一文読み込み
+				sscanf(cReadText, "%s", &cHeadText);		// 比較用テキストに文字を代入
+
+				// RANKINGSETが来たら
+				if (strcmp(cHeadText, "RANKINGSET") == 0)
+				{
+					// END_RANKINGSETが来るまでループ
+					while (strcmp(cHeadText, "END_RANKINGSET") != 0)
+					{
+						fgets(cReadText, sizeof(cReadText), pFile); // 一文読み込み
+						sscanf(cReadText, "%s", &cHeadText);		// 比較用テキストに文字を代入
+
+						if (strcmp(cHeadText, "RANKING_1st") == 0)
+						{
+							sscanf(cReadText, "%s %s %d", &cDie, &cDie, &nHighScore);		// 比較用テキストにRANKIG_1stを代入
+						}
+						else if (strcmp(cHeadText, "END_RANKINGSET") == 0)
+						{
+							// ハイスコアの生成
+							m_pHighScoreNumber = CMultiNumber::Create(D3DXVECTOR3((SCREEN_WIDTH * 0.8f), 80.0f, 0.0f),
+								SCORE_SIZE,
+								nHighScore,
+								SCORE_DIGITS,
+								CScene::OBJTYPE_UI);
+						}
+					}
+				}
+			}
+		}
+		// ファイルを閉じる
+		fclose(pFile);
+	}
+	else
+	{
+		MessageBox(NULL, "ランキングのデータ読み込み失敗", "警告", MB_ICONWARNING);
+	}
+
+}
+
+//------------------------------------------------------------------------------
+//ゲームステート設定
+//------------------------------------------------------------------------------
+void CGame_2D::HighScoreUpdate()
+{
+	// スコアがハイスコアを超えたとき
+	if (m_pScoreNumber->GettMultiNumber() > m_pHighScoreNumber->GettMultiNumber())
+	{
+		// ハイスコアの上書き
+		m_pHighScoreNumber->SetMultiNumber(m_pScoreNumber->GettMultiNumber());
+	}
 }
 
 //------------------------------------------------------------------------------

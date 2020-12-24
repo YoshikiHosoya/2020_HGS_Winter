@@ -54,9 +54,9 @@ private:
 
 	int m_nCntResult;	//カウンタ
 	std::vector<std::shared_ptr<CScene2D>>		m_apScene2D;						// ランキングUI 
-	std::vector<std::shared_ptr<CMultiNumber>>	m_pResultScore;						// リザルトスコア
-	std::vector<std::shared_ptr<CMultiNumber>>	m_pSurvivedTime;					// 生存時間
-	std::vector<std::shared_ptr<CMultiNumber>>	m_pNumKill;							// キル数
+	std::shared_ptr<CMultiNumber>				m_pResultScore;						// リザルトスコア
+	std::shared_ptr<CMultiNumber>				m_pSurvivedTime;					// 生存時間
+	std::shared_ptr<CMultiNumber>				m_pNumKill;							// キル数
 
 };
 
