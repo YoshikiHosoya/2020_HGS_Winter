@@ -37,7 +37,6 @@ public:
 	CMultiNumber();
 	~CMultiNumber();
 	HRESULT Init();													//初期化
-	void Uninit();													//終了
 	void Update();													//更新
 	void Draw();													//描画
 	void ShowDebugInfo();											//デバッグ情報
