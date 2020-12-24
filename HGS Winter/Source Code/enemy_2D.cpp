@@ -206,7 +206,7 @@ void CEnemy_2D::State()
 	{
 	case CCharacter::STATE_APPEAR:
 
-		GetScene2DPtr()->SetSize((ENEMY_SYZE / 5) * (5 - (GetCntState() % 6)));
+		GetScene2DPtr()->SetSize((ENEMY_SYZE / 5.0f) * (float)(5 - (GetCntState() % 6)));
 
 		if (GetCntState() < 0)
 		{

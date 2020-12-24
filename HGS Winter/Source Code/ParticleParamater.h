@@ -28,6 +28,8 @@ public:
 		EFFECT_DEFAULT = 0,						//
 		EFFECT_IMPACT,							//インパクト
 		EFFECT_BOMB,							//ボム
+		EFFECT_EXPLOSION,						//爆発
+		EFFECT_GAMEOVER,						//ゲームオーバー
 
 		PARTICLE_MAX,
 	};

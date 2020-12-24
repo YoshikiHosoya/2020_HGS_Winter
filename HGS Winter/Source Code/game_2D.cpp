@@ -64,7 +64,6 @@ CGame_2D::CGame_2D()
 	m_nCnt = 0;
 	m_nScoreDistance = 0;
 	SetScore(0);
-	m_bBendingFlag = false;
 	m_nTime = 0;
 	m_nCntTime = 0;
 	m_nBendingCountDown = COUNTDOWN;
@@ -130,7 +129,7 @@ HRESULT CGame_2D::Init(HWND hWnd)
 	HighScoreCreate();
 
 	//ゲームステート初期化
-	SetGamestate(CGame::STATE_READY);
+	SetGamestate(CGame::STATE_NORMAL);
 
 	//音再生
 	CManager::GetSound()->Play(CSound::LABEL_SE_READY);
@@ -160,7 +159,13 @@ void CGame_2D::Update()
 		break;
 
 	case CGame::STATE_GAMEOVER:
-		if (m_nCnt < -0)
+		m_nCnt--;
+
+		CParticle::CreateFromText(GetPlayer()->GetPlayerPos(), ZeroVector3, CParticleParam::EFFECT_GAMEOVER, true);
+
+		GetPlayer()->GetPlayerPos();
+
+		if (m_nCnt < 0)
 		{
 			CManager::GetRenderer()->GetFade()->SetModeFade(CManager::MODE_RESULT);
 		}
@@ -189,12 +194,6 @@ void CGame_2D::ShowDebugInfo()
 #ifdef _DEBUG
 	//キーボードのポインタ
 	CKeyboard *pKeyboard = CManager::GetKeyboard();
-
-
-	CDebugProc::Print(CDebugProc::PLACE_LEFT, "m_nScoreDistance >> %d\n", m_nScoreDistance);
-	CDebugProc::Print(CDebugProc::PLACE_LEFT, "m_fNextBendingPoint >> %.2f\n", m_fNextBendingPoint);
-	CDebugProc::Print(CDebugProc::PLACE_LEFT, "NextDirection >> %d\n", m_NextBendingDirection);
-
 
 #endif //_DEBUG
 }
@@ -439,6 +438,8 @@ void CGame_2D::SetGamestate(STATE gamestate)
 		{
 			m_nCnt = 60;
 
+			//CScene::ReleaseSpecificObject(CScene::OBJTYPE_ENEMY);
+			CParticle::CreateFromText(SCREEN_CENTER_POS, ZeroVector3, CParticleParam::EFFECT_IMPACT);
 
 		}
 	}

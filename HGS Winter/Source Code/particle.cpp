@@ -215,11 +215,13 @@ void CParticle::UpdateVertex()
 		pVtx[2].pos = m_pParticleList[nCnt]->m_pos +  D3DXVECTOR3( -m_pParticleParam->GetSize().x, +m_pParticleParam->GetSize().y, 0.0f);
 		pVtx[3].pos = m_pParticleList[nCnt]->m_pos +  D3DXVECTOR3(  m_pParticleParam->GetSize().x,  +m_pParticleParam->GetSize().y, 0.0f);
 
+		m_pParticleList[nCnt]->m_col.a = m_pParticleParam->GetCol().a;
+
 		//頂点の座標
-		pVtx[0].col = m_pParticleParam->GetCol();
-		pVtx[1].col = m_pParticleParam->GetCol();
-		pVtx[2].col = m_pParticleParam->GetCol();
-		pVtx[3].col = m_pParticleParam->GetCol();
+		pVtx[0].col = m_pParticleList[nCnt]->m_col;
+		pVtx[1].col = m_pParticleList[nCnt]->m_col;
+		pVtx[2].col = m_pParticleList[nCnt]->m_col;
+		pVtx[3].col = m_pParticleList[nCnt]->m_col;
 
 		//アニメーションする時はUV計算
 		if (m_pParticleParam->GetAnimation())
@@ -315,7 +317,7 @@ void CParticle::ResetVertexID()
 //------------------------------------------------------------------------------
 //テキスト情報を元にパーティクル作成
 //------------------------------------------------------------------------------
-void CParticle::CreateFromText(D3DXVECTOR3 pos, D3DXVECTOR3 rot, CParticleParam::PARTICLE_TYPE type, TAG tag, int nAttack,D3DXCOLOR col, D3DXVECTOR3 *PosPtr)
+void CParticle::CreateFromText(D3DXVECTOR3 pos, D3DXVECTOR3 rot, CParticleParam::PARTICLE_TYPE type, bool bColoful,D3DXCOLOR col, D3DXVECTOR3 *PosPtr)
 {
 	//メモリ確保
 	std::unique_ptr<CParticle> pParticle(new CParticle);
@@ -325,7 +327,6 @@ void CParticle::CreateFromText(D3DXVECTOR3 pos, D3DXVECTOR3 rot, CParticleParam:
 	{
 		//初期化
 		pParticle->Init();
-		pParticle->SetTag(tag);
 
 		//パーティクルのパラメータのメモリ確保
 		CParticleParam *pParam = new CParticleParam;
@@ -337,17 +338,14 @@ void CParticle::CreateFromText(D3DXVECTOR3 pos, D3DXVECTOR3 rot, CParticleParam:
 			//Uniqueptrを使うとオペレータできなかったから普通のポインタ同士でオペレータ
 			*pParam = *CParticleParam::GetDefaultParam(type);
 
-			//攻撃力が入力されていた場合
-			if (nAttack > 0)
-			{
-				pParam->GetCollisionAttackValue() = nAttack;
-			}
-
 			//メンバのポインタに格納
 			pParticle->m_pParticleParam.reset(std::move(pParam));
 
 			//原点のポインタ
 			pParticle->m_pPosOriginPtr = PosPtr;
+
+			//カラフルかどうか
+			pParticle->m_bColorful = bColoful;
 
 			//パーティクルの設定
 			pParticle->SetParticle(pos, rot, pParam);
@@ -575,9 +573,12 @@ void CParticle::SetParticle(D3DXVECTOR3 & pos, D3DXVECTOR3 const & rot, CParticl
 			}
 		}
 
+		D3DXCOLOR col = m_bColorful ?
+			CHossoLibrary::RandomColor() :
+			pParam->GetCol();
 
 		//パーティクル生成
-		std::unique_ptr<COneParticle>pOneParticle = COneParticle::Create(pos, move, rot);
+		std::unique_ptr<COneParticle>pOneParticle = COneParticle::Create(pos, move, rot, col);
 		//配列に追加
 		m_pParticleList.emplace_back(std::move(pOneParticle));
 	}

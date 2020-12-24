@@ -55,6 +55,10 @@ FILENAME_LIST CTexture::m_aSeparateTexFileNameList =
 {
 	{ "data/TEXTURE/TexNone.png"},									//白紙
 	{ "data/TEXTURE/Effect/Explosion00.png" },						//爆発
+	{ "data/TEXTURE/Effect/Impact00.png" },							//インパクト
+	{ "data/TEXTURE/Effect/Impact01.png" },							//インパクト
+	{ "data/TEXTURE/Effect/BombAppear.png" },						//爆発
+
 	{ "data/TEXTURE/UI/Num.png" },									//ナンバー
 };
 
@@ -66,6 +70,10 @@ std::vector<CTexture::SEPARATE_TEX_INFO> CTexture::m_apSeparateTexInfoList =
 	//ポインタとUVサイズに関してはLoad関数で読み込み＆計算する
 	{ nullptr, CTexture::SEPARATE_TEX_NONE,					D3DXVECTOR2(1,1),	ZeroVector2 },		//白紙
 	{ nullptr, CTexture::SEPARATE_TEX_EFFECT_EXPLOSION00,	D3DXVECTOR2(4,2),	ZeroVector2 },		//爆発
+	{ nullptr, CTexture::SEPARATE_TEX_IMPACT_00,			D3DXVECTOR2(5,2),	ZeroVector2 },		//インパクト
+	{ nullptr, CTexture::SEPARATE_TEX_IMPACT_01,			D3DXVECTOR2(5,3),	ZeroVector2 },		//インパクト
+	{ nullptr, CTexture::SEPARATE_TEX_BOMB_APPEAR,			D3DXVECTOR2(7,1),	ZeroVector2 },		//爆発
+
 	{ nullptr, CTexture::SEPARATE_TEX_UI_NUMBER,			D3DXVECTOR2(10,1),	ZeroVector2 },		//ナンバー
 
 };

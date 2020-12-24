@@ -78,6 +78,10 @@ public:
 
 		//エフェクト
 		SEPARATE_TEX_EFFECT_EXPLOSION00,			//爆発
+		SEPARATE_TEX_IMPACT_00,						//インパクト
+		SEPARATE_TEX_IMPACT_01,						//インパクト
+		SEPARATE_TEX_BOMB_APPEAR,					//爆弾出現
+
 
 		SEPARATE_TEX_UI_NUMBER,						// ナンバー
 

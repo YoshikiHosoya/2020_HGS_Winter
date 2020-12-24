@@ -65,11 +65,6 @@ private:
 	int m_nScoreDistance;								//総合距離
 	DIRECTION m_direction;								//向き
 
-	float m_fNextBendingPoint;							//次の曲がり角までの距離
-	D3DXVECTOR3 *m_pNextBendingWayPos;					//次の曲がり箇所の座標
-	DIRECTION m_NextBendingDirection;					//次の曲がり角の方向
-	bool m_bBendingFlag;								//曲がりのフラグ
-	int m_nBendingTime;									//曲がってる時間
 	int m_nTime;										//タイム
 	static int m_nScore;								// スコア
 	static int m_nCntTime;								// カウントタイム

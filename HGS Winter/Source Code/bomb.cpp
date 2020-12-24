@@ -155,6 +155,7 @@ void CBomb::Explosion()
 {
 
 	//爆発エフェクト
+	CParticle::CreateFromText(GetPos(), ZeroVector3, CParticleParam::EFFECT_EXPLOSION);
 	CParticle::CreateFromText(GetPos(), ZeroVector3, CParticleParam::EFFECT_IMPACT);
 
 	//敵のリスト取得
@@ -209,7 +210,7 @@ std::shared_ptr<CBomb> CBomb::Create(D3DXVECTOR3 pos)
 		pBomb->GetScene2DPtr()->SetPos(pos);
 		pBomb->GetScene2DPtr()->Update();
 
-		CParticle::CreateFromText(pos, ZeroVector3, CParticleParam::EFFECT_DEFAULT);
+		CParticle::CreateFromText(pos, ZeroVector3, CParticleParam::EFFECT_BOMB);
 
 		//リストに追加
 		pBomb->AddSharedList(pBomb);

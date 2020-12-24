@@ -20,8 +20,9 @@ FILENAME_LIST CParticleParam::m_aFileNameList =
 {
 	{ "data/Load/EffectParam/Default.txt" },
 	{ "data/Load/EffectParam/Impact.txt" },
-	{ "data/Load/EffectParam/Impact.txt" },
-
+	{ "data/Load/EffectParam/BombApperar.txt" },
+	{ "data/Load/EffectParam/Explosion.txt" },
+	{ "data/Load/EffectParam/GameOver.txt" },
 
 };
 //
