@@ -50,6 +50,7 @@ public:
 	void SetGamestate(CGame::STATE state);
 	void EnemySpawn();													//敵出現
 	void CreateEnemyGroup(D3DXVECTOR3 posOrigin);						//敵の集団生成
+	void AddScoreMag() { m_nScoreMag++; };								//スコア倍率
 
 protected:
 private:
@@ -79,6 +80,7 @@ private:
 	std::shared_ptr<CMultiNumber>				m_pHighScoreNumber;				// ハイスコア
 
 	std::vector<std::shared_ptr<CScene2D>>		m_apScene2D;					// ゲームUI 
+	int m_nScoreMag;
 };
 
 #endif

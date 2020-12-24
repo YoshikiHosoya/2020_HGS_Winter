@@ -40,10 +40,10 @@ public:
 	void MoveInput();													//ˆÚ“®‚Ì“ü—Í
 	static std::shared_ptr<CPlayer_2D> Create(D3DXVECTOR3 pos);			//¶¬
 
+
 protected:
 
 private:
 	bool m_bMove;
-
 };
 #endif

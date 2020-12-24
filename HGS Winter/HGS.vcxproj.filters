@@ -189,6 +189,9 @@
     <ClCompile Include="Source Code\bomb.cpp">
       <Filter>bomb</Filter>
     </ClCompile>
+    <ClCompile Include="Source Code\score_up_item.cpp">
+      <Filter>bomb</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source Code\camera.h">
@@ -348,6 +351,9 @@
       <Filter>Character\Enemy</Filter>
     </ClInclude>
     <ClInclude Include="Source Code\bomb.h">
+      <Filter>bomb</Filter>
+    </ClInclude>
+    <ClInclude Include="Source Code\score_up_item.h">
       <Filter>bomb</Filter>
     </ClInclude>
   </ItemGroup>

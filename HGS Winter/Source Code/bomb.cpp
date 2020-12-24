@@ -53,7 +53,7 @@ HRESULT CBomb::Init()
 	std::unique_ptr<CScene2D> pScene2D = CScene2D::Create_SelfManagement(GetPos(), PLAYER_SYZE);
 
 	//テクスチャ設定
-	pScene2D->BindTexture(CTexture::GetTexture(CTexture::TEX_PLAYER));
+	pScene2D->BindTexture(CTexture::GetTexture(CTexture::TEX_ITEM_BOMB));
 
 	//Scene2Dセット
 	SetScene2D(std::move(pScene2D));
@@ -186,24 +186,30 @@ void CBomb::Explosion()
 std::shared_ptr<CBomb> CBomb::Create(D3DXVECTOR3 pos)
 {
 	//変数宣言
-	std::shared_ptr<CBomb> pPlayer = std::make_shared<CBomb>();
+
+	std::shared_ptr<CBomb> pBomb = std::make_shared<CBomb>();
 
 
-	if (pPlayer)
+	if (pBomb)
 	{
 		//初期化
-		pPlayer->Init();
+		pBomb->Init();
 
 		//座標設定
-		pPlayer->SetPos(pos);
+		pBomb->SetPos(pos);
 
 		//オブジェクトタイプ設定
-		pPlayer->SetObjType(OBJTYPE_BOMB);
+		pBomb->SetObjType(OBJTYPE_BOMB);
+
+		pBomb->GetScene2DPtr()->SetPos(pos);
+		pBomb->GetScene2DPtr()->Update();
+
+		CParticle::CreateFromText(pos, ZeroVector3, CParticleParam::EFFECT_DEFAULT);
 
 		//リストに追加
-		pPlayer->AddSharedList(pPlayer);
+		pBomb->AddSharedList(pBomb);
 
-		return pPlayer;
+		return pBomb;
 	}
 
 	//生成した情報

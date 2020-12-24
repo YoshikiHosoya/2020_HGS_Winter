@@ -35,6 +35,9 @@ public:
 		TEX_ENEMY_RED,							//敵
 		TEX_ENEMY_PURPLE,						//敵
 
+		TEX_ITEM_BOMB,							//ボム
+		TEX_ITEM_MITOKONDORIA,					//ミトコンドリア
+
 		//BG
 		TEX_UI_BG_GRIDLINE,
 
