@@ -19,21 +19,21 @@
 //クラス定義
 //------------------------------------------------------------------------------
 class CMultiNumber;
+class CScene2D;
 
 class CResult : public CBaseMode
 {
 public:
 
 	// リザルトUIの種類
-	enum class RANKING_UI
+	enum class RESULT_UI
 	{
 		NONE = -1,
 		RESULT_SCORE,				// 名前ロゴ
-		RANKING_SCORE,				// プレイヤースコア
-		LIVED_TIME,					// 生存時間
+		SURVIVED_TIME,				// 生存時間
 		KILL,						// キル
 		ANY_BUTTON,					// エニーボタン
-		RANKING_MAX,
+		RESULT_MAX,
 	};
 
 	CResult();
@@ -47,8 +47,16 @@ public:
 	CPlayer* GetPlayer() { return nullptr; };		//プレイヤー取得処理
 
 private:
+	void					ResultUICreate();										// リザルトUIの生成
+	void					ResultScoreCreate();									// リザルトスコアの生成
+	void					SurvivedTimeCreate();									// プレイヤースコアの生成
+	void					NumKillCreate();										// キル数の生成
+
 	int m_nCntResult;	//カウンタ
-	//std::vector<std::shared_ptr<CScene2D>>		m_apScene2D;						// ランキングUI 
+	std::vector<std::shared_ptr<CScene2D>>		m_apScene2D;						// ランキングUI 
+	std::vector<std::shared_ptr<CMultiNumber>>	m_pResultScore;						// リザルトスコア
+	std::vector<std::shared_ptr<CMultiNumber>>	m_pSurvivedTime;					// 生存時間
+	std::vector<std::shared_ptr<CMultiNumber>>	m_pNumKill;							// キル数
 
 };
 

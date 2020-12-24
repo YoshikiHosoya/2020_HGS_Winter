@@ -30,13 +30,12 @@ public:
 	{
 		NONE = -1,
 		RANKING_NAME,				// 名前ロゴ
-		RANKING_SCORE,				// プレイヤースコア
 		RANKING_1st,				// 順位1位
 		RANKING_2nd,				// 順位2位
 		RANKING_3rd,				// 順位3位
 		RANKING_4th,				// 順位4位
 		RANKING_5th,				// 順位5位
-		RANKING_GO_TITLE,			// タイトルへ
+		ANY_BUTTON,					// エニーボタン
 		RANKING_MAX,
 	};
 
@@ -65,7 +64,6 @@ public:
 private:
 	void					RankingUICreate();										// ランキングUIの生成
 	void					RankingScoreCreate();									// ランキングスコアの生成
-	void					PlayerScoreCreate();									// プレイヤースコアの生成
 	void					RankingDataLoad();										// ランキングのデータのロード
 	void					RankingCalculation();									// 順位の計算
 	void					BubbleSort(std::vector<int> &data);						// 優先度の入れ替え 高い順に0番目から
@@ -74,7 +72,6 @@ private:
 	static char				*m_RankingFileName;										// ランキングのファイル名
 
 	std::vector<int>							m_nRankingScore;					// 上位5位のランキング情報
-	std::vector<std::shared_ptr<CMultiNumber>>	m_pPlayerScore;						// スコアのUI
 	std::vector<std::shared_ptr<CScene2D>>		m_apScene2D;						// ランキングUI 
 	std::vector<std::shared_ptr<CMultiNumber>>	m_apRankScore;						// スコアのUI
 	int											m_nCntResult;						// カウンタ
