@@ -32,6 +32,9 @@ public:
 	virtual void Draw();												//描画
 	virtual void ShowDebugInfo();										//デバッグ情報表記
 	D3DXVECTOR3 GetPlayerPos() override { return GetPos(); };
+
+	void Collision() override;													//当たり判定
+
 	void DamageAction();												//ダメージ時のリアクション
 	void DeathAction();													//死亡時のリアクション
 	void SetState(STATE nextstate);										//ステート変更処理

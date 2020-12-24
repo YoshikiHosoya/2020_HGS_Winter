@@ -20,14 +20,7 @@ FILENAME_LIST CParticleParam::m_aFileNameList =
 {
 	{ "data/Load/EffectParam/Default.txt" },
 	{ "data/Load/EffectParam/CountDown.txt" },
-	{ "data/Load/EffectParam/Circle.txt" },
-	{ "data/Load/EffectParam/triangle.txt" },
-	{ "data/Load/EffectParam/square.txt" },
-	{ "data/Load/EffectParam/star.txt" },
-	{ "data/Load/EffectParam/cross.txt" },
-	{ "data/Load/EffectParam/PlayerEngine.txt" },
-	{ "data/Load/EffectParam/PlayerDeath01.txt" },
-	{ "data/Load/EffectParam/PlayerDeath02.txt" },
+	{ "data/Load/EffectParam/CountDown.txt" },
 
 
 };

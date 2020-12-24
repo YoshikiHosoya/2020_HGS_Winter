@@ -154,12 +154,15 @@
   <ItemGroup>
     <ClCompile Include="Source Code\basemode.cpp" />
     <ClCompile Include="Source Code\bg.cpp" />
+    <ClCompile Include="Source Code\bomb.cpp" />
     <ClCompile Include="Source Code\camera.cpp" />
     <ClCompile Include="Source Code\character.cpp" />
     <ClCompile Include="Source Code\character_2D.cpp" />
     <ClCompile Include="Source Code\collision.cpp" />
     <ClCompile Include="Source Code\Debug\debugproc.cpp" />
     <ClCompile Include="Source Code\Debug\Debug_EffectViewer.cpp" />
+    <ClCompile Include="Source Code\enemy.cpp" />
+    <ClCompile Include="Source Code\enemy_2D.cpp" />
     <ClCompile Include="Source Code\fade.cpp" />
     <ClCompile Include="Source Code\game.cpp" />
     <ClCompile Include="Source Code\game_2D.cpp" />
@@ -201,12 +204,15 @@
   <ItemGroup>
     <ClInclude Include="Source Code\basemode.h" />
     <ClInclude Include="Source Code\bg.h" />
+    <ClInclude Include="Source Code\bomb.h" />
     <ClInclude Include="Source Code\camera.h" />
     <ClInclude Include="Source Code\character.h" />
     <ClInclude Include="Source Code\character_2D.h" />
     <ClInclude Include="Source Code\collision.h" />
     <ClInclude Include="Source Code\Debug\debugproc.h" />
     <ClInclude Include="Source Code\Debug\Debug_EffectViewer.h" />
+    <ClInclude Include="Source Code\enemy.h" />
+    <ClInclude Include="Source Code\enemy_2D.h" />
     <ClInclude Include="Source Code\fade.h" />
     <ClInclude Include="Source Code\game.h" />
     <ClInclude Include="Source Code\GameObject.h" />

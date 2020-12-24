@@ -26,15 +26,8 @@ public:
 	enum PARTICLE_TYPE
 	{
 		EFFECT_DEFAULT = 0,						//
-		EFFECT_COUNTDOWN,						//
-		EFFECT_CIRCLE,							//
-		EFFECT_TRIANGLE,						//
-		EFFECT_SQUARE,							//
-		EFFECT_STAR,							//
-		EFFECT_CROSS,							//
-		EFFECT_PLAYERENGINE,					//
-		EFFECT_PLAYERDEATH01,					//
-		EFFECT_PLAYERDEATH02,					//
+		EFFECT_IMPACT,							//インパクト
+		EFFECT_BOMB,							//ボム
 
 		PARTICLE_MAX,
 	};

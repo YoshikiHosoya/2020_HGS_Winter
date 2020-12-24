@@ -40,7 +40,7 @@ public:
 	virtual void State();									//ó‘Ô‚É‰‚¶‚½ˆ—
 
 	void SetScene2D(std::unique_ptr<CScene2D> pScene2D) { m_pScene2D = std::move(pScene2D); };
-	CScene2D *GetScene2D() { return m_pScene2D.get(); };
+	CScene2D *GetScene2DPtr() { return m_pScene2D.get(); };
 protected:
 
 	virtual void Collision();								//“–‚½‚è”»’èŒn‚Ìˆ—

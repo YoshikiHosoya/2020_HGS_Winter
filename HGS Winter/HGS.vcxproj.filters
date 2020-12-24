@@ -37,6 +37,12 @@
     <Filter Include="Debug">
       <UniqueIdentifier>{a299ed23-8309-4e1f-824d-594ad8048391}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Character\Enemy">
+      <UniqueIdentifier>{5171570f-e42d-4b36-ba8f-9229c799e5dd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="bomb">
+      <UniqueIdentifier>{4b7a73a0-f2a7-4cbc-a64c-9678cc318992}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source Code\camera.cpp">
@@ -173,6 +179,15 @@
     </ClCompile>
     <ClCompile Include="Source Code\bg.cpp">
       <Filter>UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Source Code\enemy.cpp">
+      <Filter>Character\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Source Code\enemy_2D.cpp">
+      <Filter>Character\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Source Code\bomb.cpp">
+      <Filter>bomb</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -325,6 +340,15 @@
     </ClInclude>
     <ClInclude Include="Source Code\bg.h">
       <Filter>UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Source Code\enemy.h">
+      <Filter>Character\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Source Code\enemy_2D.h">
+      <Filter>Character\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Source Code\bomb.h">
+      <Filter>bomb</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

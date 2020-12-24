@@ -1,6 +1,6 @@
 //------------------------------------------------------------------------------
 //
-//プレイヤー2D処理  [player_2D.cpp]
+//エネミー2D処理  [enemy_2D.cpp]
 //Author:Yoshiki Hosoya
 //
 //------------------------------------------------------------------------------
@@ -8,28 +8,30 @@
 //------------------------------------------------------------------------------
 //インクルード
 //------------------------------------------------------------------------------
-#include "player_2D.h"
-#include "game_2D.h"
+#include "enemy_2D.h"
 #include "manager.h"
 #include "renderer.h"
 #include "sound.h"
 #include "particle.h"
-#include "Pad_XInput.h"
-#include "enemy_2D.h"
-#include "bomb.h"
+
 //------------------------------------------------------------------------------
 //静的メンバ変数の初期化
 //------------------------------------------------------------------------------
+D3DXVECTOR3 *CEnemy_2D::m_pPlayerPos = nullptr;
 
 //------------------------------------------------------------------------------
 //マクロ
 //------------------------------------------------------------------------------
-#define PLAYER_SYZE			(D3DXVECTOR3(80.0f, 80.0f, 0.0f))
+#define ENEMY_SYZE			(D3DXVECTOR3(80.0f, 80.0f, 0.0f))
+#define MOVESPEED_BLUE		(1.8f)
+#define MOVESPEED_PURPLE	(2.5f)
+#define MOVESPEED_RED		(3.0f)
+
 
 //------------------------------------------------------------------------------
 //コンストラクタ
 //------------------------------------------------------------------------------
-CPlayer_2D::CPlayer_2D()
+CEnemy_2D::CEnemy_2D()
 {
 	m_bMove = false;
 }
@@ -37,19 +39,19 @@ CPlayer_2D::CPlayer_2D()
 //------------------------------------------------------------------------------
 //デストラクタ
 //------------------------------------------------------------------------------
-CPlayer_2D::~CPlayer_2D()
+CEnemy_2D::~CEnemy_2D()
 {
 
 }
 //------------------------------------------------------------------------------
 //初期化処理
 //------------------------------------------------------------------------------
-HRESULT CPlayer_2D::Init()
+HRESULT CEnemy_2D::Init()
 {
 	CCharacter_2D::Init();
 
 	//メモリ確保
-	std::unique_ptr<CScene2D> pScene2D = CScene2D::Create_SelfManagement(GetPos(), PLAYER_SYZE);
+	std::unique_ptr<CScene2D> pScene2D = CScene2D::Create_SelfManagement(GetPos(), ENEMY_SYZE);
 
 	//テクスチャ設定
 	pScene2D->BindTexture(CTexture::GetTexture(CTexture::TEX_PLAYER));
@@ -60,27 +62,26 @@ HRESULT CPlayer_2D::Init()
 	//重力無効
 	CCharacter::SetGravity(false);
 
-	//プレイヤーのポインタ設定
-	CEnemy_2D::SetPlayerPosPtr(GetPosPtr());
-	CBomb::SetPlayerPosPtr(GetPosPtr());
-
 	//成功
 	return S_OK;
 }
 //------------------------------------------------------------------------------
 //終了処理
 //------------------------------------------------------------------------------
-void CPlayer_2D::Uninit()
+void CEnemy_2D::Uninit()
 {
 	CCharacter_2D::Uninit();
 }
 //------------------------------------------------------------------------------
 //更新処理
 //------------------------------------------------------------------------------
-void CPlayer_2D::Update()
+void CEnemy_2D::Update()
 {
-	//移動入力
-	MoveInput();
+	//座標の差分算出
+	m_DifPos = *m_pPlayerPos - GetPos();
+
+	//移動のＡＩ
+	MoveAI();
 
 	//更新
 	CCharacter_2D::Update();
@@ -88,38 +89,16 @@ void CPlayer_2D::Update()
 //------------------------------------------------------------------------------
 //描画処理
 //------------------------------------------------------------------------------
-void CPlayer_2D::Draw()
+void CEnemy_2D::Draw()
 {
 	CCharacter_2D::Draw();
 }
 
-//------------------------------------------------------------------------------
-//移動の入力
-//------------------------------------------------------------------------------
-void CPlayer_2D::MoveInput()
-{
-	m_bMove = false;
-
-	//ゲームパッドの情報取得
-	CPad_XInput *pGamePad = CManager::GetXInput();
-
-	//変数宣言
-	float joypadX, joypadY;
-
-	//ジョイパッドの移動処理
-	pGamePad->GetStickLeft(&joypadX, &joypadY);
-
-	if (joypadX != 0 || joypadY != 0)
-	{
-		GetMove().x += joypadX * 3.0f / 32768.0f;
-		GetMove().y -= joypadY * 3.0f / 32768.0f;
-	}
-}
 
 //------------------------------------------------------------------------------
 //デバッグ情報表記
 //------------------------------------------------------------------------------
-void CPlayer_2D::ShowDebugInfo()
+void CEnemy_2D::ShowDebugInfo()
 {
 #ifdef _DEBUG
 	//プレイヤー情報情報
@@ -134,24 +113,32 @@ void CPlayer_2D::ShowDebugInfo()
 }
 
 //------------------------------------------------------------------------------
-//当たり判定処理
+//当たり判定
 //------------------------------------------------------------------------------
-void CPlayer_2D::Collision()
+void CEnemy_2D::Collision()
 {
+	float fLocalDistance = D3DXVec3Length(&m_DifPos);
+
+	CDebugProc::Print(CDebugProc::PLACE_LEFT, "fLocalDistance >> %.2f\n", fLocalDistance);
+
+	if (fLocalDistance < 50.0f)
+	{
+		CDebugProc::Print(CDebugProc::PLACE_LEFT, "DEATH\n");
+	}
 
 }
 
 //------------------------------------------------------------------------------
 //ダメージ受けた後の処理
 //------------------------------------------------------------------------------
-void CPlayer_2D::DamageAction()
+void CEnemy_2D::DamageAction()
 {
 
 }
 //------------------------------------------------------------------------------
 //死亡時の処理
 //------------------------------------------------------------------------------
-void CPlayer_2D::DeathAction()
+void CEnemy_2D::DeathAction()
 {
 	////ゲーム終了
 	//CManager::GetGame()->SetGamestate(CGame::STATE_GAMECLEAR);
@@ -159,7 +146,7 @@ void CPlayer_2D::DeathAction()
 //------------------------------------------------------------------------------
 //ステート変更処理
 //------------------------------------------------------------------------------
-void CPlayer_2D::SetState(STATE nextstate)
+void CEnemy_2D::SetState(STATE nextstate)
 {
 	CCharacter_2D::SetState(nextstate);
 	switch (nextstate)
@@ -169,34 +156,103 @@ void CPlayer_2D::SetState(STATE nextstate)
 	}
 }
 
+//------------------------------------------------------------------------------
+//タイプ設定
+//------------------------------------------------------------------------------
+void CEnemy_2D::SetType(ENEMY_TYPE type)
+{
+	m_type = type;
+
+	switch (m_type)
+	{
+	case CEnemy_2D::BLUE:
+		GetScene2DPtr()->BindTexture(CTexture::GetTexture(CTexture::TEX_ENEMY_BLUE));
+
+		break;
+	case CEnemy_2D::RED:
+		GetScene2DPtr()->BindTexture(CTexture::GetTexture(CTexture::TEX_ENEMY_RED));
+
+		break;
+	case CEnemy_2D::PURPLE:
+		GetScene2DPtr()->BindTexture(CTexture::GetTexture(CTexture::TEX_ENEMY_PURPLE));
+
+		break;
+	default:
+		break;
+	}
+
+
+}
+
 
 //------------------------------------------------------------------------------
 //生成処理
 //------------------------------------------------------------------------------
-std::shared_ptr<CPlayer_2D> CPlayer_2D::Create(D3DXVECTOR3 pos)
+std::shared_ptr<CEnemy_2D> CEnemy_2D::Create(D3DXVECTOR3 pos,CEnemy_2D::ENEMY_TYPE type)
 {
 	//変数宣言
-	std::shared_ptr<CPlayer_2D> pPlayer = std::make_shared<CPlayer_2D>();
+	std::shared_ptr<CEnemy_2D> pEnemy = std::make_shared<CEnemy_2D>();
 
 
-	if (pPlayer)
+	if (pEnemy)
 	{
 		//初期化
-		pPlayer->Init();
+		pEnemy->Init();
 
 		//座標設定
-		pPlayer->SetPos(pos);
+		pEnemy->SetPos(pos);
+
+		//タイプ設定
+		pEnemy->SetType(type);
 
 		//オブジェクトタイプ設定
-		pPlayer->SetObjType(OBJTYPE_PLAYER);
+		pEnemy->SetObjType(OBJTYPE_PLAYER);
 
 		//リストに追加
-		pPlayer->AddSharedList(pPlayer);
+		pEnemy->AddSharedList(pEnemy);
 
-		return pPlayer;
+		return pEnemy;
 	}
 
 	//生成した情報
 	return nullptr;
+}
+
+//------------------------------------------------------------------------------
+//移動処理
+//------------------------------------------------------------------------------
+void CEnemy_2D::MoveAI()
+{
+	D3DXVECTOR3 vec = ZeroVector3;
+
+	switch (m_type)
+	{
+	case CEnemy_2D::BLUE:
+		vec = *D3DXVec3Normalize(&vec, &m_DifPos);
+
+		GetMove() += vec * MOVESPEED_BLUE;
+
+		break;
+	case CEnemy_2D::RED:
+		vec = *D3DXVec3Normalize(&vec, &m_DifPos);
+
+		GetMove() += vec * MOVESPEED_RED;
+
+		break;
+	case CEnemy_2D::PURPLE:
+		vec = *D3DXVec3Normalize(&vec, &m_DifPos);
+
+		GetMove() += vec * MOVESPEED_PURPLE;
+		GetRot().z += 0.01f;
+
+		D3DXVECTOR3;
+
+		break;
+
+	default:
+		break;
+	}
+
+
 }
 

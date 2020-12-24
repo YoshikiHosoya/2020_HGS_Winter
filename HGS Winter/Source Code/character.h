@@ -117,6 +117,8 @@ public:
 	STATE			GetState()								{ return m_State; };								//状態取得
 	PARAM			GetParam()								{ return m_Param; };								//パラメータ取得
 
+	D3DXVECTOR3		*GetPosPtr()							{ return &m_pos; };									//座標のポインタ取得
+
 protected:
 	void ShowCharacterInfo();								//キャラクター情報表示
 

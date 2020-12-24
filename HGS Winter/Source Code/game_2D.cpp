@@ -20,6 +20,8 @@
 #include "bg.h"
 #include "sound.h"
 #include "particle.h"
+#include "enemy_2D.h"
+#include "bomb.h"
 //------------------------------------------------------------------------------
 //静的メンバ変数の初期化
 //------------------------------------------------------------------------------
@@ -70,13 +72,13 @@ HRESULT CGame_2D::Init(HWND hWnd)
 	// 背景の生成
 	CBg::Create(65);
 
-	m_pScore = CScene2D::Create_Shared(D3DXVECTOR3(950.0f, 100.0f, 0.0f), D3DXVECTOR3(250.0f, 100.0f, 0.0f), CScene::OBJTYPE_UI);
-	m_pScore->BindTexture(CTexture::GetTexture(CTexture::TEX_UI_RANKING_SCORE));
+	//m_pScore = CScene2D::Create_Shared(D3DXVECTOR3(950.0f, 100.0f, 0.0f), D3DXVECTOR3(250.0f, 100.0f, 0.0f), CScene::OBJTYPE_UI);
+	//m_pScore->BindTexture(CTexture::GetTexture(CTexture::TEX_UI_RANKING_SCORE));
 
 
-	m_pScoreNumber = CMultiNumber::Create(D3DXVECTOR3(1100.0f, 100.0f, 0.0f), D3DXVECTOR3(50.0f, 75.0f, 0.0f),0,7, CScene::OBJTYPE_UI);
+	//m_pScoreNumber = CMultiNumber::Create(D3DXVECTOR3(1100.0f, 100.0f, 0.0f), D3DXVECTOR3(50.0f, 75.0f, 0.0f),0,7, CScene::OBJTYPE_UI);
 
-	m_pTimeNumber = CMultiNumber::Create(D3DXVECTOR3(SCREEN_WIDTH * 0.5f, 50.0f, 0.0f), D3DXVECTOR3(50.0f, 75.0f, 0.0f), m_nTime, 2, CScene::OBJTYPE_UI);
+	//m_pTimeNumber = CMultiNumber::Create(D3DXVECTOR3(SCREEN_WIDTH * 0.5f, 50.0f, 0.0f), D3DXVECTOR3(50.0f, 75.0f, 0.0f), m_nTime, 2, CScene::OBJTYPE_UI);
 
 	//ゲームステート初期化
 	SetGamestate(CGame::STATE_READY);
@@ -84,6 +86,7 @@ HRESULT CGame_2D::Init(HWND hWnd)
 	//音再生
 	CManager::GetSound()->Play(CSound::LABEL_SE_READY);
 
+	CEnemy_2D::Create(D3DXVECTOR3(100.0f, 100.0f, 0.0f), CEnemy_2D::BLUE);
 
 	return S_OK;
 }
@@ -102,7 +105,13 @@ void CGame_2D::Uninit()
 //------------------------------------------------------------------------------
 void CGame_2D::Update()
 {
+	m_nCnt++;
 
+	if (m_nCnt % 60 == 0)
+	{
+		CEnemy_2D::Create(SCREEN_CENTER_POS + D3DXVECTOR3(CHossoLibrary::Random(500.0f), CHossoLibrary::Random(250.0f), 0.0f), CEnemy_2D::BLUE);
+		CBomb::Create(SCREEN_CENTER_POS + D3DXVECTOR3(CHossoLibrary::Random(500.0f), CHossoLibrary::Random(250.0f), 0.0f));
+	}
 
 }
 //------------------------------------------------------------------------------
