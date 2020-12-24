@@ -39,10 +39,10 @@ int CGame_2D::m_nScore = 0;			// スコア
 #define DEFAULT_TIME (20)
 #define COUNTDOWN	(3)
 
-#define SCORE_UI_SIZE				(D3DXVECTOR3(200.0f, 80.0f, 0.0f))					// スコアのUIサイズ
-#define TIME_UI_SIZE				(D3DXVECTOR3(200.0f, 80.0f, 0.0f))					// タイムのUIサイズ
-#define CROSS_UI_SIZE				(D3DXVECTOR3(80.0f, 80.0f, 0.0f))					// バツのUIサイズ
-#define HIGHSCORE_UI_SIZE			(D3DXVECTOR3(200.0f, 80.0f, 0.0f))					// ハイスコアのUIサイズ
+#define SCORE_UI_SIZE				(D3DXVECTOR3(100.0f, 20.0f, 0.0f))					// スコアのUIサイズ
+#define TIME_UI_SIZE				(D3DXVECTOR3(100.0f, 20.0f, 0.0f))					// タイムのUIサイズ
+#define CROSS_UI_SIZE				(D3DXVECTOR3(20.0f, 20.0f, 0.0f))					// バツのUIサイズ
+#define HIGHSCORE_UI_SIZE			(D3DXVECTOR3(150.0f, 20.0f, 0.0f))					// ハイスコアのUIサイズ
 #define SCORE_SIZE					(D3DXVECTOR3(20.0f, 30.0f, 0.0f))					// スコアのUIサイズ
 #define SCORE_DIGITS				(7)													// スコアの桁数
 #define TIME_DIGITS					(3)													// タイムの桁数
@@ -116,7 +116,7 @@ HRESULT CGame_2D::Init(HWND hWnd)
 		CScene::OBJTYPE_UI);
 
 	// 倍率の生成
-	m_pMagnification = CMultiNumber::Create(D3DXVECTOR3((SCREEN_WIDTH * 0.63f), 55.0f, 0.0f),
+	m_pMagnification = CMultiNumber::Create(D3DXVECTOR3((SCREEN_WIDTH * 0.63f), 80.0f, 0.0f),
 		SCORE_SIZE,
 		0,
 		MAGNIFICATION_DIGITS,
@@ -238,7 +238,7 @@ void CGame_2D::GameUICreate()
 			// シーン2Dの生成
 			m_apScene2D.emplace_back(CScene2D::Create_Shared(D3DXVECTOR3((SCREEN_WIDTH * 0.2f), 50.0f, 0.0f), SCORE_UI_SIZE, CScene::OBJTYPE_UI));
 			// テクスチャの割り当て
-			m_apScene2D[nCnt]->BindTexture(CTexture::GetTexture(CTexture::TEX_UI_RANKING_NAME));
+			m_apScene2D[nCnt]->BindTexture(CTexture::GetTexture(CTexture::TEX_UI_SCORE));
 		}
 		// タイム
 		else if (nCnt == (int)GAME_UI::TIME)
@@ -246,15 +246,15 @@ void CGame_2D::GameUICreate()
 			// シーン2Dの生成
 			m_apScene2D.emplace_back(CScene2D::Create_Shared(D3DXVECTOR3((SCREEN_WIDTH * 0.4f), 50.0f, 0.0f), TIME_UI_SIZE, CScene::OBJTYPE_UI));
 			// テクスチャの割り当て
-			m_apScene2D[nCnt]->BindTexture(CTexture::GetTexture(CTexture::TEX_UI_RANKING_NAME));
+			m_apScene2D[nCnt]->BindTexture(CTexture::GetTexture(CTexture::TEX_UI_TIME));
 		}
 		// バツ ( かける )
 		else if (nCnt == (int)GAME_UI::CROSS)
 		{
 			// シーン2Dの生成
-			m_apScene2D.emplace_back(CScene2D::Create_Shared(D3DXVECTOR3((SCREEN_WIDTH * 0.6f), 60.0f, 0.0f), CROSS_UI_SIZE, CScene::OBJTYPE_UI));
+			m_apScene2D.emplace_back(CScene2D::Create_Shared(D3DXVECTOR3((SCREEN_WIDTH * 0.6f), 80.0f, 0.0f), CROSS_UI_SIZE, CScene::OBJTYPE_UI));
 			// テクスチャの割り当て
-			m_apScene2D[nCnt]->BindTexture(CTexture::GetTexture(CTexture::TEX_UI_RANKING_NAME));
+			m_apScene2D[nCnt]->BindTexture(CTexture::GetTexture(CTexture::TEX_UI_GAME_CROSS));
 		}
 		// ハイスコア
 		else if (nCnt == (int)GAME_UI::HIGHSCORE)
@@ -262,7 +262,7 @@ void CGame_2D::GameUICreate()
 			// シーン2Dの生成
 			m_apScene2D.emplace_back(CScene2D::Create_Shared(D3DXVECTOR3((SCREEN_WIDTH * 0.8f), 50.0f, 0.0f), HIGHSCORE_UI_SIZE, CScene::OBJTYPE_UI));
 			// テクスチャの割り当て
-			m_apScene2D[nCnt]->BindTexture(CTexture::GetTexture(CTexture::TEX_UI_RANKING_NAME));
+			m_apScene2D[nCnt]->BindTexture(CTexture::GetTexture(CTexture::TEX_UI_GAME_HIGHSCORE));
 		}
 	}
 }

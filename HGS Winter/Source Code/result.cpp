@@ -21,9 +21,9 @@
 //------------------------------------------------------------------------------
 //マクロ
 //------------------------------------------------------------------------------
-#define RESULT_SCORE_UI_SIZE		(D3DXVECTOR3(300.0f, 150.0f, 0.0f))					// リザルトスコアのUIサイズ
-#define SURVIVED_TIME_UI_SIZE		(D3DXVECTOR3(300.0f, 150.0f, 0.0f))					// 生存時間のUIサイズ
-#define KILL_UI_SIZE				(D3DXVECTOR3(300.0f, 150.0f, 0.0f))					// キルのUIサイズ
+#define RESULT_SCORE_UI_SIZE		(D3DXVECTOR3(200.0f, 100.0f, 0.0f))					// リザルトスコアのUIサイズ
+#define SURVIVED_TIME_UI_SIZE		(D3DXVECTOR3(200.0f, 100.0f, 0.0f))					// 生存時間のUIサイズ
+#define KILL_UI_SIZE				(D3DXVECTOR3(200.0f, 100.0f, 0.0f))					// キルのUIサイズ
 #define ANY_BUTTON_UI_SIZE			(D3DXVECTOR3(500.0f, 100.0f, 0.0f))					// エニーボタンのUIサイズ
 #define SCORE_SIZE					(D3DXVECTOR3(50.0f, 70.0f, 0.0f))					// スコアのUIサイズ
 
@@ -136,25 +136,25 @@ void CResult::ResultUICreate()
 		if (nCnt == (int)RESULT_UI::RESULT_SCORE)
 		{
 			// シーン2Dの生成
-			m_apScene2D.emplace_back(CScene2D::Create_Shared(D3DXVECTOR3((SCREEN_WIDTH * 0.25f), 150.0f, 0.0f), RESULT_SCORE_UI_SIZE, CScene::OBJTYPE_UI));
+			m_apScene2D.emplace_back(CScene2D::Create_Shared(D3DXVECTOR3((SCREEN_WIDTH * 0.25f), 120.0f, 0.0f), RESULT_SCORE_UI_SIZE, CScene::OBJTYPE_UI));
 			// テクスチャの割り当て
-			m_apScene2D[nCnt]->BindTexture(CTexture::GetTexture(CTexture::TEX_UI_RANKING_NAME));
+			m_apScene2D[nCnt]->BindTexture(CTexture::GetTexture(CTexture::TEX_UI_SCORE));
 		}
 		// 生存時間
 		else if (nCnt == (int)RESULT_UI::SURVIVED_TIME)
 		{
 			// シーン2Dの生成
-			m_apScene2D.emplace_back(CScene2D::Create_Shared(D3DXVECTOR3((SCREEN_WIDTH * 0.75f), 150.0f, 0.0f), SURVIVED_TIME_UI_SIZE, CScene::OBJTYPE_UI));
+			m_apScene2D.emplace_back(CScene2D::Create_Shared(D3DXVECTOR3((SCREEN_WIDTH * 0.75f), 120.0f, 0.0f), SURVIVED_TIME_UI_SIZE, CScene::OBJTYPE_UI));
 			// テクスチャの割り当て
-			m_apScene2D[nCnt]->BindTexture(CTexture::GetTexture(CTexture::TEX_UI_RANKING_NAME));
+			m_apScene2D[nCnt]->BindTexture(CTexture::GetTexture(CTexture::TEX_UI_TIME));
 		}
 		// キル
 		else if (nCnt == (int)RESULT_UI::KILL)
 		{
 			// シーン2Dの生成
-			m_apScene2D.emplace_back(CScene2D::Create_Shared(D3DXVECTOR3((SCREEN_WIDTH * 0.5f), 400.0f, 0.0f), KILL_UI_SIZE, CScene::OBJTYPE_UI));
+			m_apScene2D.emplace_back(CScene2D::Create_Shared(D3DXVECTOR3((SCREEN_WIDTH * 0.5f), 370.0f, 0.0f), KILL_UI_SIZE, CScene::OBJTYPE_UI));
 			// テクスチャの割り当て
-			m_apScene2D[nCnt]->BindTexture(CTexture::GetTexture(CTexture::TEX_UI_RANKING_NAME));
+			m_apScene2D[nCnt]->BindTexture(CTexture::GetTexture(CTexture::TEX_UI_RESULT_KILL));
 		}
 		// エニーボタン
 		else if (nCnt == (int)RESULT_UI::ANY_BUTTON)
