@@ -180,7 +180,7 @@ void CTitle::EnemyCreate()
 		m_EnemyType = (ENEMY_TYPE)(rand() % 5 + (int)ENEMY_TYPE::PLAYER);
 
 		// シーン2Dの生成
-		m_apEnemy.emplace_back(CScene2D::Create_Shared(CHossoLibrary::RandomVector3(720.0f), ENEMY_SYZE, CScene::OBJTYPE_UI));
+		m_apEnemy.emplace_back(CScene2D::Create_Shared(CHossoLibrary::RandomVector3(300.0f), ENEMY_SYZE, CScene::OBJTYPE_UI));
 		// テクスチャの割り当て
 		m_apEnemy[nCnt]->BindTexture(CTexture::GetTexture((CTexture::TEX_TYPE)m_EnemyType));
 		// ランダムな移動量

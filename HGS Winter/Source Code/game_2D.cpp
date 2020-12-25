@@ -46,7 +46,7 @@ int CGame_2D::m_nScore = 0;
 #define SCORE_SIZE					(D3DXVECTOR3(20.0f, 30.0f, 0.0f))					// スコアのUIサイズ
 #define SCORE_DIGITS				(7)													// スコアの桁数
 #define TIME_DIGITS					(3)													// タイムの桁数
-#define MAGNIFICATION_DIGITS		(2)													// 倍率の桁数
+#define MAGNIFICATION_DIGITS		(3)													// 倍率の桁数
 
 #define PERPLE_APPEAR_FRAME			(2000)
 #define RED_APPEAR_FRAME			(3600)
@@ -114,7 +114,7 @@ HRESULT CGame_2D::Init(HWND hWnd)
 	// スコアの生成
 	m_pScoreNumber = CMultiNumber::Create(D3DXVECTOR3((SCREEN_WIDTH * 0.2f), 80.0f, 0.0f),
 		SCORE_SIZE,
-		/*CGame::GetScore()*/ 0,
+		0,
 		SCORE_DIGITS,
 		CScene::OBJTYPE_UI);
 
@@ -126,9 +126,9 @@ HRESULT CGame_2D::Init(HWND hWnd)
 		CScene::OBJTYPE_UI);
 
 	// 倍率の生成
-	m_pMagnification = CMultiNumber::Create(D3DXVECTOR3((SCREEN_WIDTH * 0.63f), 80.0f, 0.0f),
+	m_pMagnification = CMultiNumber::Create(D3DXVECTOR3((SCREEN_WIDTH * 0.65f), 80.0f, 0.0f),
 		SCORE_SIZE,
-		/*CGame::GetScore()*/ 0,
+		0,
 		MAGNIFICATION_DIGITS,
 		CScene::OBJTYPE_UI);
 
