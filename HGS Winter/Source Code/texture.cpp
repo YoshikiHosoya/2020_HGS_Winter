@@ -39,7 +39,7 @@ FILENAME_LIST CTexture::m_aTexFileName =
 	{ "data/TEXTURE/UI/Ranking/rank_5.png" },						//5位
 	{ "data/TEXTURE/UI/Ranking/gototitle.png" },					//タイトルへ
 
-	{ "data/TEXTURE/UI/Press_Lstick.png" },							//Enter
+	{ "data/TEXTURE/UI/Press_b_button.png" },							//Enter
 	{ "data/TEXTURE/UI/Num.png" },									//ナンバー
 	{ "data/TEXTURE/UI/score.png" },								//スコア
 	{ "data/TEXTURE/UI/time.png" },									//タイム
