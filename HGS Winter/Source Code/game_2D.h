@@ -63,6 +63,7 @@ private:
 	int m_nCnt;
 	int m_nSpeed;										//移動速度
 	int m_nScoreDistance;								//総合距離
+	bool m_bScoreUpdate;								//スコア更新
 	DIRECTION m_direction;								//向き
 
 	int m_nTime;										//タイム

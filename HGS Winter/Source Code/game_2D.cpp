@@ -59,6 +59,7 @@ CGame_2D::CGame_2D()
 {
 	m_nScore = 0;
 	m_nSpeed = 15;
+	m_bScoreUpdate = false;
 	m_nScoreMag = 1;
 	m_direction = DIRECTION::UP;
 	m_nCnt = 0;
@@ -135,7 +136,7 @@ HRESULT CGame_2D::Init(HWND hWnd)
 	SetGamestate(CGame::STATE_NORMAL);
 
 	//音再生
-	CManager::GetSound()->Play(CSound::LABEL_SE_READY);
+	//CManager::GetSound()->Play(CSound::LABEL_SE_READY);
 
 	CEnemy_2D::Create(D3DXVECTOR3(100.0f, 100.0f, 0.0f), CEnemy_2D::BLUE);
 
@@ -170,11 +171,9 @@ void CGame_2D::Update()
 
 		if (m_nCnt < 0)
 		{
-			CManager::GetRenderer()->GetFade()->SetModeFade(CManager::MODE_RESULT);
+			CManager::GetRenderer()->GetFade()->SetModeFade(CManager::MODE_RANKING);
 		}
 		break;
-
-
 
 	default:
 		break;
@@ -258,6 +257,12 @@ void CGame_2D::AddScoreMag()
 {
 	//倍率加算
 	m_nScoreMag++;
+
+	if (m_nScoreMag % 100 == 0)
+	{
+		CManager::GetSound()->Play(CSound::LABEL_SE_HUNDREDFOLD);
+
+	}
 
 	//テクスチャ更新
 	m_pMagnification->SetMultiNumber(m_nScoreMag);
@@ -420,11 +425,22 @@ void CGame_2D::HighScoreCreate()
 //------------------------------------------------------------------------------
 void CGame_2D::HighScoreUpdate()
 {
+
 	// スコアがハイスコアを超えたとき
 	if (m_pScoreNumber->GettMultiNumber() > m_pHighScoreNumber->GettMultiNumber())
 	{
 		// ハイスコアの上書き
 		m_pHighScoreNumber->SetMultiNumber(m_pScoreNumber->GettMultiNumber());
+
+		//スコアまだ更新していなかった時
+		if (!m_bScoreUpdate)
+		{
+			//更新音
+			CManager::GetSound()->Play(CSound::LABEL_SE_HIGH_SCORE);
+
+		}
+
+		m_bScoreUpdate = true;
 	}
 }
 

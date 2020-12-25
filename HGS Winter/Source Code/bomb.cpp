@@ -164,6 +164,7 @@ void CBomb::Explosion()
 
 	//‹——£
 	float Distance = 0.0f;
+	int nKillEnemyNum = 0;
 
 	for (auto ptr : pEnemyList)
 	{
@@ -178,8 +179,13 @@ void CBomb::Explosion()
 		{
 			//ƒ_ƒ[ƒW
 			pEnemy->ApplyDamage(999);
+			nKillEnemyNum++;
 		}
 	}
+
+	nKillEnemyNum > 10 ?
+		CManager::GetSound()->Play(CSound::LABEL_SE_KILL_MANY) :
+		CManager::GetSound()->Play(CSound::LABEL_SE_KILL);
 
 	//”jŠü
 	Release();
