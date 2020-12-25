@@ -28,13 +28,13 @@ int CEnemy_2D::m_nKillEnemyNum = 0;
 //------------------------------------------------------------------------------
 //マクロ
 //------------------------------------------------------------------------------
-#define ENEMY_SYZE			(D3DXVECTOR3(60.0f, 60.0f, 0.0f))
+#define ENEMY_SYZE			(D3DXVECTOR3(50.0f, 50.0f, 0.0f))
 #define MOVESPEED_BLUE		(1.1f)
 #define MOVESPEED_PURPLE	(1.6f)
 #define MOVESPEED_RED		(2.5f)
 #define RED_TURN_TIME		(40)
 #define ADD_SCORE			(10)
-
+#define COLLISION_LENGTH	(40.0f)
 //------------------------------------------------------------------------------
 //コンストラクタ
 //------------------------------------------------------------------------------
@@ -141,7 +141,7 @@ void CEnemy_2D::Collision()
 
 	//CDebugProc::Print(CDebugProc::PLACE_LEFT, "fLocalDistance >> %.2f\n", fLocalDistance);
 
-	if (fLocalDistance < 50.0f)
+	if (fLocalDistance < COLLISION_LENGTH)
 	{
 		CManager::GetGame()->SetGamestate(CGame::STATE_GAMEOVER);
 	}

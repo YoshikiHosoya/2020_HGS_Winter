@@ -38,6 +38,7 @@ public:
 	void DeathAction();													//死亡時のリアクション
 	void SetState(STATE nextstate);										//ステート変更処理
 	void MoveInput();													//移動の入力
+	void MoveInput_Keyboard();											//キーボード入力
 	static std::shared_ptr<CPlayer_2D> Create(D3DXVECTOR3 pos);			//生成
 
 

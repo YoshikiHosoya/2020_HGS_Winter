@@ -25,7 +25,7 @@
 //------------------------------------------------------------------------------
 //マクロ
 //------------------------------------------------------------------------------
-#define PLAYER_SYZE			(D3DXVECTOR3(60.0f, 60.0f, 0.0f))
+#define PLAYER_SYZE			(D3DXVECTOR3(50.0f, 50.0f, 0.0f))
 #define MOVE_SPEED			(2.0f)
 
 //------------------------------------------------------------------------------
@@ -82,6 +82,12 @@ void CPlayer_2D::Update()
 	//移動入力
 	MoveInput();
 
+	//デバッグのみ
+#ifdef _DEBUG
+	//キーボード入力
+	MoveInput_Keyboard();
+#endif // _DEBUG
+
 	//更新
 	CCharacter_2D::Update();
 }
@@ -118,6 +124,34 @@ void CPlayer_2D::MoveInput()
 	{
 		GetMove().x += joypadX * MOVE_SPEED / 32768.0f;
 		GetMove().y -= joypadY * MOVE_SPEED / 32768.0f;
+	}
+}
+
+//------------------------------------------------------------------------------
+//キーボード入力
+//------------------------------------------------------------------------------
+void CPlayer_2D::MoveInput_Keyboard()
+{
+	if (CManager::GetGame()->GetGamestate() != CGame::STATE_NORMAL)
+	{
+		return;
+	}
+
+	if(CHossoLibrary::CheckMove(DIRECTION::LEFT))
+	{
+		GetMove().x -= MOVE_SPEED;
+	}
+	if (CHossoLibrary::CheckMove(DIRECTION::RIGHT))
+	{
+		GetMove().x += MOVE_SPEED;
+	}
+	if (CHossoLibrary::CheckMove(DIRECTION::UP))
+	{
+		GetMove().y -= MOVE_SPEED;
+	}
+	if (CHossoLibrary::CheckMove(DIRECTION::DOWN))
+	{
+		GetMove().y += MOVE_SPEED;
 	}
 }
 
