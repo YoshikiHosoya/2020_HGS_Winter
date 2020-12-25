@@ -73,6 +73,7 @@ CGame_2D::CGame_2D()
 	m_pTimeNumber		= nullptr;				// タイム
 	m_pMagnification	= nullptr;				// 倍率
 	m_pHighScoreNumber	= nullptr;				// ハイスコア
+	m_pReady_Go.reset();						// レディーゴー
 }
 //------------------------------------------------------------------------------
 //デストラクタ
@@ -84,6 +85,8 @@ CGame_2D::~CGame_2D()
 	m_pTimeNumber		= nullptr;				// タイム
 	m_pMagnification	= nullptr;				// 倍率
 	m_pHighScoreNumber	= nullptr;				// ハイスコア
+	m_pReady_Go.reset();						// レディーゴー
+
 }
 
 //------------------------------------------------------------------------------
@@ -133,12 +136,10 @@ HRESULT CGame_2D::Init(HWND hWnd)
 	HighScoreCreate();
 
 	//ゲームステート初期化
-	SetGamestate(CGame::STATE_NORMAL);
+	SetGamestate(CGame::STATE_READY);
 
 	//音再生
 	//CManager::GetSound()->Play(CSound::LABEL_SE_READY);
-
-	CEnemy_2D::Create(D3DXVECTOR3(100.0f, 100.0f, 0.0f), CEnemy_2D::BLUE);
 
 	return S_OK;
 }
@@ -151,7 +152,36 @@ void CGame_2D::Update()
 	switch (GetGamestate())
 	{
 
+	case CGame::STATE_READY:
+		m_nCnt--;
+
+		if (m_nCnt < 0)
+		{
+			SetGamestate(STATE_NORMAL);
+
+			CParticle::CreateFromText(GetPlayer()->GetPlayerPos(), ZeroVector3, CParticleParam::EFFECT_GAMEOVER, true);
+
+
+			if (m_pReady_Go)
+			{
+				m_pReady_Go->BindTexture(CTexture::GetTexture(CTexture::TEX_UI_GAME_GO));
+			}
+		}
+		break;
+
 	case CGame::STATE_NORMAL:
+
+		//nullcheck
+		if (m_pReady_Go)
+		{
+			m_pReady_Go->SetColor(m_pReady_Go->GetColor() -= D3DXCOLOR(0.0f, 0.0f, 0.0f, 0.02f));
+
+			if (m_pReady_Go->GetColor().a <= 0)
+			{
+				m_pReady_Go.reset();
+			}
+		}
+
 		// 敵の出現
 		EnemySpawn();
 
@@ -454,7 +484,15 @@ void CGame_2D::SetGamestate(STATE gamestate)
 	if (GetGamestate() != gamestate)
 	{
 		CGame::SetGamestate(gamestate);
+
 		//ステートが進んでいる場合
+		if (gamestate == CGame::STATE_READY)
+		{
+			m_nCnt = 120;
+
+			m_pReady_Go = CScene2D::Create_Shared(SCREEN_CENTER_POS, D3DXVECTOR3(400.0f, 150.0f, 0.0f), CScene::OBJTYPE_UI);
+			m_pReady_Go->BindTexture(CTexture::GetTexture(CTexture::TEX_UI_GAME_READY));
+		}
 
 		if (gamestate == CGame::STATE_GAMEOVER)
 		{

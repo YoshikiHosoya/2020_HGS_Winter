@@ -46,7 +46,8 @@ FILENAME_LIST CTexture::m_aTexFileName =
 
 	{ "data/TEXTURE/UI/Game/cross.png" },							//バツ ( かける )
 	{ "data/TEXTURE/UI/Game/highscore.png" },						//ハイスコア
-	{ "data/TEXTURE/UI/Game/ready_go.png" },						//Ready
+	{ "data/TEXTURE/UI/Game/ready.png" },						//Ready
+	{ "data/TEXTURE/UI/Game/go.png" },							//Ready
 
 	{ "data/TEXTURE/UI/Result/Kill.png" },							//キル
 };

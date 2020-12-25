@@ -77,6 +77,8 @@ private:
 	std::shared_ptr<CMultiNumber>				m_pHighScoreNumber;				// ハイスコア
 
 	std::vector<std::shared_ptr<CScene2D>>		m_apScene2D;					// ゲームUI
+
+	S_ptr<CScene2D>	m_pReady_Go;												// ready_go
 	int m_nScoreMag;
 };
 

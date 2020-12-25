@@ -76,11 +76,6 @@ HRESULT CPlayer_2D::Init()
 //------------------------------------------------------------------------------
 void CPlayer_2D::Update()
 {
-	if (CManager::GetGame()->GetGamestate() != CGame::STATE_NORMAL)
-	{
-		return;
-	}
-
 	//軌跡
 	CParticle::CreateFromText(GetPos(), ZeroVector3, CParticleParam::EFFECT_PLAYER_ORBIT, true);
 
@@ -103,6 +98,11 @@ void CPlayer_2D::Draw()
 //------------------------------------------------------------------------------
 void CPlayer_2D::MoveInput()
 {
+	if (CManager::GetGame()->GetGamestate() != CGame::STATE_NORMAL)
+	{
+		return;
+	}
+
 	m_bMove = false;
 
 	//ゲームパッドの情報取得
