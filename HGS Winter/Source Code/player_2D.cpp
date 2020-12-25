@@ -76,17 +76,15 @@ HRESULT CPlayer_2D::Init()
 //------------------------------------------------------------------------------
 void CPlayer_2D::Update()
 {
-	//ãOê’
-	CParticle::CreateFromText(GetPos(), ZeroVector3, CParticleParam::EFFECT_PLAYER_ORBIT, true);
+	//CParticle::CreateFromText(GetPos(), ZeroVector3, CParticleParam::EFFECT_PLAYER_ORBIT, true);
 
 	CGame_2D *pGame = (CGame_2D*)CManager::GetGame();
 
-	//for (int nCnt = 0; nCnt < pGame->GetScoreMag() / 10; nCnt++)
-	//{
-
-
-	//	if (pGame->GetScoreMag())
-	//}
+	for (int nCnt = 0; nCnt < (pGame->GetScoreMag() / 40); nCnt++)
+	{
+		//ãOê’
+		CParticle::CreateFromText(GetPos(), ZeroVector3, CParticleParam::EFFECT_PLAYER_ORBIT, true);
+	}
 
 	//à⁄ìÆì¸óÕ
 	MoveInput();
@@ -135,7 +133,13 @@ void CPlayer_2D::MoveInput()
 	{
 		GetMove().x += joypadX * MOVE_SPEED / 32768.0f;
 		GetMove().y -= joypadY * MOVE_SPEED / 32768.0f;
+
+		float fAngle = atan2f(GetMove().x, GetMove().y);
+
+		SetRot(D3DXVECTOR3(0.0f, 0.0f, fAngle));
 	}
+
+
 }
 
 //------------------------------------------------------------------------------

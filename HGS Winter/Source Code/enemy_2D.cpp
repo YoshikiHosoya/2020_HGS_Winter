@@ -160,9 +160,6 @@ void CEnemy_2D::DamageAction()
 //------------------------------------------------------------------------------
 void CEnemy_2D::DeathAction()
 {
-	//ゲーム終了
-	CParticle::CreateFromText(GetPos(), ZeroVector3, CParticleParam::EFFECT_DEFAULT, true);
-
 	//キャストして取得
 	CGame_2D *pGame = (CGame_2D*)(CManager::GetGame());
 

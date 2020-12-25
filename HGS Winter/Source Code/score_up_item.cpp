@@ -27,7 +27,7 @@ D3DXVECTOR3 *CScoreUpItem::m_pPlayerPos = nullptr;
 //------------------------------------------------------------------------------
 #define ITEM_SIZE			(D3DXVECTOR3(15.0f, 15.0f, 0.0f))
 #define TRACKING_LENGTH		(100.0f)
-#define GETITEM_LENGTH		(30.0f)
+#define GETITEM_LENGTH		(15.0f)
 #define TRACKING_SPEED		(7.0f)
 #define DEFAULT_LIFE		(300)
 
@@ -196,7 +196,7 @@ std::shared_ptr<CScoreUpItem> CScoreUpItem::Create(D3DXVECTOR3 pos)
 		pMitocondoria->Init();
 
 		//座標設定
-		pMitocondoria->SetPos(pos);
+		pMitocondoria->SetPos(pos + CHossoLibrary::RandomVector3(30.0f));
 
 		//オブジェクトタイプ設定
 		pMitocondoria->SetObjType(OBJTYPE_MITCONDORIA);

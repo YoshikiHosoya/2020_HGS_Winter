@@ -182,6 +182,14 @@ void CBomb::Explosion()
 		{
 			//ダメージ
 			pEnemy->ApplyDamage(999);
+
+			if (nKillEnemyNum < 30)
+			{
+				//ゲーム終了
+				CParticle::CreateFromText(pEnemy->GetPos(), ZeroVector3, CParticleParam::EFFECT_DEFAULT, true);
+			}
+
+			//kill数++
 			nKillEnemyNum++;
 		}
 	}
@@ -190,10 +198,13 @@ void CBomb::Explosion()
 	{
 		CManager::GetSound()->Play(CSound::LABEL_SE_KILL_MANY_MANY);
 		CParticle::CreateFromText(GetPos(), ZeroVector3, CParticleParam::EFFECT_MANY_KILL, true);
+		CManager::GetXInput()->StartVibration(15);
+
 	}
 	else if (nKillEnemyNum > 10)
 	{
 		CManager::GetSound()->Play(CSound::LABEL_SE_KILL_MANY);
+		CManager::GetXInput()->StartVibration(5);
 	}
 	else if (nKillEnemyNum > 0)
 	{

@@ -23,6 +23,7 @@
 #include "enemy_2D.h"
 #include "bomb.h"
 #include "scene2D.h"
+#include "Pad_XInput.h"
 
 //------------------------------------------------------------------------------
 //Ã“Iƒƒ“ƒo•Ï”‚Ì‰Šú‰»
@@ -515,6 +516,7 @@ void CGame_2D::SetGamestate(STATE gamestate)
 			//CScene::ReleaseSpecificObject(CScene::OBJTYPE_ENEMY);
 			CParticle::CreateFromText(SCREEN_CENTER_POS, ZeroVector3, CParticleParam::EFFECT_IMPACT);
 			CManager::GetSound()->Play(CSound::LABEL_SE_DEATH);
+			CManager::GetXInput()->StartVibration(40);
 
 
 		}
