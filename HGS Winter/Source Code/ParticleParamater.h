@@ -32,6 +32,7 @@ public:
 		EFFECT_GAMEOVER,						//ゲームオーバー
 		EFFECT_PLAYER_ORBIT,					//プレイヤーの軌跡
 		EFFECT_STAR_ORBIT,						//スターの軌跡
+		EFFECT_MANY_KILL,						//大量キル
 
 		PARTICLE_MAX,
 	};

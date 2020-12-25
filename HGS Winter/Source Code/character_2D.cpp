@@ -141,8 +141,8 @@ void CCharacter_2D::Rot()
 void CCharacter_2D::Collision()
 {
 	//フィールド外に出れないようにする
-	CHossoLibrary::RangeLimit_Equal_Float(GetPos().x, 0, SCREEN_WIDTH);
-	CHossoLibrary::RangeLimit_Equal_Float(GetPos().y, 0, SCREEN_HEIGHT);
+	CHossoLibrary::RangeLimit_Equal_Float(GetPos().x, 40.0f, 1230.0f);
+	CHossoLibrary::RangeLimit_Equal_Float(GetPos().y, 35.0f, 690.0f);
 }
 //------------------------------------------------------------------------------
 //状態に応じた処理

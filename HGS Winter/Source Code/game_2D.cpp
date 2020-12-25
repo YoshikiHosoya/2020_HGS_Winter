@@ -165,6 +165,8 @@ void CGame_2D::Update()
 			if (m_pReady_Go)
 			{
 				m_pReady_Go->BindTexture(CTexture::GetTexture(CTexture::TEX_UI_GAME_GO));
+				CManager::GetSound()->Play(CSound::LABEL_SE_GO);
+
 			}
 		}
 		break;
@@ -209,6 +211,14 @@ void CGame_2D::Update()
 		break;
 	}
 
+	if (CManager::GetKeyboard()->GetTrigger(DIK_L))
+	{
+		CreateEnemyGroup(SCREEN_CENTER_POS);
+	}
+
+#ifdef _DEBUG
+#endif // _DEBUG
+
 
 }
 //------------------------------------------------------------------------------
@@ -239,6 +249,10 @@ void CGame_2D::EnemySpawn()
 
 	CDebugProc::Print(CDebugProc::PLACE_LEFT, "EnemuNum >> %d\n", CEnemy_2D::GetEnemyNum());
 
+	if (m_nCnt < 30)
+	{
+		return;
+	}
 
 	if (m_nCnt % 60 == 0)
 	{
@@ -274,7 +288,7 @@ void CGame_2D::CreateEnemyGroup(D3DXVECTOR3 posOrigin)
 {
 	int nLocalValue = m_nCnt / 300;
 
-	CHossoLibrary::RangeLimit_Equal_Int(nLocalValue, 3, 10);
+	CHossoLibrary::RangeLimit_Equal_Int(nLocalValue, 1, 10);
 
 	for (int nCnt = 0; nCnt < nLocalValue; nCnt++)
 	{
@@ -500,6 +514,8 @@ void CGame_2D::SetGamestate(STATE gamestate)
 
 			//CScene::ReleaseSpecificObject(CScene::OBJTYPE_ENEMY);
 			CParticle::CreateFromText(SCREEN_CENTER_POS, ZeroVector3, CParticleParam::EFFECT_IMPACT);
+			CManager::GetSound()->Play(CSound::LABEL_SE_DEATH);
+
 
 		}
 	}

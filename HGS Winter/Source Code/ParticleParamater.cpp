@@ -25,7 +25,7 @@ FILENAME_LIST CParticleParam::m_aFileNameList =
 	{ "data/Load/EffectParam/GameOver.txt" },
 	{ "data/Load/EffectParam/PlayerOrbit.txt" },
 	{ "data/Load/EffectParam/StarOrbit.txt" },
-
+	{ "data/Load/EffectParam/ManyKill.txt" },
 
 };
 //

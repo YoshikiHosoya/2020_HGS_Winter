@@ -88,6 +88,8 @@ void CPlayer_2D::Update()
 	MoveInput_Keyboard();
 #endif // _DEBUG
 
+	CDebugProc::Print(CDebugProc::PLACE_LEFT, "pos >> %.2f,%.2f \n", GetPos().x, GetPos().y);
+
 	//XV
 	CCharacter_2D::Update();
 }

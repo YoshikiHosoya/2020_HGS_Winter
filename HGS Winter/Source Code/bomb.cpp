@@ -186,7 +186,12 @@ void CBomb::Explosion()
 		}
 	}
 
-	if (nKillEnemyNum > 10)
+	if (nKillEnemyNum > 25)
+	{
+		CManager::GetSound()->Play(CSound::LABEL_SE_KILL_MANY_MANY);
+		CParticle::CreateFromText(GetPos(), ZeroVector3, CParticleParam::EFFECT_MANY_KILL, true);
+	}
+	else if (nKillEnemyNum > 10)
 	{
 		CManager::GetSound()->Play(CSound::LABEL_SE_KILL_MANY);
 	}
@@ -195,6 +200,8 @@ void CBomb::Explosion()
 		CManager::GetSound()->Play(CSound::LABEL_SE_KILL);
 
 	}
+
+	std::cout << "KillNum" << nKillEnemyNum << NEWLINE;
 
 
 	//”jŠü

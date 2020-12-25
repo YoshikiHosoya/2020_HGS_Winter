@@ -30,6 +30,7 @@ public:
 		//エフェクト
 		LABEL_SE_KILL,
 		LABEL_SE_KILL_MANY,
+		LABEL_SE_KILL_MANY_MANY,
 		LABEL_SE_MITCONDORIA,
 		LABEL_SE_RESPAWN,
 		LABEL_SE_BOMB_EXOLOSION,
@@ -40,6 +41,7 @@ public:
 		LABEL_SE_HUNDREDFOLD,
 		LABEL_SE_RESULT_IN,
 		LABEL_SE_DEATH,							//死
+		LABEL_SE_GO,							//死
 
 
 		LABEL_MAX,
@@ -86,16 +88,18 @@ private:
 		//エフェクト
 		{ "data/SE/Effect/kill.wav", 0 },						//SE 決定
 		{ "data/SE/Effect/kill02.wav", 0 },						//SE 決定
+		{ "data/SE/Effect/KillMany.wav", 0 },					//SE 決定
 		{ "data/SE/Effect/Mitochondria.wav", 0 },				//SE 決定
-		{ "data/SE/Effect/Respawn.wav", 0 },				//SE 決定
+		{ "data/SE/Effect/Respawn.wav", 0 },					//SE 決定
 		{ "data/SE/Effect/BombExplosion.wav", 0 },				//SE 決定
 
 		//システム音
 		{ "data/SE/System/pressbutton.wav", 0 },				//SE 決定
-		{ "data/SE/System/death.wav", 0 },						//SE 決定
 		{ "data/SE/System/highscore.wav", 0 },					//SE 決定
 		{ "data/SE/System/Hundredfold.wav", 0 },				//SE 決定
 		{ "data/SE/System/result02.wav", 0 },					//SE 決定
+		{ "data/SE/System/death.wav", 0 },						//SE 決定
+		{ "data/SE/System/Go.wav", 0 },							//SE 決定
 
 	};
 
