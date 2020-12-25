@@ -158,6 +158,9 @@ void CBomb::Explosion()
 	CParticle::CreateFromText(GetPos(), ZeroVector3, CParticleParam::EFFECT_EXPLOSION);
 	CParticle::CreateFromText(GetPos(), ZeroVector3, CParticleParam::EFFECT_IMPACT);
 
+	//‰¹Ä¶
+	CManager::GetSound()->Play(CSound::LABEL_SE_BOMB_EXOLOSION);
+
 	//“G‚ÌƒŠƒXƒgŽæ“¾
 	Vec<S_ptr<CScene>> pEnemyList;
 	CScene::GetSceneList(CScene::OBJTYPE_ENEMY, pEnemyList);
@@ -183,9 +186,16 @@ void CBomb::Explosion()
 		}
 	}
 
-	nKillEnemyNum > 10 ?
-		CManager::GetSound()->Play(CSound::LABEL_SE_KILL_MANY) :
+	if (nKillEnemyNum > 10)
+	{
+		CManager::GetSound()->Play(CSound::LABEL_SE_KILL_MANY);
+	}
+	else if (nKillEnemyNum > 0)
+	{
 		CManager::GetSound()->Play(CSound::LABEL_SE_KILL);
+
+	}
+
 
 	//”jŠü
 	Release();
