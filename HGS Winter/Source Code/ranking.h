@@ -36,6 +36,9 @@ public:
 		RANKING_4th,				// 順位4位
 		RANKING_5th,				// 順位5位
 		ANY_BUTTON,					// エニーボタン
+		RESULT_SCORE,				// 名前ロゴ
+		SURVIVED_TIME,				// 生存時間
+		KILL,						// キル
 		RANKING_MAX,
 	};
 
@@ -68,12 +71,18 @@ private:
 	void					RankingCalculation();									// 順位の計算
 	void					BubbleSort(std::vector<int> &data);						// 優先度の入れ替え 高い順に0番目から
 	void					RankingDataSave();										// ランキングのデータのセーブ
+	void					ResultScoreCreate();									// リザルトスコアの生成
+	void					SurvivedTimeCreate();									// 生存時間の生成
+	void					NumKillCreate();										// キル数の生成
 
 	static char				*m_RankingFileName;										// ランキングのファイル名
 
 	std::vector<int>							m_nRankingScore;					// 上位5位のランキング情報
 	std::vector<std::shared_ptr<CScene2D>>		m_apScene2D;						// ランキングUI 
 	std::vector<std::shared_ptr<CMultiNumber>>	m_apRankScore;						// スコアのUI
+	std::shared_ptr<CMultiNumber>				m_pResultScore;						// リザルトスコア
+	std::shared_ptr<CMultiNumber>				m_pSurvivedTime;					// 生存時間
+	std::shared_ptr<CMultiNumber>				m_pNumKill;							// キル数
 	int											m_nCntResult;						// カウンタ
 
 };

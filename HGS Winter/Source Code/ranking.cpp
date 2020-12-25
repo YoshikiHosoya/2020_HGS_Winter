@@ -18,6 +18,7 @@
 #include "multinumber.h"
 #include "game.h"
 #include "bg.h"
+#include "game_2D.h"
 
 //------------------------------------------------------------------------------
 //マクロ
@@ -29,6 +30,15 @@
 #define VERTICAL_SPACE			(80.0f)									// 縦の間隔
 #define RANKING_SPACE			(10)									// ランキングの間隔
 #define RANKING_SCORE_DIGITS	(7)										// ランキングの桁数
+
+#define RESULT_SCORE_UI_SIZE	(D3DXVECTOR3(150.0f, 50.0f, 0.0f))		// リザルトスコアのUIサイズ
+#define SURVIVED_TIME_UI_SIZE	(D3DXVECTOR3(150.0f, 50.0f, 0.0f))		// 生存時間のUIサイズ
+#define KILL_UI_SIZE			(D3DXVECTOR3(150.0f, 50.0f, 0.0f))		// キルのUIサイズ
+#define ANY_BUTTON_UI_SIZE		(D3DXVECTOR3(500.0f, 100.0f, 0.0f))		// エニーボタンのUIサイズ
+#define SCORE_SIZE				(D3DXVECTOR3(50.0f, 70.0f, 0.0f))		// スコアのUIサイズ
+#define RESULT_SCORE_DIGITS		(7)										// リザルトスコアの桁数
+#define SURVIVED_TIME_DIGITS	(2)										// 生存時間の桁数
+#define NUM_KILL_DIGITS			(3)										// キル数の桁数
 
 //------------------------------------------------------------------------------
 //静的メンバ変数の初期化
@@ -75,6 +85,12 @@ HRESULT CRanking::Init(HWND hWnd)
 	RankingDataLoad();
 	// UI生成
 	RankingUICreate();
+	// リザルトスコアの生成
+	ResultScoreCreate();
+	// 生存時間の生成
+	SurvivedTimeCreate();
+	// キル数の生成
+	NumKillCreate();
 	// スコア生成
 	RankingScoreCreate();
 	// ランキングの計算
@@ -142,7 +158,7 @@ void CRanking::RankingUICreate()
 		if (nCnt == (int)RANKING_UI::RANKING_NAME)
 		{
 			// シーン2Dの生成
-			m_apScene2D.emplace_back(CScene2D::Create_Shared(D3DXVECTOR3((SCREEN_WIDTH * 0.5f), 90.0f, 0.0f), RANKING_LOGO_SIZE, CScene::OBJTYPE_UI));
+			m_apScene2D.emplace_back(CScene2D::Create_Shared(D3DXVECTOR3((SCREEN_WIDTH * 0.7f), 90.0f, 0.0f), RANKING_LOGO_SIZE, CScene::OBJTYPE_UI));
 			// テクスチャの割り当て
 			m_apScene2D[nCnt]->BindTexture(CTexture::GetTexture(CTexture::TEX_UI_RANKING_NAME));
 		}
@@ -150,15 +166,39 @@ void CRanking::RankingUICreate()
 		else if (nCnt == (int)RANKING_UI::ANY_BUTTON)
 		{
 			// シーン2Dの生成
-			m_apScene2D.emplace_back(CScene2D::Create_Shared(D3DXVECTOR3((SCREEN_WIDTH * 0.8f), 650.0f, 0.0f), ANY_BUTTON_UI_SIZE, CScene::OBJTYPE_UI));
+			m_apScene2D.emplace_back(CScene2D::Create_Shared(D3DXVECTOR3((SCREEN_WIDTH * 0.5f), 650.0f, 0.0f), ANY_BUTTON_UI_SIZE, CScene::OBJTYPE_UI));
 			// テクスチャの割り当て
 			m_apScene2D[nCnt]->BindTexture(CTexture::GetTexture(CTexture::TEX_UI_ENTER));
+		}
+		// リザルトスコア
+		else if (nCnt == (int)RANKING_UI::RESULT_SCORE)
+		{
+			// シーン2Dの生成
+			m_apScene2D.emplace_back(CScene2D::Create_Shared(D3DXVECTOR3((SCREEN_WIDTH * 0.25f), 80.0f, 0.0f), RESULT_SCORE_UI_SIZE, CScene::OBJTYPE_UI));
+			// テクスチャの割り当て
+			m_apScene2D[nCnt]->BindTexture(CTexture::GetTexture(CTexture::TEX_UI_SCORE));
+		}
+		// 生存時間
+		else if (nCnt == (int)RANKING_UI::SURVIVED_TIME)
+		{
+			// シーン2Dの生成
+			m_apScene2D.emplace_back(CScene2D::Create_Shared(D3DXVECTOR3((SCREEN_WIDTH * 0.25f), 280.0f, 0.0f), SURVIVED_TIME_UI_SIZE, CScene::OBJTYPE_UI));
+			// テクスチャの割り当て
+			m_apScene2D[nCnt]->BindTexture(CTexture::GetTexture(CTexture::TEX_UI_TIME));
+		}
+		// キル数
+		else if (nCnt == (int)RANKING_UI::KILL)
+		{
+			// シーン2Dの生成
+			m_apScene2D.emplace_back(CScene2D::Create_Shared(D3DXVECTOR3((SCREEN_WIDTH * 0.25f), 480.0f, 0.0f), KILL_UI_SIZE, CScene::OBJTYPE_UI));
+			// テクスチャの割り当て
+			m_apScene2D[nCnt]->BindTexture(CTexture::GetTexture(CTexture::TEX_UI_RESULT_KILL));
 		}
 		// 順位
 		else
 		{
 			// シーン2Dの生成
-			m_apScene2D.emplace_back(CScene2D::Create_Shared(D3DXVECTOR3((SCREEN_WIDTH * 0.35f), (100.0f + (VERTICAL_SPACE * nCnt)) + RANKING_SPACE * nCnt, 0.0f), RANKING_SIZE, CScene::OBJTYPE_UI));
+			m_apScene2D.emplace_back(CScene2D::Create_Shared(D3DXVECTOR3((SCREEN_WIDTH * 0.6f), (100.0f + (VERTICAL_SPACE * nCnt)) + RANKING_SPACE * nCnt, 0.0f), RANKING_SIZE, CScene::OBJTYPE_UI));
 			// テクスチャの割り当て
 			m_apScene2D[nCnt]->BindTexture(CTexture::GetTexture((CTexture::TEX_TYPE)(CTexture::TEX_UI_RANKING_1st + nCnt - 1)));
 		}
@@ -173,7 +213,7 @@ void CRanking::RankingScoreCreate()
 	for (int nCnt = 0; nCnt < (int)RANKING_SCORE::SCORE_MAX; nCnt++)
 	{
 		// スコアの生成
-		m_apRankScore.emplace_back((CMultiNumber::Create(D3DXVECTOR3((SCREEN_WIDTH * 0.5f), ((200.0f - 15.0f) + (VERTICAL_SPACE * nCnt)) + RANKING_SPACE * nCnt, 0.0f),
+		m_apRankScore.emplace_back((CMultiNumber::Create(D3DXVECTOR3((SCREEN_WIDTH * 0.75f), ((200.0f - 15.0f) + (VERTICAL_SPACE * nCnt)) + RANKING_SPACE * nCnt, 0.0f),
 								RANKING_SCORE_SIZE,
 								m_nRankingScore[nCnt],
 								RANKING_SCORE_DIGITS,
@@ -280,7 +320,7 @@ void CRanking::RankingCalculation()
 
 	for (int nCnt = 0; nCnt < (int)m_nRankingScore.size(); nCnt++)
 	{
-		if (m_nRankingScore[nCnt] == CGame::GetScore())
+		if (m_nRankingScore[nCnt] == CGame_2D::GetScore())
 		{
 			m_apRankScore[nCnt]->Settype(CMultiNumber::TYPE_FLASHING);
 		}
@@ -358,4 +398,43 @@ void CRanking::RankingDataSave()
 		MessageBox(NULL, "ランキング情報の読み込み失敗", "警告", MB_ICONWARNING);
 #endif // DEBUG
 	}
+}
+
+//------------------------------------------------------------------------------
+// リザルトスコアの生成
+//------------------------------------------------------------------------------
+void CRanking::ResultScoreCreate()
+{
+	// スコアの生成
+	m_pResultScore = CMultiNumber::Create(D3DXVECTOR3((SCREEN_WIDTH * 0.25f), 150.0f, 0.0f),
+		SCORE_SIZE,
+		CGame_2D::GetScore(),
+		RESULT_SCORE_DIGITS,
+		CScene::OBJTYPE_UI);
+}
+
+//------------------------------------------------------------------------------
+// 生存時間の生成
+//------------------------------------------------------------------------------
+void CRanking::SurvivedTimeCreate()
+{
+	// スコアの生成
+	m_pSurvivedTime = CMultiNumber::Create(D3DXVECTOR3((SCREEN_WIDTH * 0.25f), 350.0f, 0.0f),
+		SCORE_SIZE,
+		CGame_2D::GetTime(),
+		SURVIVED_TIME_DIGITS,
+		CScene::OBJTYPE_UI);
+}
+
+//------------------------------------------------------------------------------
+// キル数の生成
+//------------------------------------------------------------------------------
+void CRanking::NumKillCreate()
+{
+	// スコアの生成
+	m_pNumKill = CMultiNumber::Create(D3DXVECTOR3((SCREEN_WIDTH * 0.25f), 550.0f, 0.0f),
+		SCORE_SIZE,
+		0,
+		NUM_KILL_DIGITS,
+		CScene::OBJTYPE_UI);
 }

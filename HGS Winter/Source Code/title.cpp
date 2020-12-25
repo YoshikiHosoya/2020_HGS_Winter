@@ -16,6 +16,7 @@
 #include "scene2D.h"
 #include "bg.h"
 #include "sound.h"
+
 //------------------------------------------------------------------------------
 //マクロ
 //------------------------------------------------------------------------------
@@ -39,6 +40,7 @@ CTitle::CTitle()
 
 	m_nCntState = DEMOPLAY_FADE_COUNT;
 	m_titlestate = STATE_START;
+	m_EnemyType = ENEMY_TYPE::PLAYER;
 	for (int nCnt = 0; nCnt < MAX_ENEMY; nCnt++)
 	{
 		m_EnemyMove[nCnt] = ZeroVector3;		// 敵の移動量
@@ -173,38 +175,15 @@ void CTitle::EnemyCreate()
 {
 	for (int nCnt = 0; nCnt < MAX_ENEMY; nCnt++)
 	{
-		switch (nCnt)
-		{
-		case 0:
-			// シーン2Dの生成
-			m_apEnemy.emplace_back(CScene2D::Create_Shared(D3DXVECTOR3((SCREEN_WIDTH * 0.2f), SCREEN_HEIGHT * 0.2f, 0.0f), ENEMY_SYZE, CScene::OBJTYPE_UI));
-			// テクスチャの割り当て
-			m_apEnemy[nCnt]->BindTexture(CTexture::GetTexture(CTexture::TEX_ENEMY_BLUE));
-			// 敵の移動量
-			m_EnemyMove[nCnt] = D3DXVECTOR3(2.0f, 4.0f, 0.0f);
-			break;
+		// タイプをランダムに
+		m_EnemyType = (ENEMY_TYPE)(rand() % 5 + (int)ENEMY_TYPE::PLAYER);
 
-		case 1:
-			// シーン2Dの生成
-			m_apEnemy.emplace_back(CScene2D::Create_Shared(D3DXVECTOR3((SCREEN_WIDTH * 0.6f), 400.0f, 0.0f), ENEMY_SYZE, CScene::OBJTYPE_UI));
-			// テクスチャの割り当て
-			m_apEnemy[nCnt]->BindTexture(CTexture::GetTexture(CTexture::TEX_ENEMY_PURPLE));
-			// 敵の移動量
-			m_EnemyMove[nCnt] = D3DXVECTOR3(4.0f, 3.0f, 0.0f);
-			break;
-
-		case 2:
-			// シーン2Dの生成
-			m_apEnemy.emplace_back(CScene2D::Create_Shared(D3DXVECTOR3((SCREEN_WIDTH * 0.9f), 600.0f, 0.0f), ENEMY_SYZE, CScene::OBJTYPE_UI));
-			// テクスチャの割り当て
-			m_apEnemy[nCnt]->BindTexture(CTexture::GetTexture(CTexture::TEX_ENEMY_RED));
-			// 敵の移動量
-			m_EnemyMove[nCnt] = D3DXVECTOR3(6.0f, 7.0f, 0.0f);
-			break;
-
-		default:
-			break;
-		}
+		// シーン2Dの生成
+		m_apEnemy.emplace_back(CScene2D::Create_Shared(CHossoLibrary::RandomVector3(720.0f), ENEMY_SYZE, CScene::OBJTYPE_UI));
+		// テクスチャの割り当て
+		m_apEnemy[nCnt]->BindTexture(CTexture::GetTexture((CTexture::TEX_TYPE)m_EnemyType));
+		// ランダムな移動量
+		m_EnemyMove[nCnt] = CHossoLibrary::RandomVector3(8.0f);
 	}
 }
 
