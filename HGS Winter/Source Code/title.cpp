@@ -23,6 +23,7 @@
 #define DEMOPLAY_FADE_COUNT		(1000)		//デモプレイに行くまでのカウンタ
 
 #define TITLE_LOGO_SIZE			(D3DXVECTOR3(900.0f, 400.0f, 0.0f))
+#define ANY_BUTTON_UI_SIZE		(D3DXVECTOR3(400.0f, 50.0f, 0.0f))		// エニーボタンのUIサイズ
 
 #define ENEMY_SYZE				(D3DXVECTOR3(60.0f, 60.0f, 0.0f))			// 敵のサイズ
 
@@ -161,7 +162,7 @@ void CTitle::TitleUICreate()
 		if (nCnt == (int)TITLE_UI::TITLE_ENTER)
 		{
 			// シーン2Dの生成
-			m_apScene2D.emplace_back(CScene2D::Create_Shared(D3DXVECTOR3((SCREEN_WIDTH * 0.5f), 600.0f, 0.0f), D3DXVECTOR3(500.0f, 100.0f, 0.0f), CScene::OBJTYPE_UI));
+			m_apScene2D.emplace_back(CScene2D::Create_Shared(D3DXVECTOR3((SCREEN_WIDTH * 0.5f), 600.0f, 0.0f), ANY_BUTTON_UI_SIZE, CScene::OBJTYPE_UI));
 			// テクスチャの割り当て
 			m_apScene2D[nCnt]->BindTexture(CTexture::GetTexture(CTexture::TEX_UI_ENTER));
 		}

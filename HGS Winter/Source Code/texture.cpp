@@ -30,7 +30,7 @@ FILENAME_LIST CTexture::m_aTexFileName =
 
 	{ "data/TEXTURE/UI/Title/Title.png" },							//タイトルロゴ
 
-	{ "data/TEXTURE/UI/Ranking/RankingLogo.png" },					//ランキングロゴ
+	{ "data/TEXTURE/UI/Ranking/Ranking.png" },						//ランキングロゴ
 	{ "data/TEXTURE/UI/Ranking/Total.png" },						//ランキングスコア
 	{ "data/TEXTURE/UI/Ranking/rank_1.png" },						//1位
 	{ "data/TEXTURE/UI/Ranking/rank_2.png" },						//2位
@@ -39,13 +39,14 @@ FILENAME_LIST CTexture::m_aTexFileName =
 	{ "data/TEXTURE/UI/Ranking/rank_5.png" },						//5位
 	{ "data/TEXTURE/UI/Ranking/gototitle.png" },					//タイトルへ
 
-	{ "data/TEXTURE/UI/Enter.png" },								//Enter
+	{ "data/TEXTURE/UI/Press_Lstick.png" },							//Enter
 	{ "data/TEXTURE/UI/Num.png" },									//ナンバー
 	{ "data/TEXTURE/UI/score.png" },								//スコア
 	{ "data/TEXTURE/UI/time.png" },									//タイム
 
 	{ "data/TEXTURE/UI/Game/cross.png" },							//バツ ( かける )
 	{ "data/TEXTURE/UI/Game/highscore.png" },						//ハイスコア
+	{ "data/TEXTURE/UI/Game/ready_go.png" },						//Ready
 
 	{ "data/TEXTURE/UI/Result/Kill.png" },							//キル
 };

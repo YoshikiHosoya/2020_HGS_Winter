@@ -23,9 +23,9 @@
 //------------------------------------------------------------------------------
 //マクロ
 //------------------------------------------------------------------------------
-#define RANKING_LOGO_SIZE		(D3DXVECTOR3(700.0f, 200.0f, 0.0f))		// ランキングロゴのサイズ
+#define RANKING_LOGO_SIZE		(D3DXVECTOR3(450.0f, 80.0f, 0.0f))		// ランキングロゴのサイズ
 #define RANKING_SIZE			(D3DXVECTOR3(80.0f, 50.0f, 0.0f))		// ランキングUIのサイズ
-#define ANY_BUTTON_UI_SIZE		(D3DXVECTOR3(500.0f, 100.0f, 0.0f))		// エニーボタンのUIサイズ
+#define ANY_BUTTON_UI_SIZE		(D3DXVECTOR3(400.0f, 50.0f, 0.0f))		// エニーボタンのUIサイズ
 #define RANKING_SCORE_SIZE		(D3DXVECTOR3(40.0f, 80.0f, 0.0f))		// ランキングスコアサイズ
 #define VERTICAL_SPACE			(80.0f)									// 縦の間隔
 #define RANKING_SPACE			(10)									// ランキングの間隔
@@ -34,7 +34,6 @@
 #define RESULT_SCORE_UI_SIZE	(D3DXVECTOR3(150.0f, 50.0f, 0.0f))		// リザルトスコアのUIサイズ
 #define SURVIVED_TIME_UI_SIZE	(D3DXVECTOR3(150.0f, 50.0f, 0.0f))		// 生存時間のUIサイズ
 #define KILL_UI_SIZE			(D3DXVECTOR3(150.0f, 50.0f, 0.0f))		// キルのUIサイズ
-#define ANY_BUTTON_UI_SIZE		(D3DXVECTOR3(500.0f, 100.0f, 0.0f))		// エニーボタンのUIサイズ
 #define SCORE_SIZE				(D3DXVECTOR3(50.0f, 70.0f, 0.0f))		// スコアのUIサイズ
 #define RESULT_SCORE_DIGITS		(7)										// リザルトスコアの桁数
 #define SURVIVED_TIME_DIGITS	(2)										// 生存時間の桁数
@@ -314,7 +313,7 @@ void CRanking::RankingDataLoad()
 void CRanking::RankingCalculation()
 {
 	// 末尾にプレイヤーのスコアデータを追加
-	m_nRankingScore.emplace_back(CGame::GetScore());
+	m_nRankingScore.emplace_back(CGame_2D::GetScore());
 	// スコアを大きい順に入れ替える
 	BubbleSort(m_nRankingScore);
 
