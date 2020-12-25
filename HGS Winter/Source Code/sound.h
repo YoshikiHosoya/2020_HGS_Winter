@@ -31,6 +31,8 @@ public:
 		LABEL_SE_KILL,
 		LABEL_SE_KILL_MANY,
 		LABEL_SE_MITCONDORIA,
+		LABEL_SE_RESPAWN,
+		LABEL_SE_BOMB_EXOLOSION,
 
 		//システム音
 		LABEL_SE_DECISION,						//決定
@@ -85,7 +87,8 @@ private:
 		{ "data/SE/Effect/kill.wav", 0 },						//SE 決定
 		{ "data/SE/Effect/kill02.wav", 0 },						//SE 決定
 		{ "data/SE/Effect/Mitochondria.wav", 0 },				//SE 決定
-
+		{ "data/SE/Effect/Respawn.wav", 0 },				//SE 決定
+		{ "data/SE/Effect/BombExplosion.wav", 0 },				//SE 決定
 
 		//システム音
 		{ "data/SE/System/pressbutton.wav", 0 },				//SE 決定

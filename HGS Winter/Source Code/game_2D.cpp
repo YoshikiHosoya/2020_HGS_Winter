@@ -213,6 +213,8 @@ void CGame_2D::EnemySpawn()
 	if (m_nCnt % 60 == 0)
 	{
 		CreateEnemyGroup(SCREEN_CENTER_POS + D3DXVECTOR3(CHossoLibrary::Random(600.0f), CHossoLibrary::Random(320.0f), 0.0f));
+		CManager::GetSound()->Play(CSound::LABEL_SE_RESPAWN);
+
 
 		if (m_nCnt > PERPLE_APPEAR_FRAME)
 		{
