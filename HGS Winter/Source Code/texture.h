@@ -62,6 +62,7 @@ public:
 		// ゲームUI
 		TEX_UI_GAME_CROSS,						// バツ ( かける )
 		TEX_UI_GAME_HIGHSCORE,					// ハイスコア
+		TEX_UI_GAME_READY,						// Ready
 
 		// リザルトUI
 		TEX_UI_RESULT_KILL,						// キル
