@@ -29,6 +29,7 @@ D3DXVECTOR3 *CScoreUpItem::m_pPlayerPos = nullptr;
 #define TRACKING_LENGTH		(100.0f)
 #define GETITEM_LENGTH		(30.0f)
 #define TRACKING_SPEED		(7.0f)
+#define DEFAULT_LIFE		(300)
 
 //------------------------------------------------------------------------------
 //コンストラクタ
@@ -37,7 +38,7 @@ CScoreUpItem::CScoreUpItem()
 {
 	m_bMove = false;
 	m_fRotation = CHossoLibrary::Random(0.05f);
-
+	SetLife(DEFAULT_LIFE);
 }
 
 //------------------------------------------------------------------------------
@@ -76,6 +77,22 @@ HRESULT CScoreUpItem::Init()
 void CScoreUpItem::Update()
 {
 	GetRot().z += m_fRotation;
+
+	//ライフ減少
+	SetLife(GetLife() - 1);
+
+	//ライフが一定以下になったら
+	if ((GetLife() <= 50))
+	{
+		//徐々に透明
+		GetScene2DPtr()->SetColor(GetScene2DPtr()->GetColor() -= D3DXCOLOR(0.0f, 0.0f, 0.0f, 0.02f));
+
+		if (GetLife() <= 0)
+		{
+			Release();
+		}
+	}
+
 
 	//更新
 	CCharacter_2D::Update();

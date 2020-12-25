@@ -76,6 +76,14 @@ HRESULT CPlayer_2D::Init()
 //------------------------------------------------------------------------------
 void CPlayer_2D::Update()
 {
+	if (CManager::GetGame()->GetGamestate() != CGame::STATE_NORMAL)
+	{
+		return;
+	}
+
+	//‹OÕ
+	CParticle::CreateFromText(GetPos(), ZeroVector3, CParticleParam::EFFECT_PLAYER_ORBIT, true);
+
 	//ˆÚ“®“ü—Í
 	MoveInput();
 

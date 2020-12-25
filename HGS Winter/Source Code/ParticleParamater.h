@@ -30,6 +30,8 @@ public:
 		EFFECT_BOMB,							//ボム
 		EFFECT_EXPLOSION,						//爆発
 		EFFECT_GAMEOVER,						//ゲームオーバー
+		EFFECT_PLAYER_ORBIT,					//プレイヤーの軌跡
+		EFFECT_STAR_ORBIT,						//スターの軌跡
 
 		PARTICLE_MAX,
 	};

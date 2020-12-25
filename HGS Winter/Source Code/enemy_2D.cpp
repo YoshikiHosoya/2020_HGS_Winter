@@ -22,11 +22,14 @@
 //------------------------------------------------------------------------------
 D3DXVECTOR3 *CEnemy_2D::m_pPlayerPos = nullptr;
 int CEnemy_2D::m_nNumEnemy = 0;
+int CEnemy_2D::m_nKillEnemyNum = 0;
+
+
 //------------------------------------------------------------------------------
 //マクロ
 //------------------------------------------------------------------------------
 #define ENEMY_SYZE			(D3DXVECTOR3(60.0f, 60.0f, 0.0f))
-#define MOVESPEED_BLUE		(1.2f)
+#define MOVESPEED_BLUE		(1.1f)
 #define MOVESPEED_PURPLE	(1.6f)
 #define MOVESPEED_RED		(2.5f)
 #define RED_TURN_TIME		(40)
@@ -49,6 +52,7 @@ CEnemy_2D::CEnemy_2D()
 CEnemy_2D::~CEnemy_2D()
 {
 	m_nNumEnemy--;
+	m_nKillEnemyNum++;
 }
 //------------------------------------------------------------------------------
 //初期化処理
@@ -78,6 +82,11 @@ HRESULT CEnemy_2D::Init()
 //------------------------------------------------------------------------------
 void CEnemy_2D::Update()
 {
+	if (CManager::GetGame()->GetGamestate() != CGame::STATE_NORMAL)
+	{
+		return;
+	}
+
 	//座標の差分算出
 	m_DifPos = *m_pPlayerPos - GetPos();
 
@@ -157,7 +166,7 @@ void CEnemy_2D::DamageAction()
 void CEnemy_2D::DeathAction()
 {
 	//ゲーム終了
-	CParticle::CreateFromText(GetPos(), ZeroVector3, CParticleParam::EFFECT_DEFAULT);
+	CParticle::CreateFromText(GetPos(), ZeroVector3, CParticleParam::EFFECT_DEFAULT, true);
 
 	//キャストして取得
 	CGame_2D *pGame = (CGame_2D*)(CManager::GetGame());
@@ -165,7 +174,7 @@ void CEnemy_2D::DeathAction()
 	//スコア加算
 	pGame->AddScore(ADD_SCORE);
 
-	if (rand() % 3 == 0)
+	if (rand() % 2 == 0)
 	{
 		//ミトコンドリア生成
 		CScoreUpItem::Create(GetPos() + CHossoLibrary::RandomVector3(20.0f));
@@ -182,7 +191,7 @@ void CEnemy_2D::SetState(STATE nextstate)
 	{
 	case CCharacter::STATE_APPEAR:
 		GetScene2DPtr()->BindTexture(CTexture::GetTexture(CTexture::TEX_NONE));
-		SetCntState(30);
+		SetCntState(40);
 		break;
 
 	case CCharacter::STATE_NORMAL:
@@ -374,7 +383,9 @@ void CEnemy_2D::MoveAI()
 		vec = *D3DXVec3Normalize(&vec, &m_DifPos);
 
 		GetMove() += vec * MOVESPEED_PURPLE;
-		GetRot().z += 0.1f;
+		GetRot().z += 0.12f;
+
+		CParticle::CreateFromText(GetPos(), ZeroVector3, CParticleParam::EFFECT_STAR_ORBIT);
 
 		D3DXVECTOR3;
 
@@ -384,6 +395,17 @@ void CEnemy_2D::MoveAI()
 		break;
 	}
 
+
+}
+
+
+//------------------------------------------------------------------------------
+//敵情報リセット
+//------------------------------------------------------------------------------
+void CEnemy_2D::ResetEnemyInfo()
+{
+	m_nNumEnemy = 0;
+	m_nKillEnemyNum = 0;
 
 }
 

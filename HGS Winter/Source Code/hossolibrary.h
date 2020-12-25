@@ -138,16 +138,6 @@ public:
 		MAX
 	};
 
-	//方向
-	enum DIRECTION
-	{
-		NONE = -1,
-		UP,			//↑
-		DOWN,		//↓
-		LEFT,		//←
-		RIGHT		//→
-	};
-
 	static bool CheckMove(DIRECTION);								//移動用関数(AWSD + CrossKey) Press
 	static DIRECTION CheckSelect();									//セレクト用関数(AWSD + ARROW + LStick) Trigger
 
@@ -180,6 +170,7 @@ public:
 	static void SelectVerticalMenu(int &nSelectNum, int const &nMaxSelect);										//縦メニューの選択
 	static void SelectHorizonMenu(int &nSelectNum, int const &nMaxSelect);										//横メニューの選択
 
+	static D3DXVECTOR3 RandomScreenOutPos(D3DXVECTOR3 Value);
 
 	static HRESULT InitImgui(HWND hWnd);	//Imgui生成処理
 

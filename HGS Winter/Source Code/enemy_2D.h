@@ -58,6 +58,10 @@ public:
 
 	static void SetPlayerPosPtr(D3DXVECTOR3 *pPos) { m_pPlayerPos = pPos; };						//プレイヤーの座標のポインタ設定
 	static int GetEnemyNum() { return m_nNumEnemy; };
+	static int GetEnemyKillNum() { return m_nKillEnemyNum; };
+
+	static void ResetEnemyInfo();	//リセット
+
 protected:
 
 private:
@@ -68,6 +72,6 @@ private:
 	int m_nCntDirection;						//向き変更
 	static D3DXVECTOR3 *m_pPlayerPos;			//プレイヤーの座標
 	static int m_nNumEnemy;						//敵の総数
-
+	static int m_nKillEnemyNum;					//キルされた敵
 };
 #endif

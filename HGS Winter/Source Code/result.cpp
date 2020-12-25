@@ -17,6 +17,7 @@
 #include "scene2D.h"
 #include "multinumber.h"
 #include "game_2D.h"
+#include "enemy_2D.h"
 
 //------------------------------------------------------------------------------
 //マクロ
@@ -201,7 +202,7 @@ void CResult::NumKillCreate()
 	// スコアの生成
 	m_pNumKill = CMultiNumber::Create(D3DXVECTOR3((SCREEN_WIDTH * 0.5f), 470.0f, 0.0f),
 		SCORE_SIZE,
-		/*CGame_2D::GetScore()*/ 0,
+		/*CGame_2D::GetScore()*/ CEnemy_2D::GetEnemyKillNum(),
 		NUM_KILL_DIGITS,
 		CScene::OBJTYPE_UI);
 }

@@ -83,29 +83,29 @@ bool CHossoLibrary::CheckMove(DIRECTION direction)
 //------------------------------------------------------------------------------
 //選択肢用チェック関数
 //------------------------------------------------------------------------------
-CHossoLibrary::DIRECTION CHossoLibrary::CheckSelect()
+DIRECTION CHossoLibrary::CheckSelect()
 {
-	CHossoLibrary::DIRECTION direction = CHossoLibrary::NONE;
+	DIRECTION direction = DIRECTION::NONE;
 
 	//↑
 	if ((m_pKeyboard->GetTrigger(DIK_W) || m_pKeyboard->GetTrigger(DIK_UP) || m_pXInput->GetTrigger(CPad_XInput::JOYPADKEY_UP,1) || (m_fLeftStickY / JOY_MAX_RANGE > STICK_ON && m_bStickY == false)))
 	{
-		direction = CHossoLibrary::UP;
+		direction = DIRECTION::UP;
 	}
 	//↓
 	else if ((m_pKeyboard->GetTrigger(DIK_S) || m_pKeyboard->GetTrigger(DIK_DOWN) || m_pXInput->GetTrigger(CPad_XInput::JOYPADKEY_DOWN, 1) || (m_fLeftStickY / JOY_MAX_RANGE < -STICK_ON && m_bStickY == false)))
 	{
-		direction = CHossoLibrary::DOWN;
+		direction = DIRECTION::DOWN;
 	}
 	//→
 	else if ((m_pKeyboard->GetTrigger(DIK_D) || m_pKeyboard->GetTrigger(DIK_RIGHT) || m_pXInput->GetTrigger(CPad_XInput::JOYPADKEY_RIGHT, 1) || (m_fLeftStickX / JOY_MAX_RANGE > STICK_ON && m_bStickX == false)))
 	{
-		direction = CHossoLibrary::RIGHT;
+		direction = DIRECTION::RIGHT;
 	}
 	//←
 	else if ((m_pKeyboard->GetTrigger(DIK_A) || m_pKeyboard->GetTrigger(DIK_LEFT) || m_pXInput->GetTrigger(CPad_XInput::JOYPADKEY_LEFT, 1)  || (m_fLeftStickX / JOY_MAX_RANGE < -STICK_ON && m_bStickX == false)))
 	{
-		direction = CHossoLibrary::LEFT;
+		direction = DIRECTION::LEFT;
 	}
 
 	return direction;
@@ -680,7 +680,7 @@ bool CHossoLibrary::RangeLimit_Equal_Float(float & nValue, float nMin, float nMa
 void CHossoLibrary::SelectVerticalMenu(int & nSelectNum, int const & nMaxSelect)
 {
 	//↑
-	if (CHossoLibrary::CheckSelect() == CHossoLibrary::UP)
+	if (CHossoLibrary::CheckSelect() == DIRECTION::UP)
 	{
 		nSelectNum--;
 		//一番↑にいったら
@@ -695,7 +695,7 @@ void CHossoLibrary::SelectVerticalMenu(int & nSelectNum, int const & nMaxSelect)
 		}
 	}
 	//↓
-	if (CHossoLibrary::CheckSelect() == CHossoLibrary::DOWN)
+	if (CHossoLibrary::CheckSelect() == DIRECTION::DOWN)
 	{
 		nSelectNum++;
 		//一番↓にいったら
@@ -716,7 +716,7 @@ void CHossoLibrary::SelectVerticalMenu(int & nSelectNum, int const & nMaxSelect)
 void CHossoLibrary::SelectHorizonMenu(int & nSelectNum, int const & nMaxSelect)
 {
 	//←
-	if (CHossoLibrary::CheckSelect() == CHossoLibrary::LEFT)
+	if (CHossoLibrary::CheckSelect() == DIRECTION::LEFT)
 	{
 		nSelectNum--;
 		if (nSelectNum < 0)
@@ -729,7 +729,7 @@ void CHossoLibrary::SelectHorizonMenu(int & nSelectNum, int const & nMaxSelect)
 		}
 	}
 	//→
-	if (CHossoLibrary::CheckSelect() == CHossoLibrary::RIGHT)
+	if (CHossoLibrary::CheckSelect() == DIRECTION::RIGHT)
 	{
 		nSelectNum++;
 		if (nSelectNum > nMaxSelect - 1)
@@ -741,6 +741,37 @@ void CHossoLibrary::SelectHorizonMenu(int & nSelectNum, int const & nMaxSelect)
 			CManager::GetSound()->Play(CSound::LABEL_SE_SELECT);
 		}
 	}
+}
+//------------------------------------------------------------------------------
+//画面外のランダムの座標
+//------------------------------------------------------------------------------
+D3DXVECTOR3 CHossoLibrary::RandomScreenOutPos(D3DXVECTOR3 Value)
+{
+	DIRECTION dir = (DIRECTION)(rand() % (int)DIRECTION::MAX);
+	D3DXVECTOR3 pos = ZeroVector3;
+
+	switch (dir)
+	{
+	case DIRECTION::UP:
+		pos = SCREEN_CENTER_POS + D3DXVECTOR3(Random(SCREEN_WIDTH * 0.6f), -SCREEN_HEIGHT * 0.6f, 0.0f);
+		break;
+	case DIRECTION::DOWN:
+		pos = SCREEN_CENTER_POS + D3DXVECTOR3(Random(SCREEN_WIDTH * 0.6f), +SCREEN_HEIGHT * 0.6f, 0.0f);
+
+		break;
+	case DIRECTION::LEFT:
+		pos = SCREEN_CENTER_POS + D3DXVECTOR3(-SCREEN_WIDTH * 0.6f , Random(SCREEN_HEIGHT * 0.6f), 0.0f);
+
+		break;
+	case DIRECTION::RIGHT:
+		pos = SCREEN_CENTER_POS + D3DXVECTOR3(+SCREEN_WIDTH * 0.6f, Random(SCREEN_HEIGHT * 0.6f), 0.0f);
+
+		break;
+	}
+
+
+
+	return pos;
 }
 //------------------------------------------------------------------------------
 //-3.14～3.14を返す

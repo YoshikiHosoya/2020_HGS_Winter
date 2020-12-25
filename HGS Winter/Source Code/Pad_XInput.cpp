@@ -68,6 +68,8 @@ void CPad_XInput::Update(void)
 		m_bConnect = false;
 	}
 
+	//std::cout << "Connect" << m_bConnect << NEWLINE;
+
 	// スティックの入力が弱い時は０にしとく
 	if ((m_pState.Gamepad.sThumbLX < XINPUT_GAMEPAD_LEFT_THUMB_DEADZONE && m_pState.Gamepad.sThumbLX > -XINPUT_GAMEPAD_LEFT_THUMB_DEADZONE) &&
 		(m_pState.Gamepad.sThumbLY < XINPUT_GAMEPAD_LEFT_THUMB_DEADZONE && m_pState.Gamepad.sThumbLY > -XINPUT_GAMEPAD_LEFT_THUMB_DEADZONE))
