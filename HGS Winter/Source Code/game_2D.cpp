@@ -44,7 +44,7 @@ int CGame_2D::m_nScore = 0;
 #define CROSS_UI_SIZE				(D3DXVECTOR3(20.0f, 20.0f, 0.0f))					// バツのUIサイズ
 #define HIGHSCORE_UI_SIZE			(D3DXVECTOR3(150.0f, 20.0f, 0.0f))					// ハイスコアのUIサイズ
 #define SCORE_SIZE					(D3DXVECTOR3(20.0f, 30.0f, 0.0f))					// スコアのUIサイズ
-#define SCORE_DIGITS				(7)													// スコアの桁数
+#define SCORE_DIGITS				(8)													// スコアの桁数
 #define TIME_DIGITS					(3)													// タイムの桁数
 #define MAGNIFICATION_DIGITS		(3)													// 倍率の桁数
 
