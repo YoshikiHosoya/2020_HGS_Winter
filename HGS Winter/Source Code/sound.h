@@ -42,6 +42,7 @@ public:
 		LABEL_SE_RESULT_IN,
 		LABEL_SE_DEATH,							//Ž€
 		LABEL_SE_GO,							//Ž€
+		LABEL_SE_WARNING,						//Ž€
 
 
 		LABEL_MAX,
@@ -100,6 +101,7 @@ private:
 		{ "data/SE/System/result02.wav", 0 },					//SE Œˆ’è
 		{ "data/SE/System/death.wav", 0 },						//SE Œˆ’è
 		{ "data/SE/System/Go.wav", 0 },							//SE Œˆ’è
+		{ "data/SE/System/warning.wav", 0 },					//SE Œˆ’è
 
 	};
 

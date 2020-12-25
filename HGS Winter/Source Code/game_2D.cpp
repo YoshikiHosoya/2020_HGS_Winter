@@ -260,6 +260,12 @@ void CGame_2D::EnemySpawn()
 		CreateEnemyGroup(SCREEN_CENTER_POS + D3DXVECTOR3(CHossoLibrary::Random(600.0f), CHossoLibrary::Random(320.0f), 0.0f));
 		CManager::GetSound()->Play(CSound::LABEL_SE_RESPAWN);
 
+		//紫とか赤のタイミング
+		if (m_nCnt == PERPLE_APPEAR_FRAME || m_nCnt == RED_APPEAR_FRAME)
+		{
+			//警告音
+			CManager::GetSound()->Play(CSound::LABEL_SE_WARNING);
+		}
 
 		if (m_nCnt > PERPLE_APPEAR_FRAME)
 		{

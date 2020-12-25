@@ -143,7 +143,7 @@ void CEnemy_2D::Collision()
 
 	if (fLocalDistance < COLLISION_LENGTH)
 	{
-		CManager::GetGame()->SetGamestate(CGame::STATE_GAMEOVER);
+		//CManager::GetGame()->SetGamestate(CGame::STATE_GAMEOVER);
 	}
 
 }
