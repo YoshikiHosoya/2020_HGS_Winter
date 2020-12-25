@@ -48,8 +48,8 @@ int CGame_2D::m_nScore = 0;
 #define TIME_DIGITS					(3)													// ƒ^ƒCƒ€‚ÌŒ…”
 #define MAGNIFICATION_DIGITS		(2)													// ”{—¦‚ÌŒ…”
 
-#define PERPLE_APPEAR_FRAME			(3600)
-#define RED_APPEAR_FRAME			(7200)
+#define PERPLE_APPEAR_FRAME			(2000)
+#define RED_APPEAR_FRAME			(3600)
 
 
 //------------------------------------------------------------------------------
@@ -100,6 +100,9 @@ HRESULT CGame_2D::Init(HWND hWnd)
 
 	// ”wŒi‚Ì¶¬
 	CBg::Create(65);
+
+	//“G‚Ìî•ñƒŠƒZƒbƒg
+	CEnemy_2D::ResetEnemyInfo();
 
 	// ƒQ[ƒ€UI‚Ì¶¬
 	GameUICreate();
@@ -210,7 +213,20 @@ void CGame_2D::EnemySpawn()
 
 	if (m_nCnt % 60 == 0)
 	{
-		CreateEnemyGroup(SCREEN_CENTER_POS + D3DXVECTOR3(CHossoLibrary::Random(500.0f), CHossoLibrary::Random(250.0f), 0.0f));
+		CreateEnemyGroup(SCREEN_CENTER_POS + D3DXVECTOR3(CHossoLibrary::Random(600.0f), CHossoLibrary::Random(320.0f), 0.0f));
+
+		if (m_nCnt > PERPLE_APPEAR_FRAME)
+		{
+			if (m_nCnt % 180 == 0)
+			{
+				CEnemy_2D::Create(CHossoLibrary::RandomScreenOutPos(ZeroVector3), CEnemy_2D::PURPLE);
+			}
+		}
+
+		if (m_nCnt > RED_APPEAR_FRAME)
+		{
+			CEnemy_2D::Create(SCREEN_CENTER_POS + D3DXVECTOR3(CHossoLibrary::Random(600.0f), CHossoLibrary::Random(320.0f), 0.0f), CEnemy_2D::RED);
+		}
 
 		if (m_nCnt % 120 == 0)
 		{
@@ -225,25 +241,13 @@ void CGame_2D::EnemySpawn()
 //------------------------------------------------------------------------------
 void CGame_2D::CreateEnemyGroup(D3DXVECTOR3 posOrigin)
 {
-	int nLocalValue = m_nCnt / 120;
+	int nLocalValue = m_nCnt / 300;
 
 	CHossoLibrary::RangeLimit_Equal_Int(nLocalValue, 3, 10);
 
-	for (int nCnt = 0; nCnt < nLocalValue ; nCnt++)
+	for (int nCnt = 0; nCnt < nLocalValue; nCnt++)
 	{
-		//CEnemy_2D::Create(posOrigin + D3DXVECTOR3(CHossoLibrary::Random(70.0f), CHossoLibrary::Random(70.0f), 0.0f), CEnemy_2D::PURPLE);
-
 		CEnemy_2D::Create(posOrigin + D3DXVECTOR3(CHossoLibrary::Random(70.0f), CHossoLibrary::Random(70.0f), 0.0f), CEnemy_2D::BLUE);
-
-		if (nLocalValue > 2000)
-		{
-			CEnemy_2D::Create(posOrigin + D3DXVECTOR3(CHossoLibrary::Random(70.0f), CHossoLibrary::Random(70.0f), 0.0f), CEnemy_2D::PURPLE);
-		}
-
-		if (nLocalValue > 5000)
-		{
-			CEnemy_2D::Create(CHossoLibrary::RandomVector3(200.0f), CEnemy_2D::RED);
-		}
 	}
 }
 
