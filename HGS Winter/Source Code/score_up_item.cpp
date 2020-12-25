@@ -165,6 +165,8 @@ void CScoreUpItem::Collision()
 		{
 			CGame_2D *pGame2D = (CGame_2D*)CManager::GetGame();
 			pGame2D->AddScoreMag();
+			CManager::GetSound()->Play(CSound::LABEL_SE_MITCONDORIA);
+
 			Release();
 		}
 		else

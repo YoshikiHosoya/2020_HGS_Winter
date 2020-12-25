@@ -212,7 +212,7 @@ bool CHossoLibrary::CheckCancel()
 	if (m_pKeyboard->GetTrigger(DIK_BACKSPACE) || m_pKeyboard->GetTrigger(DIK_DELETE) ||
 		m_pXInput->GetTrigger(CPad_XInput::JOYPADKEY_BACK, 1) || m_pXInput->GetTrigger(CPad_XInput::JOYPADKEY_B, 1))
 	{
-		CManager::GetSound()->Play(CSound::LABEL_SE_CANCEL);
+		//CManager::GetSound()->Play(CSound::LABEL_SE_CANCEL);
 
 		return true;
 	}
@@ -225,7 +225,7 @@ bool CHossoLibrary::CheckPause()
 {
 	if (m_pKeyboard->GetTrigger(DIK_P) || m_pXInput->GetTrigger(CPad_XInput::JOYPADKEY_START, 1))
 	{
-		CManager::GetSound()->Play(CSound::LABEL_SE_PAUSE);
+		//CManager::GetSound()->Play(CSound::LABEL_SE_PAUSE);
 		return true;
 
 	}
@@ -691,7 +691,7 @@ void CHossoLibrary::SelectVerticalMenu(int & nSelectNum, int const & nMaxSelect)
 		}
 		else
 		{
-			CManager::GetSound()->Play(CSound::LABEL_SE_SELECT);
+			//CManager::GetSound()->Play(CSound::LABEL_SE_SELECT);
 		}
 	}
 	//«
@@ -706,7 +706,7 @@ void CHossoLibrary::SelectVerticalMenu(int & nSelectNum, int const & nMaxSelect)
 		}
 		else
 		{
-			CManager::GetSound()->Play(CSound::LABEL_SE_SELECT);
+			//CManager::GetSound()->Play(CSound::LABEL_SE_SELECT);
 		}
 	}
 }
@@ -725,7 +725,7 @@ void CHossoLibrary::SelectHorizonMenu(int & nSelectNum, int const & nMaxSelect)
 		}
 		else
 		{
-			CManager::GetSound()->Play(CSound::LABEL_SE_SELECT);
+			//CManager::GetSound()->Play(CSound::LABEL_SE_SELECT);
 		}
 	}
 	//¨
@@ -738,7 +738,7 @@ void CHossoLibrary::SelectHorizonMenu(int & nSelectNum, int const & nMaxSelect)
 		}
 		else
 		{
-			CManager::GetSound()->Play(CSound::LABEL_SE_SELECT);
+			//CManager::GetSound()->Play(CSound::LABEL_SE_SELECT);
 		}
 	}
 }

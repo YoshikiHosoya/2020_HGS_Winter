@@ -174,7 +174,7 @@ void CEnemy_2D::DeathAction()
 	//スコア加算
 	pGame->AddScore(ADD_SCORE);
 
-	if (rand() % 2 == 0)
+	//if (rand() % 2 == 0)
 	{
 		//ミトコンドリア生成
 		CScoreUpItem::Create(GetPos() + CHossoLibrary::RandomVector3(20.0f));

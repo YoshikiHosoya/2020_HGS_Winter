@@ -41,7 +41,7 @@ HRESULT CSound::Init(HWND hWnd)
 
 #ifdef _DEBUG
 	//デバッグ時はミュートする
-	m_bMute = true;
+	//m_bMute = true;
 #endif
 	// COMライブラリの初期化
 	CoInitializeEx(NULL, COINIT_MULTITHREADED);
