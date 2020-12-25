@@ -19,7 +19,7 @@
 #include "game.h"
 #include "bg.h"
 #include "game_2D.h"
-
+#include "enemy_2D.h"
 //------------------------------------------------------------------------------
 //マクロ
 //------------------------------------------------------------------------------
@@ -433,7 +433,7 @@ void CRanking::NumKillCreate()
 	// スコアの生成
 	m_pNumKill = CMultiNumber::Create(D3DXVECTOR3((SCREEN_WIDTH * 0.25f), 550.0f, 0.0f),
 		SCORE_SIZE,
-		0,
+		CEnemy_2D::GetEnemyKillNum(),
 		NUM_KILL_DIGITS,
 		CScene::OBJTYPE_UI);
 }

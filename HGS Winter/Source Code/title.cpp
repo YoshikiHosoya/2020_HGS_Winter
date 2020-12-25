@@ -97,7 +97,7 @@ void CTitle::Update()
 
 
 	//フェードしてない時
-	if (CManager::GetRenderer()->GetFade()->GetFade() == CFade::FADE_NONE)
+	if (CManager::GetRenderer()->GetFade()->GetFade() == CFade::FADE_NONE || CHossoLibrary::CheckLStick())
 	{
 		//何かボタン押したとき
 		if (CHossoLibrary::CheckAnyButton())

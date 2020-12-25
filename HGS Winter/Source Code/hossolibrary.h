@@ -140,6 +140,7 @@ public:
 
 	static bool CheckMove(DIRECTION);								//移動用関数(AWSD + CrossKey) Press
 	static DIRECTION CheckSelect();									//セレクト用関数(AWSD + ARROW + LStick) Trigger
+	static bool CheckLStick();	
 
 	static bool CheckJump(INPUTTYPE type);							//ジャンプボタン
 	static bool CheckDash(INPUTTYPE type);							//ダッシュボタン

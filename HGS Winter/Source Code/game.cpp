@@ -38,7 +38,7 @@ CGame::CGame()
 	m_pPlayer.reset();
 
 	m_nCntState = 0;
-	m_gamestate = STATE_READY;
+	m_gamestate = STATE_NONE;
 }
 //------------------------------------------------------------------------------
 //デストラクタ
@@ -56,7 +56,7 @@ CGame::~CGame()
 void CGame::SetGamestate(STATE gamestate)
 {
 	//ステートが進んでいる場合
-	if (m_gamestate != CGame::STATE_NONE)
+	//if (m_gamestate != CGame::STATE_NONE)
 	{
 		//ステート変更
 		m_gamestate = gamestate;

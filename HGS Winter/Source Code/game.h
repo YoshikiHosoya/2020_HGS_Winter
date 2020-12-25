@@ -62,6 +62,8 @@ private:
 	STATE m_gamestate;									//ゲームステート
 	int m_nCntState;									//ステートのカウンタ
 	static int m_nScore;
+
+
 };
 
 #endif

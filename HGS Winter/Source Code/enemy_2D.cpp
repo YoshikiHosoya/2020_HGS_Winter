@@ -82,11 +82,6 @@ HRESULT CEnemy_2D::Init()
 //------------------------------------------------------------------------------
 void CEnemy_2D::Update()
 {
-	if (CManager::GetGame()->GetGamestate() != CGame::STATE_NORMAL)
-	{
-		return;
-	}
-
 	//À•W‚Ì·•ªŽZo
 	m_DifPos = *m_pPlayerPos - GetPos();
 
@@ -209,6 +204,11 @@ void CEnemy_2D::SetState(STATE nextstate)
 //------------------------------------------------------------------------------
 void CEnemy_2D::State()
 {
+	if (CManager::GetGame()->GetGamestate() != CGame::STATE_NORMAL)
+	{
+		return;
+	}
+
 	GetCntState()--;
 
 	switch (GetState())

@@ -110,6 +110,23 @@ DIRECTION CHossoLibrary::CheckSelect()
 
 	return direction;
 }
+//------------------------------------------------------------------------------
+//Lstick入力確認
+//------------------------------------------------------------------------------
+bool CHossoLibrary::CheckLStick()
+{
+	//変数宣言
+	float joypadX, joypadY;
+
+	//ジョイパッドの移動処理
+	m_pXInput->GetStickLeft(&joypadX, &joypadY);
+
+	if (joypadX != 0 || joypadY != 0)
+	{
+		return true;
+	}
+	return false;
+}
 
 //------------------------------------------------------------------------------
 //ジャンプ
