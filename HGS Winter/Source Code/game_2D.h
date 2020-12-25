@@ -53,6 +53,8 @@ public:
 	void AddScoreMag();								//スコア倍率
 	void AddScore(int nValue);							//スコア加算
 
+	int GetScoreMag() { return m_nScoreMag; };
+
 protected:
 private:
 	void					GameUICreate();							// ゲームUIの生成

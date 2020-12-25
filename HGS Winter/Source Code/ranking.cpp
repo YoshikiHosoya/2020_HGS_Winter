@@ -122,7 +122,7 @@ void CRanking::Update()
 	if (CManager::GetRenderer()->GetFade()->GetFade() == CFade::FADE_NONE)
 	{
 		//何かボタン押したとき
-		if (CHossoLibrary::CheckAnyButton())
+		if (CHossoLibrary::CheckAnyButton() || CHossoLibrary::CheckLStick())
 		{
 				//ステート変更
 				CManager::GetRenderer()->GetFade()->SetModeFade(CManager::MODE_TITLE);

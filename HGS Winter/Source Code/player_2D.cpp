@@ -79,6 +79,15 @@ void CPlayer_2D::Update()
 	//‹OÕ
 	CParticle::CreateFromText(GetPos(), ZeroVector3, CParticleParam::EFFECT_PLAYER_ORBIT, true);
 
+	CGame_2D *pGame = (CGame_2D*)CManager::GetGame();
+
+	//for (int nCnt = 0; nCnt < pGame->GetScoreMag() / 10; nCnt++)
+	//{
+
+
+	//	if (pGame->GetScoreMag())
+	//}
+
 	//ˆÚ“®“ü—Í
 	MoveInput();
 

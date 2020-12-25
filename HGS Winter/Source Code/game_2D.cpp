@@ -159,7 +159,7 @@ void CGame_2D::Update()
 		{
 			SetGamestate(STATE_NORMAL);
 
-			CParticle::CreateFromText(GetPlayer()->GetPlayerPos(), ZeroVector3, CParticleParam::EFFECT_GAMEOVER, true);
+			CParticle::CreateFromText(SCREEN_CENTER_POS, ZeroVector3, CParticleParam::EFFECT_GAMEOVER, true);
 
 
 			if (m_pReady_Go)
